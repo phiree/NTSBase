@@ -116,7 +116,7 @@ namespace NBiz
                     最小订货量 = int.Parse(Regex.Replace(strMinOrderAmount, @"[^\d.]", ""));
                 }
 
-                p.ModelNumber = row["产品型号"].ToString();
+                p.ModelNumber = row["供应商名称"].ToString();
                 p.PlaceOfOrigin = row["产地"].ToString();
                 p.PlaceOfDelivery = row["交货地"].ToString();
                 p.OrderAmountMin = 最小订货量;

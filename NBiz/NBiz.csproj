@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BizProduct.cs" />
+    <Compile Include="Product\BizProduct.cs" />
     <Compile Include="BLLBase.cs" />
     <Compile Include="ImageCopy.cs" />
     <Compile Include="ImageRenamer.cs" />
