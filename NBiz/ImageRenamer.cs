@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ETBiz
+namespace NBiz
 {
     //图片批量命名
    public class ImageRenamer

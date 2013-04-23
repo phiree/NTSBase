@@ -39,25 +39,11 @@ namespace NDAL
         {
             if (_sessionFactory == null)
             {
-                //IAutomappingConfiguration cfg = new MyAutoMappingCfg();
-                //MsSqlConfiguration msconfg = MsSqlConfiguration.MsSql2008.ShowSql();
-                //if (HttpContext.Current == null)
-                //{
-                //    msconfg = msconfg.ConnectionString(s => s.Server(".\\DbServer,7788")
-                //            .Database("TourOnline")
-                //            .Username("sa")
-                //            .Password("admin"));
-
-                //}
-                //else
-                //{
+                
                 MySQLConfiguration dataConfig = MySQLConfiguration.Standard
                     .ShowSql()
                     .ConnectionString(s => s.FromConnectionStringWithKey("conn"));
-               // }
-
-
-
+   
                 _sessionFactory = Fluently.Configure()
                 .Database(dataConfig)
                 .Mappings(

@@ -175,7 +175,7 @@ namespace NBiz
             fs.Close();
             var sheet = book.GetSheetAt(0);
             DataTable dt = new DataTable();
-            var row = sheet.GetRow(0);
+            var row = sheet.GetRow(1);
             foreach (var cell in row.Cells)
             {
                 DataColumn col = new DataColumn(cell.ToString(), typeof(String));
@@ -188,7 +188,7 @@ namespace NBiz
                 {
 
                     var currentRow = (HSSFRow)rowEnumer.Current;
-                    if (currentRow.RowNum == 0) continue;
+                    if (currentRow.RowNum <2) continue;
                     //防止其遍历到没有数据的row
                     if (currentRow.LastCellNum < row.Cells.Count)
                     {

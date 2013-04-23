@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NDAL
+namespace NBiz
 {
-    public class Class1
+   public class BizProduct:BLLBase<NModel.Product>
     {
     }
 }

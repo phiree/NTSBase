@@ -7,7 +7,7 @@ namespace NModel
 {
     public class Product
     {
-        public  Product()
+        public Product()
         {
             State = ProductState.Normal;
             Id = Guid.NewGuid();
@@ -24,6 +24,16 @@ namespace NModel
         /// 型号
         /// </summary>
         public virtual string ModelNumber { get; set; }
+        /// <summary>
+        /// 移除特殊字符之后的型号
+        /// </summary>
+        //public virtual string ModelNumber_Code
+        //{
+        //    get
+        //    {
+        //        return System.Text.RegularExpressions.Regex.Replace(ModelNumber, "[\\/:*?\"<>|]", "$");
+        //    }
+        //}
         /// <summary>
         /// 供应商名称
         /// </summary>
@@ -60,7 +70,7 @@ namespace NModel
         /// <summary>
         /// 最小起定量
         /// </summary>
-        public virtual decimal OrderAmountMin{ get; set; }
+        public virtual decimal OrderAmountMin { get; set; }
         /// <summary>
         /// 生产周期(天)
         /// </summary>
@@ -82,7 +92,9 @@ namespace NModel
         /// 最后一次更新时间
         /// </summary>
         public virtual DateTime LastUpdateTime { get; set; }
-   
+
+
+
     }
     public enum ProductState
     {

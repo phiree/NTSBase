@@ -37,6 +37,9 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.6.5\lib\net40\MySql.Data.dll</HintPath>
     </Reference>
@@ -53,7 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DALBase.cs" />
+    <Compile Include="DALProduct.cs" />
+    <Compile Include="DALSupplier.cs" />
     <Compile Include="HybridSessionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NLibrary\NLibrary.csproj">
+      <Project>{B63398DF-8B0D-4BF6-AD17-71003F9BFC13}</Project>
+      <Name>NLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NModel\NModel.csproj">
       <Project>{B3CE5460-8541-4CF5-9708-8E8D85FDF4C2}</Project>
       <Name>NModel</Name>

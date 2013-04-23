@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="admin.master.cs" Inherits="Admin_admin" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server"> <div class="container showgrid">
+            <div class="span-24 last" id="adminHead">
+            </div>
+            <div class="clear span-24 last" id="adminBody">
+                <div class="span-5" id="leftMenu">
+                    <ul>
+                        <li><a href="/admin/products/productimport.aspx">导入报价单Excel</a></li>
+                    </ul>
+                </div>
+                <div class="span-19 last" id="mainContent">
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+       
+    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <div class="clear span-24 last" id="adminFoot">
+            </div>
+        </div>
+    </form>
+</body>
+</html>

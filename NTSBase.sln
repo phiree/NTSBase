@@ -4,7 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "Web\", "{E672542C-D1F3-4D87-B68F-1CD421381668}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{B63398DF-8B0D-4BF6-AD17-71003F9BFC13}|NLibrary.dll;"
+		ProjectReferences = "{B63398DF-8B0D-4BF6-AD17-71003F9BFC13}|NLibrary.dll;{5F8D1640-EA2F-4E84-BF40-922ED389D3AF}|NBiz.dll;{FED9E70E-AB59-4987-A7B1-0BAF8BE78951}|NDAL.dll;{B3CE5460-8541-4CF5-9708-8E8D85FDF4C2}|NModel.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Web"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Web\"

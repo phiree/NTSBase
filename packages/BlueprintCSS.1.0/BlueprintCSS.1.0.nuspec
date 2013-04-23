@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>BlueprintCSS</id>
+    <version>1.0</version>
+    <title>Blueprint CSS</title>
+    <authors>Olav Bjorkoy,  John Clayton,  Christian Montoya</authors>
+    <owners>Olav Bjorkoy,  John Clayton,  Christian Montoya</owners>
+    <projectUrl>http://www.blueprintcss.org/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Blueprint is a CSS framework, which aims to cut down on your development time. It gives you a solid foundation to build your project on top of, with an easy-to-use grid, sensible typography, useful plugins, and even a stylesheet for printing.</description>
+    <summary>Blueprint is a CSS framework, which aims to cut down on your development time. It gives you a solid foundation to build your project on top of, with an easy-to-use grid, sensible typography, useful plugins, and even a stylesheet for printing.</summary>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <references />
+  </metadata>
+</package>
