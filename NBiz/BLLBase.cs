@@ -26,8 +26,11 @@ namespace NBiz
         {
             return DalBase.GetOne(id);
         }
-       
-    
+        public T GetOneByQuery(string query)
+        {
+            return DalBase.GetOneByQuery(query);
+        }
+
         public void Delete(T t)
         {
             DalBase.Delete(t);

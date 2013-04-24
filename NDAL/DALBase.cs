@@ -46,7 +46,7 @@ namespace NDAL
         {
             return session.Get<T>(id);
         }
-        protected T GetOneByQuery(string where)
+        public T GetOneByQuery(string where)
         {
             IList<T> listT = GetList(where);
 
@@ -73,10 +73,10 @@ namespace NDAL
             return session.QueryOver<T>().List();
         }
 
-        public IList<T> GetList(string where)
+        public IList<T> GetList(string query)
         {
             int totalRecords;
-            return GetList(where, 0, 99999, out totalRecords);
+            return GetList(query, 0, 99999, out totalRecords);
         }
         protected IList<T> GetList(IQueryOver<T, T> queryOver)
         {

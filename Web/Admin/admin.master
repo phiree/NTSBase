@@ -4,28 +4,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="/Content/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/Content/blueprint/print.css" type="text/css" media="print" />
+    <!--[if lt IE 8]><link rel="stylesheet" href="/Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server"> <div class="container showgrid">
-            <div class="span-24 last" id="adminHead">
+    <form id="form1" runat="server">
+    <div class="container showgrid">
+        <div class="span-24 last" id="adminHead">
+        </div>
+        <div class="clear span-24 last" id="adminBody">
+            <div class="span-5" id="leftMenu">
+                <ul>
+                    <li><a href="/admin/products/productimport.aspx">导入报价单Excel</a></li>
+                    <li><a href="/admin/Supplier/SupplierImport.aspx">导入供应商Excel</a></li>
+                </ul>
             </div>
-            <div class="clear span-24 last" id="adminBody">
-                <div class="span-5" id="leftMenu">
-                    <ul>
-                        <li><a href="/admin/products/productimport.aspx">导入报价单Excel</a></li>
-                    </ul>
-                </div>
-                <div class="span-19 last" id="mainContent">
-    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-       
-    </asp:ContentPlaceHolder>
-                </div>
-            </div>
-            <div class="clear span-24 last" id="adminFoot">
+            <div class="span-19 last" id="mainContent">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
             </div>
         </div>
+        <div class="clear span-24 last" id="adminFoot">
+        </div>
+    </div>
     </form>
 </body>
 </html>

@@ -7,14 +7,23 @@ using System.Web.UI.WebControls;
 using NBiz;
 public partial class Admin_Products_ProductImport : System.Web.UI.Page
 {
-    NBiz.ImportFromExcel bizImport = new ImportFromExcel();
+    BizProduct bizProduct = new BizProduct();
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        lblMsg.InnerHtml = string.Empty;
     }
     protected void btnImport_Click(object sender, EventArgs e)
     {
-        bizImport.ImportToDatabase(tbxProductExcel.Text.Trim());
+        try
+        {
+            bizProduct.ImportProductFromExcel(fuProduct.PostedFile.InputStream);
+            lblMsg.Attributes["class"] = "success";
+            lblMsg.InnerHtml = "导入成功";
+        }
+        catch (Exception ex){
+            lblMsg.Attributes["class"] = "error";
+            lblMsg.InnerHtml = ex.Message;
+        }
 
     }
 }

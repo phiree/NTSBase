@@ -35,12 +35,15 @@ namespace NBiz
         /// <param name="xslPathErp">标准erp物料表</param>
         public DataTable JoinXslToDataTable(string xslPathBaojia, bool istest)
         {
-            DataTable dtBaoJia = CreateFromXsl(xslPathBaojia);
+            FileStream fsBaojia = new FileStream(xslPathBaojia, FileMode.Open);
+            DataTable dtBaoJia = CreateFromXsl(fsBaojia);
             Console.WriteLine("报价单行数:" + dtBaoJia.Rows.Count);
+            FileStream fsErp = new FileStream(GlobalVariables.ErpXslFileTemplate, FileMode.Open);
 
-            DataTable dtErp = CreateFromXsl(GlobalVariables.ErpXslFileTemplate);
+            DataTable dtErp = CreateFromXsl(fsErp);
+            FileStream fsSupplier= new FileStream(GlobalVariables.XslSupplierList, FileMode.Open);
 
-            DataTable dtSupplier = CreateFromXsl(GlobalVariables.XslSupplierList);
+            DataTable dtSupplier = CreateFromXsl(fsSupplier);
             Console.WriteLine("供应商数量:" + dtSupplier.Rows.Count);
 
             DataSet ds = new DataSet();
@@ -78,7 +81,7 @@ namespace NBiz
                 }
                 categoryLevel1 = cate[0];
                 categoryLevel2 = cate[1];
-                newRow["代码"] = BuildNtsCode(r.分类编码, r.来源_FNumber, istest);
+                newRow["代码"] = serialNumberManager.GetFormatedSerialNo(r.分类编码, r.来源_FNumber, istest);
                 newRow["备注"] = r.备注;
                 newRow["描述/卖点"] = r.产品描述;
 
@@ -164,15 +167,15 @@ namespace NBiz
         /// </summary>
         /// <param name="xslPath"></param>
         /// <returns></returns>
-        public DataTable CreateFromXsl(string xslPath)
+        public DataTable CreateFromXsl(Stream xslFileStream)
         {
-            return CreateFromXsl(xslPath, false);
+            return CreateFromXsl(xslFileStream, false);
         }
-        public DataTable CreateFromXsl(string xslPath, bool onlyCreateSchedule)
+        public DataTable CreateFromXsl(Stream xslFileStream, bool onlyCreateSchedule)
         {
-            FileStream fs = new FileStream(xslPath, FileMode.Open);
-            HSSFWorkbook book = new HSSFWorkbook(fs);
-            fs.Close();
+          
+            HSSFWorkbook book = new HSSFWorkbook(xslFileStream);
+          
             var sheet = book.GetSheetAt(0);
             DataTable dt = new DataTable();
             var row = sheet.GetRow(1);
@@ -270,23 +273,5 @@ namespace NBiz
                 serialNumberManager.WriteSerialNumberFile();
             }
         }
-
-
-        /// <summary>
-        /// 生成nts编码
-        /// </summary>
-        /// <param name="catelogCode"></param>
-        public string BuildNtsCode(string catelogCode, string suppierCode, bool isTest)
-        {
-            string baseNumber = catelogCode + "." + suppierCode;
-            //获取当前分类和当前供应商的最大编码
-            int serialNumber = serialNumberManager.GetSerialNo(baseNumber, isTest);
-            //新编码
-            string newSerialNumber = "0000" + serialNumber;
-            newSerialNumber = newSerialNumber.Substring(newSerialNumber.Length - 5, 5);
-            string ntsCode = baseNumber + newSerialNumber;
-            return ntsCode;
-        }
-
     }
 }

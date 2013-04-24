@@ -9,7 +9,6 @@ namespace NBiz
 {
     /// <summary>
     /// 流水号管理
-    /// 流水号格式: 大类.小类.供应商编码+流水号
     /// </summary>
     public class SerialNumberManager
     {
@@ -42,6 +41,9 @@ namespace NBiz
                 originalSerialList.Add(key, number);
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public void WriteSerialNumberFile()
         {
             //备份上次上次的文件
@@ -86,6 +88,16 @@ namespace NBiz
             }
             return originalSerialList[baseNumber];
         }
-
+        public string GetFormatedSerialNo(string catelogCode, string suppierCode, bool isTest)
+        {
+            string baseNumber = catelogCode + "." + suppierCode;
+            //获取当前分类和当前供应商的最大编码
+            int serialNumber = GetSerialNo(baseNumber, isTest);
+            //新编码
+            string newSerialNumber = "0000" + serialNumber;
+            newSerialNumber = newSerialNumber.Substring(newSerialNumber.Length - 5, 5);
+            string ntsCode = baseNumber + newSerialNumber;
+            return ntsCode;
+        }
     }
 }
