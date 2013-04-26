@@ -48,7 +48,7 @@ namespace NBiz
         {
             //备份上次上次的文件
             IOHelper.EnsureFileDirectory(GlobalVariables.SerialNumberBackupFile);
-            File.Copy(GlobalVariables.SerialNumberFile, GlobalVariables.SerialNumberBackupFile);
+            File.Copy(GlobalVariables.SerialNumberFile, GlobalVariables.SerialNumberBackupFile,true);
             StringBuilder sb = new StringBuilder();
             foreach (KeyValuePair<string, int> serialnumber in originalSerialList)
             {

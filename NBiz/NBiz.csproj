@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
+    <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />
+    <Compile Include="ImageOrganizer\IExtractRule.cs" />
+    <Compile Include="ImageOrganizer\Organizer.cs" />
+    <Compile Include="ImageOrganizer\ExtractRuleNewNtsCode.cs" />
     <Compile Include="NTSCodeBuilder.cs" />
     <Compile Include="Product\BizProduct.cs" />
     <Compile Include="BLLBase.cs" />
@@ -66,6 +72,7 @@
     <Compile Include="SerialNumberManager.cs" />
     <Compile Include="Supplier\BizSupplier.cs" />
     <Compile Include="Supplier\SupplierExcelReader.cs" />
+    <Compile Include="ThumbnailMaker.cs" />
     <Compile Include="TransferInDatatable.cs" />
   </ItemGroup>
   <ItemGroup>

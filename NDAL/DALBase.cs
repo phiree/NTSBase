@@ -46,10 +46,17 @@ namespace NDAL
         {
             return session.Get<T>(id);
         }
-        public T GetOneByQuery(string where)
+        protected T GetOneByQuery(IQueryOver<T> queryOver)
         {
-            IList<T> listT = GetList(where);
-
+            return GetOneByQuery(queryOver.List());
+        }
+        public T GetOneByQuery(string query)
+        {
+            return GetOneByQuery(GetList(query));
+        }
+        private T GetOneByQuery(IList<T> listT)
+        {
+           
             if (listT.Count == 1)
             {
                 return listT[0];
@@ -60,13 +67,13 @@ namespace NDAL
             }
             else
             {
-                throw new Exception("有" + listT.Count + "个值返回.应该只能返回一个值.");
+                string errmsg = "错误:应该只能返回一个值.现在有" + listT.Count + "个值返回.";
+                // throw new Exception();
+                NLibrary.NLogger.Logger.Error(errmsg);
+                return listT[0];
             }
         }
-        protected T GetOneByQuery(IQueryOver<T, T> queryOver)
-        {
-            return queryOver.SingleOrDefault();
-        }
+       
         public IList<T> GetAll<T>() where T : class
         {
             session.Clear();

@@ -12,6 +12,7 @@ namespace NModel
             State = ProductState.Normal;
             Id = Guid.NewGuid();
             CreateTime = LastUpdateTime = DateTime.Now;
+            ProductImageUrls = new List<string>();
         }
         public virtual Guid Id { get; set; }
         public virtual string NTSCode { get; set; }
@@ -92,6 +93,8 @@ namespace NModel
         /// 最后一次更新时间
         /// </summary>
         public virtual DateTime LastUpdateTime { get; set; }
+
+        public virtual IList<string> ProductImageUrls { get; set; }
 
 
 

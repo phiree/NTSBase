@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AspNetPager</id>
+    <version>7.4.3</version>
+    <title>AspNetPager</title>
+    <authors>Webdiyer</authors>
+    <owners>Webdiyer</owners>
+    <licenseUrl>http://en.webdiyer.com/AspNetPager/License</licenseUrl>
+    <projectUrl>http://en.webdiyer.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AspNetPager is a free custom paging control for ASP.NET web form application</description>
+    <summary>AspNetPager is a free custom paging control for ASP.NET web form application</summary>
+    <releaseNotes>Version 7.4.3 (2013/4/22):
+Fixed following bugs:
+1: Page.Request.ServerVariables["Query_String"] is null in some environments and queryString.StartsWith("?") throw an exception;
+2: The first page number and more page button displayed incorrectly when AlwaysShowFirstLastPageNumber is true;</releaseNotes>
+    <copyright>2002-2013 Webdiyer</copyright>
+    <language>en-US</language>
+    <tags>AspNetPager paging pagination Web_paging_control</tags>
+    <references>
+      <reference file="AspNetPager.dll" />
+    </references>
+  </metadata>
+</package>

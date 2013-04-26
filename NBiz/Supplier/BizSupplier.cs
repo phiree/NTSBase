@@ -7,13 +7,24 @@ using NDAL;
 namespace NBiz
 {
    public class BizSupplier:BLLBase<NModel.Supplier>
-    {
+   {
+       DALSupplier dalSupplier = new DALSupplier();
+        
        public void ImportSupplierFromExcel(System.IO.Stream stream)
        {
            IExcelReader<Supplier> supplierReader = new SupplierExcelReader();
-           DalBase<Supplier> dalSupplier = new DALSupplier();
            ImportToDatabaseFromExcel<Supplier> importor = new ImportToDatabaseFromExcel<Supplier>(supplierReader, dalSupplier);
            importor.Import(stream);
        }
+       public IList<Supplier> GetListAllPaged(int pageIndex, int pageSize, out int totalRerord)
+       {
+           return dalSupplier.GetList("select s from Supplier s", pageIndex, pageSize, out totalRerord);
+       }
+       public IList<Supplier> Search(string name,int pageIndex,int pageSize,out int recordCount)
+       {
+           return dalSupplier.Search(name, pageIndex, pageSize, out recordCount);
+       }
+
+      
     }
 }

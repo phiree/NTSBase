@@ -55,7 +55,7 @@ namespace NBiz
                 catch (Exception ex)
                 {
                     string errMsg = string.Format(
-                        "物料的供应商名称重复:物料型号:{0},供应商名称{1}.异常信息:{2}"
+                        "物料型号:{0},供应商名称{1}.异常信息:{2}"
                         , p.ModelNumber, p.SupplierName, ex.Message);
                     NLibrary.NLogger.Logger.Error(errMsg);
                     throw new Exception(errMsg);
@@ -65,7 +65,11 @@ namespace NBiz
                 //税率
                 string strRate = row["税率"].ToString();
                 strRate = strRate.Replace("%", "");
-                p.TaxRate = Convert.ToDecimal(strRate);
+                if(!string.IsNullOrEmpty(strRate))
+                {
+                    p.TaxRate = Convert.ToDecimal(strRate); 
+                }
+                
                 //出厂价
                 decimal price = 0;
                 string strFactoryPrice = row["出厂价"].ToString();
@@ -120,7 +124,8 @@ namespace NBiz
             Dictionary<string, string> columnsEasyToSpellWrong = new Dictionary<string, string>();
             columnsEasyToSpellWrong.Add("生产周期", ".*生产周期.*");
             columnsEasyToSpellWrong.Add("最小起订量", ".*最小起订量.*");
-            columnsEasyToSpellWrong.Add("规格参数", ".*规格.*参数.*");
+            columnsEasyToSpellWrong.Add("规格参数", ".*规格.*参数.*"); 
+            columnsEasyToSpellWrong.Add("产地", "产地|开票地");
             // {"*生产周期*","*最小起定量*" };
             foreach (KeyValuePair<string, string> columnNamePatern in columnsEasyToSpellWrong)
             {

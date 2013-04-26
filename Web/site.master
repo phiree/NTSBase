@@ -1,19 +1,37 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="site.master.cs" Inherits="site" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <asp:ContentPlaceHolder id="head" runat="server">
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="/Content/blueprint/screen.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="/Content/blueprint/print.css" type="text/css" media="print" />
+    <!--[if lt IE 8]><link rel="stylesheet" href="/Content/blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>
+    <div class="container showgrid">
+        <div class="span-24 last" id="adminHead">
+        <h1>NTS产品信息中心</h1>
+        </div>
+        <div class="clear span-24 last" id="adminBody">
+            <div class="span-5" id="leftMenu">
+                <ul>
+                    <li><a href="/products/">产品列表</a></li>
+                    <li><a href="/suppliers/">供应商列表</a></li>
+                </ul>
+            </div>
+            <div class="span-19 last" id="mainContent">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="clear span-24 last" id="adminFoot">
+        <a href="/admin/">管理中心</a>
+        </div>
     </div>
     </form>
 </body>
