@@ -5,8 +5,14 @@ using System.Text;
 using NModel;
 namespace NDAL
 {
-    public class DALProduct:DalBase<NModel.Product>
+    public class DALProduct : DalBase<NModel.Product>
     {
+        public override void SaveList(IList<Product> list)
+        {
+
+
+            base.SaveList(list);
+        }
         public override void Save(NModel.Product o)
         {
             var q = session.QueryOver<Product>().Where(x => x.Name == o.Name)
@@ -33,6 +39,7 @@ namespace NDAL
             //    supplierName,modelNumber);
             return GetOneByQuery(iqueryover);
         }
+        
 
         /// <summary>
         /// 通用搜索.
@@ -42,9 +49,9 @@ namespace NDAL
         /// <param name="pageIndex"></param>
         /// <param name="totalRecord"></param>
         /// <returns></returns>
-        public IList<Product> Search(string supplierName,string model,bool hasphoto, int pageSize, int pageIndex, out int totalRecord)
+        public IList<Product> Search(string supplierName, string model, bool hasphoto, int pageSize, int pageIndex, out int totalRecord)
         {
-           
+
             string query = "select p from Product p  where 1=1 ";
             if (!string.IsNullOrEmpty(supplierName))
             {
@@ -52,7 +59,7 @@ namespace NDAL
             }
             if (!string.IsNullOrEmpty(model))
             {
-                query += "and p.ModelNumber like '%"+model+"%'";
+                query += "and p.ModelNumber like '%" + model + "%'";
             }
             if (hasphoto)
             {
@@ -71,8 +78,8 @@ namespace NDAL
             //    query += " and p.SupplierCode in (" + whereSupplier + ")";
 
             //}
-           
-           return  GetList(query, pageIndex, pageSize, out totalRecord);
+
+            return GetList(query, pageIndex, pageSize, out totalRecord);
         }
 
         /// <summary>
@@ -82,7 +89,7 @@ namespace NDAL
         /// <returns></returns>
         public IList<Product> GetListBySupplier(string supplierName)
         {
-            NHibernate.IQueryOver<Product,Product> queryover = session.QueryOver<Product>().Where(x => x.SupplierName == supplierName);
+            NHibernate.IQueryOver<Product, Product> queryover = session.QueryOver<Product>().Where(x => x.SupplierName == supplierName);
             return GetList(queryover);
         }
     }

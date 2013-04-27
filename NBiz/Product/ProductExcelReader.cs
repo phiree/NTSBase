@@ -59,7 +59,7 @@ namespace NBiz
             p.CategoryCode = categoryCode;
             //产品型号:
             string modelNumber = row["产品型号"].ToString();
-
+            p.ModelNumber = modelNumber;
             p.ProductParameters = row["规格参数"].ToString();
             p.Unit = row["单位"].ToString();
             p.SupplierName = row["供应商名称"].ToString();

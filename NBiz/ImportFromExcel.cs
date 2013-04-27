@@ -20,17 +20,17 @@ namespace NBiz
     public class ImportToDatabaseFromExcel<T>
     {
         IExcelReader<T> excelReader;
-        DalBase<T> dal;
-        public ImportToDatabaseFromExcel(IExcelReader<T> Reader,DalBase<T> dal)
+        BLLBase<T> bll;
+        public ImportToDatabaseFromExcel(IExcelReader<T> Reader, BLLBase<T> bll)
         { 
           this.excelReader=Reader;
-          this.dal = dal;
+          this.bll = bll;
         }
         public void Import(Stream stream)
         {
             IList<T> list = excelReader.Read(stream);
            
-            dal.SaveList(list);
+            bll.SaveList(list);
         }
     }
 
