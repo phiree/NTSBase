@@ -10,8 +10,8 @@ namespace NLibrary
         /// <summary>
         /// 每次生成之后
         /// </summary>
-        public static readonly string SerialNumberFile =AppDomain.CurrentDomain.BaseDirectory + @"\Serial.Number";
-        public static readonly string SerialNumberBackupFile = AppDomain.CurrentDomain.BaseDirectory + @"\backup\SerialNumber" + DateTime.Now.ToString("yyyy-MM-dd-hh_mm_ss");
+        public static readonly string SerialNumberFile =AppDomain.CurrentDomain.BaseDirectory + "Serial.Number";
+        public static readonly string SerialNumberBackupFile = AppDomain.CurrentDomain.BaseDirectory + @"backup\Serial.Number" + DateTime.Now.ToString("yyyy-MM-dd-hh_mm_ss");
         
         /// <summary>
         /// 测试生成的物料表

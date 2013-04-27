@@ -8,7 +8,10 @@ namespace NLibrary
     public class NLogger
     {
         public static readonly ILog Logger = LogManager.GetLogger("NLogger");
-       
 
+        public static void ErrMsgHanlder(string errMsg, bool throwException)
+        { 
+            
+        }
     }
 }

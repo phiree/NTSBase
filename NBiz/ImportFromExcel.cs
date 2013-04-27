@@ -29,6 +29,7 @@ namespace NBiz
         public void Import(Stream stream)
         {
             IList<T> list = excelReader.Read(stream);
+           
             dal.SaveList(list);
         }
     }

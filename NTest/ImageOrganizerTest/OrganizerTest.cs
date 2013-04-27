@@ -12,7 +12,7 @@ namespace NTest
         {
             NBiz.Organizer oer = new NBiz.Organizer();
             string msg;
-            var list = oer.Execute(@"E:\workspace\code\resources\导入资料\datafiles\已整理好图片\", @"E:\workspace\code\resources\VirtualDirectory\NTSBase\ProductImages\", out msg);
+            var list = oer.Execute(@"E:\workspace\code\resources\导入资料\datafiles\已整理好图片\", @"E:\workspace\code\resources\VirtualDirectory\NTSBase\ProductImages\original\", out msg);
 
             Console.Write(msg);
             Assert.AreEqual(1, list.Count);

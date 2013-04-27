@@ -18,11 +18,11 @@ public class ImageHandler : IHttpHandler {
         int width = Convert.ToInt32(paramWidth);
         int height = Convert.ToInt32(paramHeight);
         NBiz.ThumbnailType tt = NBiz.ThumbnailType.GeometricScalingByWidth;// (NBiz.ThumbnailType)Enum.Parse(typeof(NBiz.ThumbnailType), paramType);
-      string thumbnailName=  NBiz.ThumbnailMaker.Make(physicalPath, imageName, width, height, tt);
+       string thumbnailName = NBiz.ThumbnailMaker.Make(physicalPath + "\\original\\", physicalPath + "\\thumbnail\\", imageName, width, height, tt);
 
         context.Response.ContentType = "image/png";
        // context.Response.TransmitFile(physicalPath + imageName);
-        context.Response.WriteFile(physicalPath + "thumbnails\\" + thumbnailName);
+        context.Response.WriteFile(thumbnailName);
       //  context.Response.WriteFile(@"E:\workspace\code\resources\VirtualDirectory\NTSBase\ProductImages\1080271.JPG");
     }
  

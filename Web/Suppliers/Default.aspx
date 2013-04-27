@@ -13,7 +13,7 @@
 </div>
 <uc:AspNetPager runat="server" ID="AspNetPager1"   CloneFrom="pager" ></uc:AspNetPager>
 <asp:DataGrid runat="server" ID="dgSupplier"></asp:DataGrid>
-<uc:AspNetPager runat="server" ID="pager"  UrlPaging="true" 
+<uc:AspNetPager runat="server" ID="pager"  UrlPaging="true"  CssClass="paginator"
         CustomInfoHTML="Total:%RecordCount% Page %CurrentPageIndex% of %PageCount%" 
         EnableTheming="True" ShowCustomInfoSection="Left" ShowNavigationToolTip="True"></uc:AspNetPager>
 

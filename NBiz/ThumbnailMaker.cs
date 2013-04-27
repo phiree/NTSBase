@@ -11,15 +11,17 @@ namespace NBiz
     public class ThumbnailMaker
     {
         
-        public static string Make(string virtualDirectory, string originalName,int width,int height,ThumbnailType type)
+        public static string Make(string sourcedir,string targetdir, string originalName,int width,int height,ThumbnailType type)
         {
             string thumbnailName = Path.GetFileNameWithoutExtension(originalName) + "_" + width + "-" + height + Path.GetExtension(originalName);
-            string thumbnailPath = virtualDirectory +"/thumbnails/"+ thumbnailName;
-            if (!File.Exists(thumbnailPath))
+            string thumbnailPath = targetdir +  width + "_" + height + "\\";
+            string thumbnailFullName = thumbnailPath + thumbnailName;
+            NLibrary.IOHelper.EnsureFileDirectory(thumbnailPath);
+            if (!File.Exists(thumbnailFullName))
             {
-                MakeThumbnail(virtualDirectory + originalName, thumbnailPath, type, width, height);
+                MakeThumbnail(sourcedir + originalName, thumbnailFullName, type, width, height);
             }
-            return thumbnailName;
+            return thumbnailFullName;
 
         }
 

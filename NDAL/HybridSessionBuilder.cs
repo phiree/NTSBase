@@ -39,16 +39,26 @@ namespace NDAL
         {
             if (_sessionFactory == null)
             {
-                
+                MyAutoMappingConfiguration mappingCfg = new MyAutoMappingConfiguration();
                 MySQLConfiguration dataConfig = MySQLConfiguration.Standard
                     .ShowSql()
                     .ConnectionString(s => s.FromConnectionStringWithKey("conn"));
-   
+
                 _sessionFactory = Fluently.Configure()
                 .Database(dataConfig)
                 .Mappings(
-                     m =>m.AutoMappings.Add(AutoMap.AssemblyOf<NModel.Product>()))
-                   // m => m.FluentMappings.AddFromAssemblyOf<Model.TourMembership>())
+                     m => m.AutoMappings.Add(AutoMap.AssemblyOf<NModel.Product>(mappingCfg)
+                         .Override<NModel.Product>(map =>
+                         {
+                             map.Map(x => x.NTSCode).Unique();
+                             map.Map(x => x.State).CustomType<int>();
+                         })
+                         .Override<NModel.Supplier>(map => {
+                             map.Map(x => x.Code).Unique();
+                         })
+                         )
+                     )
+                    // m => m.FluentMappings.AddFromAssemblyOf<Model.TourMembership>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
             }

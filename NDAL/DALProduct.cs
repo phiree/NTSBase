@@ -42,13 +42,21 @@ namespace NDAL
         /// <param name="pageIndex"></param>
         /// <param name="totalRecord"></param>
         /// <returns></returns>
-        public IList<Product> Search(string supplierName, int pageSize, int pageIndex, out int totalRecord)
+        public IList<Product> Search(string supplierName,string model,bool hasphoto, int pageSize, int pageIndex, out int totalRecord)
         {
            
-            string query = "select p from Product p where 1=1 ";
+            string query = "select p from Product p  where 1=1 ";
             if (!string.IsNullOrEmpty(supplierName))
             {
                 query += " and p.SupplierName like '%" + supplierName + "%'";
+            }
+            if (!string.IsNullOrEmpty(model))
+            {
+                query += "and p.ModelNumber like '%"+model+"%'";
+            }
+            if (hasphoto)
+            {
+                query += "and p.ProductImageUrls.size>0";
             }
             //if (supplierCodes.Length > 0)
             //{

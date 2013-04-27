@@ -67,7 +67,7 @@ namespace NDAL
             }
             else
             {
-                string errmsg = "错误:应该只能返回一个值.现在有" + listT.Count + "个值返回.";
+                string errmsg = "错误:GetOnByQuery应该只能返回一个值.现在有" + listT.Count + "个值返回.";
                 // throw new Exception();
                 NLibrary.NLogger.Logger.Error(errmsg);
                 return listT[0];

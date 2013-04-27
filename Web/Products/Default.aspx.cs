@@ -15,8 +15,20 @@ public partial class Products_Default : System.Web.UI.Page
 
         if (!IsPostBack)
         {
+            LoadParameters();
             BindProduct();
+            
         }
+    }
+    //搜索关键字回显
+    private void LoadParameters()
+    {
+        string supplierName =Server.UrlDecode( Request["sname"]);
+        tbxSupplierName.Text =  supplierName;
+        tbxModel.Text = Server.UrlDecode(Request["model"]);
+        bool hasPhoto = false;
+        bool.TryParse(Request["hasPhoto"],out hasPhoto);
+        cbxHasPhoto.Checked = hasPhoto;
     }
     private int GetPageIndex()
     {
@@ -30,13 +42,16 @@ public partial class Products_Default : System.Web.UI.Page
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        BindProduct();
+        string targetUrl =string.Format( "Default.aspx?sname={0}&model={1}&hasphoto={2}", Server.UrlEncode(tbxSupplierName.Text)
+            ,Server.UrlDecode(tbxModel.Text),cbxHasPhoto.Checked);
+        Response.Redirect(targetUrl, true);
+       // BindProduct();
     }
     private void BindProduct()
     {
         int pageIndex = GetPageIndex();
         int totalRecords;
-        var product = bizProduct.Search(tbxSupplierName.Text.Trim(), pager.PageSize, pageIndex, out totalRecords)
+        var product = bizProduct.Search(tbxSupplierName.Text.Trim(),tbxModel.Text.Trim(),cbxHasPhoto.Checked, pager.PageSize, pageIndex, out totalRecords)
             .OrderBy(x=>x.CategoryCode);  // bizProduct.GetAll<NModel.Product>();
         pager.RecordCount = totalRecords;
         dgProduct.DataSource = product;

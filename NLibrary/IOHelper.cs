@@ -43,7 +43,7 @@ namespace NLibrary
         /// <param name="filePath"></param>
         public static void EnsureFileDirectory(string filePath)
         {
-            string directory = Path.GetDirectoryName(filePath);
+            string directory = Path.GetFullPath(filePath);
             if (!Directory.Exists(directory))
             {
                 Directory.CreateDirectory(directory);

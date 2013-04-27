@@ -16,9 +16,9 @@ namespace NBiz
            ImportToDatabaseFromExcel<Product> importor = new ImportToDatabaseFromExcel<Product>(productReader, dalProduct);
            importor.Import(stream);
        }
-       public IList<Product> Search(string supplierName, int pageSize, int pageIndex, out int totalRecord)
+       public IList<Product> Search(string supplierName,string model,bool hasPhoto, int pageSize, int pageIndex, out int totalRecord)
        {
-           return dalProduct.Search(supplierName, pageSize, pageIndex, out totalRecord);
+           return dalProduct.Search(supplierName,model,hasPhoto, pageSize, pageIndex, out totalRecord);
        }
        public IList<Product> GetListBySupplierName(string supplierName)
        {

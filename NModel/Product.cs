@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using NModel.Enums;
 namespace NModel
 {
     public class Product
@@ -84,7 +84,7 @@ namespace NModel
         /// <summary>
         /// 产品状态
         /// </summary>
-        public virtual ProductState State { get; set; }
+        public virtual Enums.ProductState State { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>
@@ -99,19 +99,5 @@ namespace NModel
 
 
     }
-    public enum ProductState
-    {
-        /// <summary>
-        /// 正常
-        /// </summary>
-        Normal,
-        /// <summary>
-        /// 过期
-        /// </summary>
-        Expired,
-        /// <summary>
-        /// 禁用
-        /// </summary>
-        Disabled
-    }
+    
 }
