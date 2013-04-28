@@ -12,6 +12,7 @@
  <asp:Button runat="server" ID="btnSearch" OnClick="btnSearch_Click" Text="搜索"/>
  </div>
  </fieldset>
+
 <uc:AspNetPager runat="server" ID="AspNetPager1"   CloneFrom="pager" ></uc:AspNetPager>
 <asp:GridView  AutoGenerateColumns="false" runat="server" ID="dgProduct"  
         onrowdatabound="dgProduct_RowDataBound" RowStyle-Height="60"   >
@@ -35,7 +36,7 @@
     </asp:Repeater>
   </ItemTemplate>
 </asp:TemplateField>
-<asp:BoundField   HeaderText="名称" DataField="Name"/>
+<asp:HyperLinkField   HeaderText="名称" DataTextField="Name"  Target="_blank" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="/products/productdetail.aspx?id={0}" />
 <asp:BoundField   HeaderText="型号" DataField="ModelNumber"/>
 <asp:BoundField   HeaderText="NTS编码" DataField="NTSCode"/>
 <asp:BoundField   HeaderText="供应商名称" DataField="SupplierName"/>

@@ -56,6 +56,7 @@ public partial class Products_Default : System.Web.UI.Page
         pager.RecordCount = totalRecords;
         dgProduct.DataSource = product;
         dgProduct.DataBind();
+      
     }
     protected void dgProduct_RowDataBound(object sender, GridViewRowEventArgs e)
     {

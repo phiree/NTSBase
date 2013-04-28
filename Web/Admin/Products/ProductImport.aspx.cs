@@ -22,7 +22,8 @@ public partial class Admin_Products_ProductImport : System.Web.UI.Page
         }
         catch (Exception ex){
             lblMsg.Attributes["class"] = "error";
-            lblMsg.InnerHtml = ex.Message;
+            string innerException = ex.InnerException==null ?"": ex.InnerException.Message;
+            lblMsg.InnerHtml = ex.Message+"<br/>"+innerException;
         }
 
     }

@@ -12,23 +12,27 @@ namespace NBiz
         DALProduct dalProduct = new DALProduct();
         FormatSerialNoUnit serialNoUnit = new FormatSerialNoUnit(new DALFormatSerialNo());
         DALSupplier dalSupplier = new DALSupplier();
-        
+
         public override void SaveList(IList<Product> list)
         {
             IList<Product> listToBeSaved = new List<Product>();
             //排除已有产品 之前是在dal层实现,应该转移到bll层, 因为nts编码生成也与此相关.
             foreach (Product o in list)
             {
-                Supplier supplier = dalSupplier.GetOneByName(o.SupplierName);
-                if (supplier == null)
+                //如果有suppliercode
+                if (string.IsNullOrEmpty(o.SupplierCode))
                 {
-                    string errMsg = "未保存.供应商不存在:" + o.SupplierName + o.Name + "-" + "-" + o.ModelNumber;
-                    NLibrary.NLogger.Logger.Debug(errMsg);
-                    continue;
+                    Supplier supplier = dalSupplier.GetOneByName(o.SupplierName);
+                    if (supplier == null)
+                    {
+                        string errMsg = "未保存.供应商不存在:" + o.SupplierName + o.Name + "-" + "-" + o.ModelNumber;
+                        NLibrary.NLogger.Logger.Debug(errMsg);
+                        continue;
+                    }
+                    o.SupplierCode = supplier.Code;
                 }
-                o.SupplierCode = supplier.Code;
-
-                var p = dalProduct.GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierName);
+                
+                var p = dalProduct.GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierCode);
 
                 if (p != null)
                 {
@@ -37,11 +41,11 @@ namespace NBiz
                     continue;
 
                 }
-                
-                    o.NTSCode = serialNoUnit.GetFormatedSerialNo(o.CategoryCode + "." + o.SupplierCode);
-                    listToBeSaved.Add(o);
 
-                
+                o.NTSCode = serialNoUnit.GetFormatedSerialNo(o.CategoryCode + "." + o.SupplierCode);
+                listToBeSaved.Add(o);
+
+
             }
             dalProduct.SaveList(listToBeSaved);
             serialNoUnit.Save();
@@ -61,5 +65,7 @@ namespace NBiz
         {
             return dalProduct.GetListBySupplier(supplierName);
         }
+
+
     }
 }

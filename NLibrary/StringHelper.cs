@@ -12,5 +12,10 @@ namespace NLibrary
            string patern = @"\s*";
            return Regex.Replace(input, patern, string.Empty);
        }
+       public static string ReplaceInvalidChaInFileName(string input,string replacement)
+       {
+           string partern = @"\\\/\:\'\?\*\<\>\|";
+           return Regex.Replace(input, partern, replacement);
+       }
     }
 }

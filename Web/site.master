@@ -19,13 +19,13 @@
         <h1>NTS产品信息中心</h1>
         </div>
         <div class="clear span-24 last" id="adminBody">
-            <div class="span-5" id="leftMenu">
+            <div class="span-4" id="leftMenu">
                 <ul>
                     <li><a href="/products/">产品列表</a></li>
                     <li><a href="/suppliers/">供应商列表</a></li>
                 </ul>
             </div>
-            <div class="span-19 last" id="mainContent">
+            <div class="span-20 last" id="mainContent">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>

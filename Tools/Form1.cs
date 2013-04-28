@@ -18,7 +18,7 @@ namespace Tools
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new RenameImage().Show();
+            new FrmExtractImage().Show();
         }
     }
 }

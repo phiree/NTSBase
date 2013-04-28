@@ -48,6 +48,9 @@ namespace NDAL
                 .Database(dataConfig)
                 .Mappings(
                      m => m.AutoMappings.Add(AutoMap.AssemblyOf<NModel.Product>(mappingCfg)
+                         .Conventions.Setup(c=>{
+                             c.Add<DefaultStringLengthConvention>();
+                         })
                          .Override<NModel.Product>(map =>
                          {
                              map.Map(x => x.NTSCode).Unique();

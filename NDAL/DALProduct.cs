@@ -31,9 +31,9 @@ namespace NDAL
                 base.Save(o);
             }
         }
-        public Product GetOneByModelNumberAndSupplier(string modelNumber, string supplierName)
+        public Product GetOneByModelNumberAndSupplier(string modelNumber, string supplierCode)
         {
-            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.SupplierName == supplierName)
+            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.SupplierCode == supplierCode)
                 .And(x => x.ModelNumber == modelNumber);
             //string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
             //    supplierName,modelNumber);

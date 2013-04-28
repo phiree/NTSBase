@@ -27,5 +27,30 @@ namespace NTest.NBizTest
 
             Assert.AreEqual(104, Supplier.Count);
         }
+
+        /// <summary>
+        /// 提取excel里的图片
+        /// </summary>
+        public void ReadProductWithImageFromExcelTest()
+        {
+
+            string filePath = Environment.CurrentDirectory + @"\TestFiles\联丰报价单 20130108 --餐厨部2.xls";
+            string savePath = @"d:\saveimages\";
+            ImageExtractor ie = new ImageExtractor();
+            ie.Excute(filePath, savePath);
+            Assert.AreEqual(3, System.IO.Directory.GetFiles(savePath).Length);
+           // Assert.AreEqual(19, products.Count);
+        }
+        //导入Erp格式
+        public void ReadProductFromErpExcelTest()
+        {
+            string filePath = Environment.CurrentDirectory + @"\TestFiles\吧台设备及用具.XLS";
+            ProductExcelReader importer = new ProductExcelReader();
+            IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+
+            Assert.AreEqual(40, products.Count);
+            Assert.AreEqual("01.001", products[0].CategoryCode);
+
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace NBiz
     /// </summary>
     public class TransferInDatatable
     {
-        SerialNumberManager serialNumberManager = new SerialNumberManager();
+        // SerialNumberManager serialNumberManager = new SerialNumberManager();
 
         DataSet ds = new DataSet();
 
@@ -41,7 +41,7 @@ namespace NBiz
             FileStream fsErp = new FileStream(GlobalVariables.ErpXslFileTemplate, FileMode.Open);
 
             DataTable dtErp = CreateFromXsl(fsErp);
-            FileStream fsSupplier= new FileStream(GlobalVariables.XslSupplierList, FileMode.Open);
+            FileStream fsSupplier = new FileStream(GlobalVariables.XslSupplierList, FileMode.Open);
 
             DataTable dtSupplier = CreateFromXsl(fsSupplier);
             Console.WriteLine("供应商数量:" + dtSupplier.Rows.Count);
@@ -81,7 +81,7 @@ namespace NBiz
                 }
                 categoryLevel1 = cate[0];
                 categoryLevel2 = cate[1];
-                newRow["代码"] = serialNumberManager.GetFormatedSerialNo(r.分类编码, r.来源_FNumber, istest);
+                //   newRow["代码"] = serialNumberManager.GetFormatedSerialNo(r.分类编码, r.来源_FNumber, istest);
                 newRow["备注"] = r.备注;
                 newRow["描述/卖点"] = r.产品描述;
 
@@ -173,17 +173,43 @@ namespace NBiz
         }
         public DataTable CreateFromXsl(Stream xslFileStream, bool onlyCreateSchedule)
         {
-          
+            IList allPic = new List<HSSFPictureData>();
+            return CreateFromXsl(xslFileStream, onlyCreateSchedule, out allPic);
+
+        }
+        public DataTable CreateFromXsl(Stream xslFileStream, bool onlyCreateSchedule, out IList allPictures)
+        {
+
             HSSFWorkbook book = new HSSFWorkbook(xslFileStream);
-          
+            allPictures = book.GetAllPictures();
+
             var sheet = book.GetSheetAt(0);
             DataTable dt = new DataTable();
             var row = sheet.GetRow(1);
+            
             foreach (var cell in row.Cells)
             {
                 DataColumn col = new DataColumn(cell.ToString(), typeof(String));
+              //  dt.Columns.Add(col);
+            }
+
+            for (int i = 0; i < row.LastCellNum; i++)
+            {
+                var  columnName = row.GetCell(i);
+                //空白列导致出错
+                string strColName=string.Empty;
+                if (columnName == null)
+                {
+                    strColName = Guid.NewGuid().ToString();
+                }
+                else
+                {
+                    strColName = columnName.ToString();
+                }
+                DataColumn col = new DataColumn(strColName, typeof(String));
                 dt.Columns.Add(col);
             }
+
             if (!onlyCreateSchedule)
             {
                 IEnumerator rowEnumer = sheet.GetRowEnumerator();
@@ -191,12 +217,15 @@ namespace NBiz
                 {
 
                     var currentRow = (HSSFRow)rowEnumer.Current;
-                    if (currentRow.RowNum <2) continue;
+
+
+                    if (currentRow.RowNum < 2) continue;
                     //防止其遍历到没有数据的row
                     if (currentRow.LastCellNum < row.Cells.Count)
                     {
                         //    break;
                     }
+
                     DataRow dr = dt.NewRow();
                     for (int i = 0; i < row.LastCellNum; i++)
                     {
@@ -216,6 +245,7 @@ namespace NBiz
 
             return dt;
         }
+
 
 
 
@@ -270,7 +300,7 @@ namespace NBiz
             //保存每个分类的最后编码
             if (saveNtsNumber)
             {
-                serialNumberManager.WriteSerialNumberFile();
+                // serialNumberManager.WriteSerialNumberFile();
             }
         }
     }
