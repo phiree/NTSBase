@@ -56,6 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Category\BizCategory.cs" />
+    <Compile Include="Category\CategoryExcelReader.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />
     <Compile Include="ImageOrganizer\IExtractRule.cs" />

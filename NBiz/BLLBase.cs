@@ -59,9 +59,5 @@ namespace NBiz
             return DalBase.GetList(where, pageIndex, pageSize, out totalRecord);
         }
     }
-    //to be used for bll factory
-    public enum BLLName
-    {
-        BLLQZSpringPartner
-    }
+  
 }

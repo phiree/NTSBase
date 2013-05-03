@@ -52,5 +52,15 @@ namespace NTest.NBizTest
             Assert.AreEqual("01.001", products[0].CategoryCode);
 
         }
+        //导入分类列表
+        public void ReadCategoryFromExcel()
+        {
+            string filePath = Environment.CurrentDirectory + @"\TestFiles\分类表.xls";
+            CategoryExcelReader importer = new CategoryExcelReader();
+            IList<Category> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+
+            Assert.AreEqual(465, products.Count);
+           
+        }
     }
 }

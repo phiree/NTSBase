@@ -9,11 +9,10 @@ namespace NBiz
    public class BizSupplier:BLLBase<NModel.Supplier>
    {
        DALSupplier dalSupplier = new DALSupplier();
-       BLLBase<Supplier> bllSupplier = new BizSupplier();
-       public void ImportSupplierFromExcel(System.IO.Stream stream)
+      public void ImportSupplierFromExcel(System.IO.Stream stream)
        {
            IExcelReader<Supplier> supplierReader = new SupplierExcelReader();
-           ImportToDatabaseFromExcel<Supplier> importor = new ImportToDatabaseFromExcel<Supplier>(supplierReader, bllSupplier);
+           ImportToDatabaseFromExcel<Supplier> importor = new ImportToDatabaseFromExcel<Supplier>(supplierReader, this);
            importor.Import(stream);
        }
        public IList<Supplier> GetListAllPaged(int pageIndex, int pageSize, out int totalRerord)

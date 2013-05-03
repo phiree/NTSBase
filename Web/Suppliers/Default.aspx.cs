@@ -12,11 +12,18 @@ public partial class Suppliers_Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+      
+      
         if (!IsPostBack)
         {
+            LoadParameters();
             BindSupplier();
         }
+    }
+    private void LoadParameters()
+    {
+        string supplierName = Server.UrlDecode(Request["sname"]);
+        tbxName.Text = supplierName;
     }
     private int GetPageIndex()
     {
@@ -31,7 +38,9 @@ public partial class Suppliers_Default : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        BindSupplier();
+        string targetUrl = string.Format("Default.aspx?sname={0}", Server.UrlEncode(tbxName.Text));
+        Response.Redirect(targetUrl, true);
+       // BindSupplier();
     }
 
     private void BindSupplier()

@@ -25,15 +25,7 @@ public class BindPagedList<T>
         }
         return pageIndex;
     }
-    public void Bind()
-    {
-        int totalRecords;
-
-     //   var product ;// bllBase .GetListBySupplierName(new string[] { "00105", "00073" }, pager.PageSize, pageIndex, out totalRecords);  // bizProduct.GetAll<NModel.Product>();
-     ////   pager.RecordCount = totalRecords;
-     //   gv.DataSource = product;
-     //   gv.DataBind();
-    }
+    
 	public BindPagedList(Page page,AspNetPager pager,NBiz.BLLBase<T> bllBase,GridView gv, IList<T> list)
 	{
         this.CurrentPage = page;

@@ -17,6 +17,7 @@ namespace NModel
         public virtual Guid Id { get; set; }
         public virtual string NTSCode { get; set; }
         public virtual string Name { get; set; }
+        public virtual string EnglishName { get; set; }
         /// <summary>
         /// 分类编码,对应excel
         /// </summary>

@@ -22,7 +22,7 @@ namespace NDAL
     {
         public void Apply(IPropertyInstance instance)
         {
-            instance.Length(4000);
+            instance.Length(2000);
         }
     }
 }

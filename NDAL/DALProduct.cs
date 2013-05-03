@@ -7,12 +7,7 @@ namespace NDAL
 {
     public class DALProduct : DalBase<NModel.Product>
     {
-        public override void SaveList(IList<Product> list)
-        {
-
-
-            base.SaveList(list);
-        }
+      
         public override void Save(NModel.Product o)
         {
             var q = session.QueryOver<Product>().Where(x => x.Name == o.Name)
@@ -49,7 +44,9 @@ namespace NDAL
         /// <param name="pageIndex"></param>
         /// <param name="totalRecord"></param>
         /// <returns></returns>
-        public IList<Product> Search(string supplierName, string model, bool hasphoto, int pageSize, int pageIndex, out int totalRecord)
+        public IList<Product> Search(string supplierName, string model, bool hasphoto, 
+            string name,string categorycode,
+            int pageSize, int pageIndex, out int totalRecord)
         {
 
             string query = "select p from Product p  where 1=1 ";
@@ -64,6 +61,15 @@ namespace NDAL
             if (hasphoto)
             {
                 query += "and p.ProductImageUrls.size>0";
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                query +=string.Format( " and (p.Name like '%{0}%'  or p.EnglishName like '%{0}%')",name);
+            }
+            if (!string.IsNullOrEmpty(categorycode))
+            {
+                //02 或者 02.001
+                query += string.Format(" and (p.CategoryCode='{0}' or substring(p.CategoryCode,1,2)='{0}')",categorycode);
             }
             //if (supplierCodes.Length > 0)
             //{

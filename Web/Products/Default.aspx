@@ -6,10 +6,13 @@
     <fieldset>
  <legend>搜索</legend>
  <div>
+ <span>产品名称:</span> <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxName"></asp:TextBox>
+ <span>分类编码:</span> <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxCode"></asp:TextBox>
+ <br />
  <span>供应商名称:</span> <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxSupplierName"></asp:TextBox>
  <span>产品型号:</span><asp:TextBox  CssClass="text" Width="150"  runat="server" ID="tbxModel"></asp:TextBox>
  <asp:CheckBox runat="server" ID="cbxHasPhoto" Text="有图片" />
- <asp:Button runat="server" ID="btnSearch" OnClick="btnSearch_Click" Text="搜索"/>
+ <uc:ButtonExt runat="server" ID="btnSearch" OnClick="btnSearch_Click" Text="搜索"/>
  </div>
  </fieldset>
 

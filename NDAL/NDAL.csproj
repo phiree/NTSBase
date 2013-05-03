@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DALBase.cs" />
+    <Compile Include="DALCategory.cs" />
     <Compile Include="DALProduct.cs" />
     <Compile Include="DALSerialNo.cs" />
     <Compile Include="DALSupplier.cs" />

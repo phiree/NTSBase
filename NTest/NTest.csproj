@@ -66,6 +66,7 @@
     <Compile Include="NBizTest\ImportFromExcelTest.cs" />
     <Compile Include="NBizTest\CopyImageTest.cs" />
     <Compile Include="NBizTest\MakeThumbnailTest.cs" />
+    <Compile Include="NBizTest\SupplierTest.cs" />
     <Compile Include="NDALTest\DALBaseTest.cs" />
     <Compile Include="NDALTest\ProductDALTest.cs" />
     <Compile Include="NLibraryTest\FormatSerialNoTest.cs" />
@@ -108,6 +109,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\供应商104.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\分类表.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\吧台设备及用具.XLS">

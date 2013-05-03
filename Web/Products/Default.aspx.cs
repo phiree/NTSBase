@@ -29,6 +29,8 @@ public partial class Products_Default : System.Web.UI.Page
         bool hasPhoto = false;
         bool.TryParse(Request["hasPhoto"],out hasPhoto);
         cbxHasPhoto.Checked = hasPhoto;
+        tbxCode.Text =Server.UrlDecode( Request["categoryCode"]);
+        tbxName.Text = Request["name"];
     }
     private int GetPageIndex()
     {
@@ -42,8 +44,13 @@ public partial class Products_Default : System.Web.UI.Page
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string targetUrl =string.Format( "Default.aspx?sname={0}&model={1}&hasphoto={2}", Server.UrlEncode(tbxSupplierName.Text)
-            ,Server.UrlDecode(tbxModel.Text),cbxHasPhoto.Checked);
+        string targetUrl =string.Format( "Default.aspx?sname={0}&model={1}&hasphoto={2}&name={3}&categorycode={4}"
+            , Server.UrlEncode(tbxSupplierName.Text)
+            ,Server.UrlDecode(tbxModel.Text)
+            ,cbxHasPhoto.Checked
+            ,tbxName.Text.Trim()
+            ,tbxCode.Text.Trim()
+            );
         Response.Redirect(targetUrl, true);
        // BindProduct();
     }
@@ -51,7 +58,13 @@ public partial class Products_Default : System.Web.UI.Page
     {
         int pageIndex = GetPageIndex();
         int totalRecords;
-        var product = bizProduct.Search(tbxSupplierName.Text.Trim(),tbxModel.Text.Trim(),cbxHasPhoto.Checked, pager.PageSize, pageIndex, out totalRecords)
+        var product = bizProduct.Search(tbxSupplierName.Text.Trim()
+            ,tbxModel.Text.Trim()
+            ,cbxHasPhoto.Checked
+            ,tbxName.Text.Trim()
+            ,tbxCode.Text.Trim()
+            , pager.PageSize
+            , pageIndex, out totalRecords)
             .OrderBy(x=>x.CategoryCode);  // bizProduct.GetAll<NModel.Product>();
         pager.RecordCount = totalRecords;
         dgProduct.DataSource = product;
