@@ -24,6 +24,7 @@
             <div class="span-4 colborder" id="leftMenu">
                 <ul>
                     <li><a href="/admin/products/productimport.aspx">导入报价单Excel</a></li>
+                    <li><a href="/admin/products/productimport.aspx">导入产品图片</a></li>
                     <li><a href="/admin/Supplier/SupplierImport.aspx">导入供应商Excel</a></li>
                     <li><a href="/admin/Category/Categoryimport.aspx">导入分类Excel</a></li>
                     <li><a href="/admin/Category/">分类列表</a></li>

@@ -18,7 +18,7 @@ public partial class Admin_Category_Default : System.Web.UI.Page
     }
     private void Bind()
     {
-        gv.DataSource = bizCategory.GetAll<NModel.Category>().OrderBy(x=>x.ParentCode).OrderBy(x=>x.Code);
+        gv.DataSource = bizCategory.GetAll<NModel.Category>().OrderBy(x => x.Code).OrderBy(x => x.ParentCode);
         gv.DataBind();
     }
 }

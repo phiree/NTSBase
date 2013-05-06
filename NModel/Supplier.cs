@@ -12,6 +12,7 @@ namespace NModel
        /// 名称
        /// </summary>
        public virtual string Name { get; set; }
+       public virtual string EnglishName { get; set; }
        /// <summary>
        /// 代码
        /// </summary>

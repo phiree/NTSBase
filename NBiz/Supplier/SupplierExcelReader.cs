@@ -18,7 +18,7 @@ namespace NBiz
                 Supplier p = new Supplier();
                 p.Name = row["供应商名称"].ToString();
                 p.Code = row["供应商编码"].ToString();
-
+                p.EnglishName = row["供应商英文名称"].ToString();
                 //p.NTSCode=BuildNtsCode(p.CategoryCode,suppl
                 SupplierList.Add(p);
             }

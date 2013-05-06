@@ -53,6 +53,11 @@
     <Compile Include="Enums.cs" />
     <Compile Include="FormatSerialNo.cs" />
     <Compile Include="Mapping\ProductMap.cs" />
+    <Compile Include="Mapping\CategoryMap.cs" />
+    <Compile Include="Mapping\SupplierMap.cs" />
+    <Compile Include="Mapping\FormatSerialNo.cs" />
+    <Compile Include="Mapping\MultiLanguageItemMap.cs" />
+    <Compile Include="MultiLanguageItem.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Supplier.cs" />

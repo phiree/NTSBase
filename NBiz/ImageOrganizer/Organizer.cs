@@ -42,8 +42,9 @@ namespace NBiz
                    
                }
 
-               //该供应商已导入的产品
-               IList<Product> ProductsOfSupplier = dalProduct.GetListBySupplier(supplierNameOfFolder);
+               //该供应商已导入的产品(可能是中文 和 英文)
+               IList<Product> ProductsOfSupplier = dalProduct.GetListBySupplier(supplierNameOfFolder,s.EnglishName);
+               
                if (ProductsOfSupplier.Count == 0)
                {
                    string errmsg = "没有属于该供应商的产品,请导入对应的报价单 或者 核实文件夹名称与供应商名称的一致性." + supplierNameOfFolder;

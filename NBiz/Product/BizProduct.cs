@@ -65,9 +65,9 @@ namespace NBiz
                 name,categorycode,
                 pageSize, pageIndex, out totalRecord);
         }
-        public IList<Product> GetListBySupplierName(string supplierName)
+        public IList<Product> GetListBySupplierName(string supplierName,string englishName)
         {
-            return dalProduct.GetListBySupplier(supplierName);
+            return dalProduct.GetListBySupplier(supplierName,englishName);
         }
 
 

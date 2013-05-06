@@ -10,6 +10,28 @@ namespace NModel.Mapping
         public ProductMap()
         {
             Id(x=>x.Id);
+            Map(x => x.CategoryCode);
+            Map(x => x.CreateTime);
+            Map(x => x.EnglishName);
+            Map(x => x.LastUpdateTime);
+            Map(x => x.Memo);
+            Map(x => x.ModelNumber);
+            Map(x => x.Name);
+            Map(x => x.NTSCode).Unique();
+            Map(x => x.OrderAmountMin);
+            Map(x => x.PlaceOfDelivery);
+            Map(x => x.PlaceOfOrigin);
+            Map(x => x.PriceOfFactory);
+            Map(x => x.ProductDescription);
+            HasMany<String>(x => x.ProductImageUrls).Element("ProductImageUrls").Cascade.AllDeleteOrphan(); ;
+            Map(x => x.ProductionCycle);
+            Map(x => x.ProductParameters);
+            Map(x => x.State).CustomType<int>();
+            Map(x => x.SupplierCode);
+            Map(x => x.SupplierName);
+            Map(x => x.TaxRate);
+            Map(x => x.Unit);
+         
         }
     }
 }

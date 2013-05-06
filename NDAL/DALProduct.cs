@@ -93,9 +93,12 @@ namespace NDAL
         /// </summary>
         /// <param name="supplierName"></param>
         /// <returns></returns>
-        public IList<Product> GetListBySupplier(string supplierName)
+        public IList<Product> GetListBySupplier(string supplierName,string englishName)
         {
-            NHibernate.IQueryOver<Product, Product> queryover = session.QueryOver<Product>().Where(x => x.SupplierName == supplierName);
+            NHibernate.IQueryOver<Product, Product> queryover = session.QueryOver<Product>()
+                .Where(x => x.SupplierName == supplierName|| x.SupplierName==englishName)
+                
+                ;
             return GetList(queryover);
         }
     }

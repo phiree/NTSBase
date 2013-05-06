@@ -7,8 +7,10 @@ using NModel;
 using NBiz;
 namespace NTest.NBizTest
 {
+    [TestFixture]
     public class ImportFromExcelTest
     {
+        [Test]
         public void ReadProductFromExcelTest()
         {
             string filePath = Environment.CurrentDirectory + @"\TestFiles\NTS 产品报价单   哈慈 20130306.xls";
@@ -18,6 +20,7 @@ namespace NTest.NBizTest
             Assert.AreEqual(19,products.Count);
 
         }
+        [Test]
         public void ReadSupplierFromExcelTest()
         {
 
@@ -31,6 +34,7 @@ namespace NTest.NBizTest
         /// <summary>
         /// 提取excel里的图片
         /// </summary>
+        [Test]
         public void ReadProductWithImageFromExcelTest()
         {
 
@@ -42,6 +46,7 @@ namespace NTest.NBizTest
            // Assert.AreEqual(19, products.Count);
         }
         //导入Erp格式
+        [Test]
         public void ReadProductFromErpExcelTest()
         {
             string filePath = Environment.CurrentDirectory + @"\TestFiles\吧台设备及用具.XLS";
@@ -53,6 +58,7 @@ namespace NTest.NBizTest
 
         }
         //导入分类列表
+        [Test]
         public void ReadCategoryFromExcel()
         {
             string filePath = Environment.CurrentDirectory + @"\TestFiles\分类表.xls";
@@ -61,6 +67,18 @@ namespace NTest.NBizTest
 
             Assert.AreEqual(465, products.Count);
            
+        }
+        //英文ERP格式问题
+        [Test]
+        public void ReadProductErpEnglishFromExcel()
+        {
+            string filePath = Environment.CurrentDirectory + @"\TestFiles\英文——2013-3-26家具（brighthome）数据表.XLS";
+            ProductExcelReader importer = new ProductExcelReader();
+            IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+
+            Assert.AreEqual(153, products.Count);
+            //Assert.AreEqual("01.001", products[0].CategoryCode);
+
         }
     }
 }

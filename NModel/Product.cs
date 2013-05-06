@@ -14,10 +14,31 @@ namespace NModel
             CreateTime = LastUpdateTime = DateTime.Now;
             ProductImageUrls = new List<string>();
         }
+        private IList<MultiLanguageItem> ValuesOfMultiLanguage { get; set; }
+
+
         public virtual Guid Id { get; set; }
         public virtual string NTSCode { get; set; }
         public virtual string Name { get; set; }
         public virtual string EnglishName { get; set; }
+        /// <summary>
+        /// 相應語種的值
+        /// </summary>
+        /// <param name="lt">語種枚舉</param>
+        /// <returns></returns>
+        public string GetName(LanguageType lt)
+        {
+            IList<MultiLanguageItem> items = ValuesOfMultiLanguage.Where(x => x.ClassType == ClassType.Product
+                 && x.ItemId == this.Id.ToString() && x.Language == lt && x.PropertyType == PropertyType.ProductName).ToList();
+            if (items.Count == 1)
+            {
+                return items[0].ItemValue;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
         /// <summary>
         /// 分类编码,对应excel
         /// </summary>
@@ -100,5 +121,5 @@ namespace NModel
 
 
     }
-    
+
 }

@@ -106,12 +106,20 @@ namespace NBiz
 
        public Product PopulateFromRow(DataRow row)
        {
+           
+
            Product p = new Product();
            p.PlaceOfOrigin = row["备注"].ToString();
           // p.PlaceOfDelivery = row["交货地"].ToString();
            p.Name = row["名称"].ToString();
 
            string categoryCode = StringHelper.ReplaceSpace(row["代码"].ToString());
+
+           if (string.IsNullOrEmpty(p.PlaceOfOrigin) && string.IsNullOrEmpty(p.Name)
+               && string.IsNullOrEmpty(categoryCode))
+           {
+               throw new Exception("未导入.请确认非内容单元格已彻底清除.");
+           }
            //erp的代码包含了供应商和流水号,应该去除
            if (string.IsNullOrEmpty(categoryCode))
            {

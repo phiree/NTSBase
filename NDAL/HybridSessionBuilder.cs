@@ -47,6 +47,7 @@ namespace NDAL
                 _sessionFactory = Fluently.Configure()
                 .Database(dataConfig)
                 .Mappings(
+                /*automampping can't work with override
                      m => m.AutoMappings.Add(AutoMap.AssemblyOf<NModel.Product>(mappingCfg)
                          .Conventions.Setup(c=>{
                              c.Add<DefaultStringLengthConvention>();
@@ -56,12 +57,13 @@ namespace NDAL
                              map.Map(x => x.NTSCode).Unique();
                              map.Map(x => x.State).CustomType<int>();
                          })
-                         .Override<NModel.Supplier>(map => {
-                             map.Map(x => x.Code).Unique();
-                         })
+                         //.Override<NModel.Supplier>(map =>
+                         //{
+                         //    map.Map(x => x.Code).Unique();
+                         //})
                          )
-                     )
-                    // m => m.FluentMappings.AddFromAssemblyOf<Model.TourMembership>())
+                     )*/
+                    m => m.FluentMappings.AddFromAssemblyOf<NModel.Mapping.ProductMap>())
                     .ExposeConfiguration(BuildSchema)
                     .BuildSessionFactory();
             }

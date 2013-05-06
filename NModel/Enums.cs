@@ -5,6 +5,7 @@ using System.Text;
 
 namespace NModel.Enums
 {
+    
     public enum ProductState
     {
         /// <summary>
@@ -19,5 +20,23 @@ namespace NModel.Enums
         /// 禁用
         /// </summary>
         Disabled
+    }
+    /*多語言版本的屬性值*/
+    public enum ClassType
+    {
+        Product,
+        Supplier
+    }
+    //
+    public enum PropertyType
+    {
+        ProductName,
+        ProductDescription,
+        ProductParameters
+    }
+    public enum LanguageType
+    {
+        Chinese,
+        English
     }
 }
