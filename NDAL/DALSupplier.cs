@@ -10,12 +10,31 @@ namespace NDAL
         public override void Save(NModel.Supplier o)
         {
             var q = session.QueryOver<NModel.Supplier>()
-                .Where(x => x.Name == o.Name || x.Code == o.Code)
+                .Where(x => x.Code == o.Code)
                 .List();
+            //如果只有一個與此相同,則update.
             if (q.Count > 0)
             {
-                NLibrary.NLogger.Logger.Debug("未保存,已存在同名或者代码相同的供应商:" + o.Name + "-" + o.Name + "-" + o.Code
-                    );
+                if (q.Count == 1)
+                {
+                    NModel.Supplier old = q[0];
+                    old.EnglishName = o.EnglishName;
+                    old.Name = o.Name;
+                    old.ContactPerson = o.ContactPerson;
+                    old.Address = o.Address;
+
+                    base.Update(old);
+                }
+                else
+                {
+                    string errmsg = "未保存,已存在同名或者代码相同的供应商:"
+                        + o.Name + "-" + o.Name + "-" + o.Code;
+                    NLibrary.NLogger.Logger.Error(errmsg
+                        );
+                    throw new Exception(errmsg);
+                
+                }
+                
             }
             else
             {
@@ -24,7 +43,18 @@ namespace NDAL
         }
         public NModel.Supplier GetOneByName(string supplierName)
         {
-            NHibernate.IQueryOver<NModel.Supplier> iqueryOver = session.QueryOver<NModel.Supplier>().Where(x => x.Name == supplierName);
+            NHibernate.IQueryOver<NModel.Supplier> iqueryOver = session.QueryOver<NModel.Supplier>()
+                .Where(x => (supplierName!=string.Empty)&&(x.EnglishName==supplierName|| x.Name == supplierName));
+            string query =string.Format( "from Supplier s where s.EnglishName='{0}' or s.Name='{0}'",supplierName);
+            //GetOneByQuery(query);
+            return GetOneByQuery(query);
+        }
+        public NModel.Supplier GetOneByName(string chinesename, string englishName)
+        {
+            NHibernate.IQueryOver<NModel.Supplier> iqueryOver = 
+                session.QueryOver<NModel.Supplier>()
+                .Where(x =>( !string.IsNullOrEmpty(chinesename)&& x.Name == chinesename)
+                          ||(!string.IsNullOrEmpty(englishName)&&x.EnglishName==englishName)  );
             return GetOneByQuery(iqueryOver);
         }
 

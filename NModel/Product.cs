@@ -26,7 +26,7 @@ namespace NModel
         /// </summary>
         /// <param name="lt">語種枚舉</param>
         /// <returns></returns>
-        public string GetName(LanguageType lt)
+        public virtual string GetName(LanguageType lt)
         {
             IList<MultiLanguageItem> items = ValuesOfMultiLanguage.Where(x => x.ClassType == ClassType.Product
                  && x.ItemId == this.Id.ToString() && x.Language == lt && x.PropertyType == PropertyType.ProductName).ToList();

@@ -100,14 +100,18 @@ namespace NBiz
             p.OrderAmountMin = 最小订货量;
             return p;
         }
+
+
+        public Product PopulateFromRowWithLanguage(DataRow row, NModel.Enums.LanguageType lang)
+        {
+            throw new NotImplementedException();
+        }
     }
    public class RowPolulateErp: IRowPopulate
    {
 
        public Product PopulateFromRow(DataRow row)
        {
-           
-
            Product p = new Product();
            p.PlaceOfOrigin = row["备注"].ToString();
           // p.PlaceOfDelivery = row["交货地"].ToString();
@@ -189,9 +193,16 @@ namespace NBiz
            p.OrderAmountMin = 最小订货量;
            return p;
        }
+
+
+       public Product PopulateFromRowWithLanguage(DataRow row, NModel.Enums.LanguageType lang)
+       {
+           throw new NotImplementedException();
+       }
    }
    public interface IRowPopulate
    {
        Product PopulateFromRow(DataRow row);
+       Product PopulateFromRowWithLanguage(DataRow row, NModel.Enums.LanguageType lang);
    }
 }

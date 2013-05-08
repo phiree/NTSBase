@@ -10,10 +10,9 @@ namespace NDAL
       
         public override void Save(NModel.Product o)
         {
-            var q = session.QueryOver<Product>().Where(x => x.Name == o.Name)
+            var q = session.QueryOver<Product>().Where(x => x.SupplierName == o.SupplierCode)
                 .And(x => x.ModelNumber == o.ModelNumber)
-                .And(x => x.SupplierName == o.SupplierName)
-                .And(x => x.CategoryCode == o.CategoryCode)
+             
                 .List();
             if (q.Count > 0)
             {
@@ -32,7 +31,17 @@ namespace NDAL
                 .And(x => x.ModelNumber == modelNumber);
             //string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
             //    supplierName,modelNumber);
-            return GetOneByQuery(iqueryover);
+            try
+            {
+                Product p = GetOneByQuery(iqueryover);
+
+                return p;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message+"Data:modelnumber:"+modelNumber+"--suppliercode:"+supplierCode);
+            }
+           // return GetOneByQuery(iqueryover);
         }
         
 
@@ -101,5 +110,15 @@ namespace NDAL
                 ;
             return GetList(queryover);
         }
+
+        public IList<Product> GetListBySupplierCode(string supplierCode)
+        {
+            NHibernate.IQueryOver<Product, Product> queryover = session.QueryOver<Product>()
+                .Where(x => x.SupplierCode == supplierCode)
+
+                ;
+            return GetList(queryover);
+        }
+
     }
 }

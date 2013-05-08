@@ -10,7 +10,7 @@
         <asp:Button runat="server" ID="btnImport" OnClick="btnImport_Click" Text="导入" />
     </p>
     <p>
-        <div  runat="server" ID="lblMsg">
+        <div    runat="server" ID="lblMsg">
     
         </div>
     </p>

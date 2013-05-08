@@ -82,4 +82,17 @@ public partial class Products_Default : System.Web.UI.Page
 
         }
     }
+
+    protected void rptImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Footer)
+        {
+            if (((Repeater)sender).Items.Count == 0)
+            {
+                Image img = e.Item.FindControl("imgNoPic") as Image;
+                img.Visible = true;
+                img.ImageUrl = "~/content/images/no-image.gif";
+            }
+        }
+    }
 }

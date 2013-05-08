@@ -17,8 +17,9 @@ public partial class Admin_Products_ProductImport : System.Web.UI.Page
         try
         {
             bizProduct.ImportProductFromExcel(fuProduct.PostedFile.InputStream);
+           
             lblMsg.Attributes["class"] = "success";
-            lblMsg.InnerHtml = "导入成功";
+            lblMsg.InnerHtml = bizProduct.ImportMsg;
         }
         catch (Exception ex){
             lblMsg.Attributes["class"] = "error";

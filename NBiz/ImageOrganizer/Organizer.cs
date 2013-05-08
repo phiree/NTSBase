@@ -7,6 +7,9 @@ using NModel;
 using NDAL;
 namespace NBiz
 {
+    /// <summary>
+    /// 图片整理
+    /// </summary>
    public class Organizer
     {
        DALSupplier dalSupplier = new DALSupplier();
@@ -43,7 +46,7 @@ namespace NBiz
                }
 
                //该供应商已导入的产品(可能是中文 和 英文)
-               IList<Product> ProductsOfSupplier = dalProduct.GetListBySupplier(supplierNameOfFolder,s.EnglishName);
+               IList<Product> ProductsOfSupplier = dalProduct.GetListBySupplierCode(s.Code);
                
                if (ProductsOfSupplier.Count == 0)
                {

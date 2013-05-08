@@ -49,7 +49,7 @@ public partial class Suppliers_Default : System.Web.UI.Page
         int totalRecords;
         var product = bizSupplier.Search( tbxName.Text.Trim(), pageIndex, pager.PageSize, out totalRecords);  // bizProduct.GetAll<NModel.Product>();
         pager.RecordCount = totalRecords;
-        dgSupplier.DataSource = product;
+        dgSupplier.DataSource = product.OrderByDescending(x => x.Code); ;
         dgSupplier.DataBind();
     }
 }

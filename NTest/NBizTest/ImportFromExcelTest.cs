@@ -49,7 +49,7 @@ namespace NTest.NBizTest
         [Test]
         public void ReadProductFromErpExcelTest()
         {
-            string filePath = Environment.CurrentDirectory + @"\TestFiles\吧台设备及用具.XLS";
+            string filePath = Environment.CurrentDirectory + @" \TestFiles\吧台设备及用具.XLS";
             ProductExcelReader importer = new ProductExcelReader();
             IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
 
@@ -79,6 +79,17 @@ namespace NTest.NBizTest
             Assert.AreEqual(153, products.Count);
             //Assert.AreEqual("01.001", products[0].CategoryCode);
 
+        }
+        //包含英文名的供應商列表
+        [Test]
+        public void ReadSupplierWithSupplierFromExcelTest()
+        {
+
+            string filePathSupplier = Environment.CurrentDirectory + @"\TestFiles\供应商119(WithEnglishNames)  2013-5-7.xls";
+            SupplierExcelReader importerSupplier = new SupplierExcelReader();
+            IList<Supplier> Supplier = importerSupplier.Read(new System.IO.FileStream(filePathSupplier, System.IO.FileMode.Open));
+
+            Assert.AreEqual(119, Supplier.Count);
         }
     }
 }

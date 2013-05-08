@@ -80,7 +80,7 @@ caption {background:#eee;}
 
 /* forms.css */
 label {font-weight:bold;}
-fieldset {padding:0 0.4em 0.4em 0.4em;margin:0 0 0.5em 0;border:1px solid #ccc;}
+fieldset {padding:0 0.4em 0.4em 1.4em;margin:0 0 0.5em 0;border:1px solid #ccc;}
 legend {font-weight:bold;font-size:1.2em;margin-top:-0.2em;margin-bottom:1em;}
 fieldset, #IE8#HACK {padding-top:0.4em;}
 legend, #IE8#HACK {margin-top:0;margin-bottom:0;}

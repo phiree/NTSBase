@@ -41,7 +41,7 @@ namespace NDAL
             {
                 MyAutoMappingConfiguration mappingCfg = new MyAutoMappingConfiguration();
                 MySQLConfiguration dataConfig = MySQLConfiguration.Standard
-                    .ShowSql()
+                   // .ShowSql()
                     .ConnectionString(s => s.FromConnectionStringWithKey("conn"));
 
                 _sessionFactory = Fluently.Configure()

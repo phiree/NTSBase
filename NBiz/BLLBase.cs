@@ -46,6 +46,7 @@ namespace NBiz
         public virtual void SaveList(IList<T> list) {
             DalBase.SaveList(list);
         }
+
         public IList<T> GetAll<T>() where T : class
         {
             return DalBase.GetAll<T>();
