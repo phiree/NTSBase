@@ -12,7 +12,7 @@ namespace NTest
         {
             NBiz.Organizer oer = new NBiz.Organizer();
             string msg;
-            var list = oer.Execute(@"E:\workspace\code\resources\导入资料\datafiles\已整理好图片\"
+            var list = oer.Execute(@"E:\workspace\code\resources\导入资料\datafiles\待导入\"
                 , @"Y:\original\", out msg);
 
             Console.Write(msg);
