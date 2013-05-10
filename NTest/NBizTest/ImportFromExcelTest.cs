@@ -13,6 +13,9 @@ namespace NTest.NBizTest
         [Test]
         public void ReadProductFromExcelTest()
         {
+            /*
+             文件末尾有空白行
+             */
             string filePath = Environment.CurrentDirectory + @"\TestFiles\NTS 产品报价单   哈慈 20130306.xls";
             ProductExcelReader importer = new ProductExcelReader();
             IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));

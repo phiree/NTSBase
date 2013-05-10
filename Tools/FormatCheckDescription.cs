@@ -9,23 +9,18 @@ using System.Windows.Forms;
 
 namespace Tools
 {
-    public partial class Form1 : Form
+    public partial class FormatCheckDescription : Form
     {
-        public Form1()
+        public FormatCheckDescription()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnOK_Click(object sender, EventArgs e)
         {
-            new FrmExtractImage().Show();
-        }
-
-        private void btnCheck_Click(object sender, EventArgs e)
-        {
+            this.Close();
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
             
-                new FrmCheckFormat().Show();
-           
         }
     }
 }

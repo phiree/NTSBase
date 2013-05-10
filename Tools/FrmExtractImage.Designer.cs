@@ -50,7 +50,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 166);
+            this.ClientSize = new System.Drawing.Size(292, 45);
             this.Controls.Add(this.button1);
             this.Name = "FrmExtractImage";
             this.Text = "FrmExtractImage";

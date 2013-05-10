@@ -58,12 +58,13 @@
   <ItemGroup>
     <Compile Include="Category\BizCategory.cs" />
     <Compile Include="Category\CategoryExcelReader.cs" />
+    <Compile Include="FormatCheck.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />
     <Compile Include="ImageOrganizer\IExtractRule.cs" />
     <Compile Include="ImageOrganizer\Organizer.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleNewNtsCode.cs" />
-    <Compile Include="NTSCodeBuilder.cs" />
+    <Compile Include="ImportLog\BizImportLog.cs" />
     <Compile Include="Product\BizProduct.cs" />
     <Compile Include="BLLBase.cs" />
     <Compile Include="ImageCopy.cs" />

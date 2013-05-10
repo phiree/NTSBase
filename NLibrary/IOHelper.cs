@@ -29,7 +29,6 @@ namespace NLibrary
                 return fi;
             }
             EnsureFileDirectory(filepath);
-
             FileStream fs = fi.Create();
             fs.Close();
             return fi;
@@ -51,6 +50,24 @@ namespace NLibrary
                 Directory.CreateDirectory(directory);
                 
             }
+        }
+        public static DirectoryInfo EnsureDirectory(string directory)
+        {
+            DirectoryInfo dir = new DirectoryInfo(directory);
+            if (!dir.Exists)
+            {
+                dir = Directory.CreateDirectory(directory);
+
+            }
+            return dir;
+        }
+        public static string EnsureFoldEndWithSlash(string directoryPath)
+        {
+            if (!directoryPath.EndsWith("\\"))
+            {
+                return directoryPath + "\\";
+            }
+            else return directoryPath;
         }
     }
 

@@ -17,5 +17,6 @@ namespace NLibrary
            string partern = @"\\\/\:\'\?\*\<\>\|";
            return Regex.Replace(input, partern, replacement);
        }
+       
     }
 }

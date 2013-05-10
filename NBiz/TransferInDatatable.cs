@@ -9,6 +9,7 @@ using NPOI.HSSF.UserModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using NLibrary;
+using NPOI.SS.UserModel;
 namespace NBiz
 {
     /// <summary>
@@ -177,7 +178,20 @@ namespace NBiz
             return CreateFromXsl(xslFileStream, onlyCreateSchedule, out allPic);
 
         }
+ 
         public DataTable CreateFromXsl(Stream xslFileStream, bool onlyCreateSchedule, out IList allPictures)
+        {
+            return CreateFromXsl(xslFileStream, 1, onlyCreateSchedule, out allPictures);
+        }
+        /// <summary>
+        /// 读取excel内容,填入DataTable
+        /// </summary>
+        /// <param name="startRowIndex">起始行,从0开始.上面的row忽略.</param>
+        /// <param name="xslFileStream">Excel文件流</param>
+        /// <param name="onlyCreateSchedule">只创建结构,不填充数据.</param>
+        /// <param name="allPictures">excel文件内的所有文件夹</param>
+        /// <returns></returns>
+        public DataTable CreateFromXsl(Stream xslFileStream, int startRowIndex, bool onlyCreateSchedule, out IList allPictures)
         {
 
             HSSFWorkbook book = new HSSFWorkbook(xslFileStream);
@@ -185,19 +199,13 @@ namespace NBiz
 
             var sheet = book.GetSheetAt(0);
             DataTable dt = new DataTable();
-            var row = sheet.GetRow(1);
-            
-            foreach (var cell in row.Cells)
-            {
-                DataColumn col = new DataColumn(cell.ToString(), typeof(String));
-              //  dt.Columns.Add(col);
-            }
-
+            //起始行单元格内的值作为datatable的列名.
+            var row = sheet.GetRow(startRowIndex);
             for (int i = 0; i < row.LastCellNum; i++)
             {
-                var  columnName = row.GetCell(i);
+                var columnName = row.GetCell(i);
                 //空白列导致出错
-                string strColName=string.Empty;
+                string strColName = string.Empty;
                 if (columnName == null)
                 {
                     strColName = Guid.NewGuid().ToString();
@@ -209,7 +217,6 @@ namespace NBiz
                 DataColumn col = new DataColumn(strColName, typeof(String));
                 dt.Columns.Add(col);
             }
-
             if (!onlyCreateSchedule)
             {
                 IEnumerator rowEnumer = sheet.GetRowEnumerator();
@@ -217,14 +224,23 @@ namespace NBiz
                 {
 
                     var currentRow = (HSSFRow)rowEnumer.Current;
-
-
-                    if (currentRow.RowNum < 2) continue;
+                    if (currentRow.RowNum < startRowIndex + 1) continue;
                     //防止其遍历到没有数据的row
                     if (currentRow.LastCellNum < row.Cells.Count)
                     {
                         //    break;
                     }
+                    //空白行判断
+                    bool isEnd = true;
+                    foreach (var cell in currentRow.Cells)
+                    {
+                        if (!string.IsNullOrEmpty( NLibrary.StringHelper.ReplaceSpace(cell.StringCellValue)))
+                        {
+                            isEnd = false;
+                            break;
+                        }
+                    }
+                    if (isEnd) break;                                                             
 
                     DataRow dr = dt.NewRow();
                     for (int i = 0; i < row.LastCellNum; i++)
@@ -301,6 +317,75 @@ namespace NBiz
             if (saveNtsNumber)
             {
                 // serialNumberManager.WriteSerialNumberFile();
+            }
+        }
+
+        /// <summary>
+        /// 根据datatable
+        /// </summary>
+        /// <param name="dataStartRowNumber">Excel文件顶部可能需要写入其他数据</param>
+        /// <param name="dt"></param>
+        /// <param name="xslTemplate"></param>
+        /// <param name="saveNtsNumber"></param>
+        /// <param name="savePath">保存位置</param>
+        public void CreateXslFromDataTable(DataTable dt,int dataStartRowNumber,string savePath)
+        {
+            if(dataStartRowNumber<0)
+                throw new Exception("dataStartRowNumber必须大于等于0");
+            HSSFWorkbook book = new HSSFWorkbook();
+            var sheet = book.CreateSheet("产品报价单");
+            DataColumnCollection cols=dt.Columns;
+            //创建表头
+            for(int h=0;h<=dataStartRowNumber;h++)
+            {
+                IRow headrow = sheet.CreateRow(h);
+                if (h == dataStartRowNumber)
+                {
+                    CreateCellForRow(headrow, cols, null, true);
+                }
+                else
+                {
+                    CreateCellForRow(headrow, cols, null, false);
+                }
+
+            }
+            //填充内容
+            for (int i=0;i<dt.Rows.Count;i++)
+            {
+                var dataRow=dt.Rows[i];
+              var excelRow=   sheet.CreateRow(dataStartRowNumber+1 + i);
+              CreateCellForRow(excelRow, cols, dataRow, false);
+            }
+            //物理保存
+            IOHelper.EnsureFile(savePath);
+            FileStream fsOut=new FileStream(savePath,FileMode.Create);
+            book.Write(fsOut);
+            fsOut.Close();
+            
+        }
+
+        /// <summary>
+        /// 根据datarow 创建 cells. 
+        /// </summary>
+        /// <param name="excelRow"></param>
+        /// <param name="columns"></param>
+        /// <param name="row">如果为null 则该行所有cell的值为空</param>
+        /// <param name="isHead">如果是true 则创建表头.</param>
+        private void CreateCellForRow(IRow excelRow, DataColumnCollection columns, DataRow row,bool isHead)
+        {
+            for (int i=0;i<columns.Count;i++)
+            {
+                var cell = excelRow.CreateCell(i);
+                if (isHead)
+                {
+                    cell.SetCellValue(columns[i].ColumnName);
+                }
+                else
+                {
+                    string cellValue = string.Empty;
+                    if (row != null) { cellValue = row[i].ToString(); }
+                    cell.SetCellValue(cellValue);
+                }
             }
         }
     }

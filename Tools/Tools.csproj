@@ -53,6 +53,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormatCheckDescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormatCheckDescription.Designer.cs">
+      <DependentUpon>FormatCheckDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmCheckFormat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmCheckFormat.Designer.cs">
+      <DependentUpon>FrmCheckFormat.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmExtractImage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +81,12 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormatCheckDescription.resx">
+      <DependentUpon>FormatCheckDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmCheckFormat.resx">
+      <DependentUpon>FrmCheckFormat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmExtractImage.resx">
       <DependentUpon>FrmExtractImage.cs</DependentUpon>

@@ -5,6 +5,7 @@ using System.Text;
 using NModel;
 using NDAL;
 using NLibrary;
+using System.Data;
 namespace NBiz
 {
     public class BizProduct : BLLBase<NModel.Product>
@@ -84,7 +85,8 @@ namespace NBiz
                 name,categorycode,
                 pageSize, pageIndex, out totalRecord);
         }
-       
+
+      
 
 
     }

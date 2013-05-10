@@ -24,12 +24,16 @@ namespace NBiz
             Product p = new Product();
             p.PlaceOfOrigin = row["产地"].ToString();
             p.PlaceOfDelivery = row["交货地"].ToString();
+            p.ImageState = row["图片"].ToString();
+            //p.Memo = row["备注"].ToString();
+            p.PriceDate=row["报价日期"].ToString();
+            p.PriceValidPeriod=row["报价有效期"].ToString();
             p.Name = row["产品名称"].ToString();
             //分类编码:非空,格式正确
             string categoryCode = StringHelper.ReplaceSpace(row["分类编码"].ToString());
             if (string.IsNullOrEmpty(categoryCode))
             {
-                string errmsg = string.Format("分类编码不能为空.名称:{0}", p.Name);
+                string errmsg = string.Format("分类编码不能为空.可能原因:1)分类编码为空 2)有空白行.供应商名称:{0}", p.SupplierName);
                 NLibrary.NLogger.Logger.Error(errmsg);
                 throw new Exception(errmsg);
             }
@@ -48,6 +52,7 @@ namespace NBiz
             p.Unit = row["单位"].ToString();
             p.SupplierName = row["供应商名称"].ToString();
             p.ProductDescription = row["产品描述"].ToString();
+            p.MoneyType = row["币别"].ToString();
             //nts编码
             //已删除,该类不负责nts编码的创建
 

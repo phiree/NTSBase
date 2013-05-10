@@ -23,7 +23,9 @@ namespace NBiz
         public IList<Product> Read(System.IO.Stream stream,out IList allPictures)
         {
             DataTable dt = new TransferInDatatable().CreateFromXsl(stream,false,out allPictures);
+            string supplierName = string.Empty;
 
+            
             IRowPopulate irp = RowPopulateFactory.CreatePopulator(dt);
             foreach (DataColumn col in dt.Columns)
             {
@@ -32,10 +34,46 @@ namespace NBiz
             List<Product> productList = new List<Product>();
             foreach (DataRow row in dt.Rows)
             {
-                Product p = irp.PopulateFromRow(row);
-                productList.Add(p);
+                try
+                {
+                    Product p = irp.PopulateFromRow(row);
+                    supplierName = p.SupplierName;
+                    productList.Add(p);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message + "供应商名称:" + supplierName);   //报价单有空白行 
+
+                }
             }
-            
+            return productList;
+        }
+
+        public IList<Product> Read(DataTable dt)
+        {
+           
+            IRowPopulate irp = RowPopulateFactory.CreatePopulator(dt);
+            foreach (DataColumn col in dt.Columns)
+            {
+                ColumnNameMatch(dt, col.ColumnName);
+            }
+            List<Product> productList = new List<Product>();
+            string supplierName = string.Empty;
+            foreach (DataRow row in dt.Rows)
+            {
+                try
+                {
+                    Product p = irp.PopulateFromRow(row);
+                    supplierName = p.SupplierName;
+                    productList.Add(p);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message + "供应商名称:" + supplierName);   //报价单有空白行 
+
+                }
+            }
+
             return productList;
         }
 

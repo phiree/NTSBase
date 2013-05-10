@@ -31,7 +31,11 @@ namespace NModel.Mapping
             Map(x => x.SupplierName);
             Map(x => x.TaxRate);
             Map(x => x.Unit);
-         
+            Map(x => x.PriceDate);
+            Map(x => x.PriceValidPeriod);
+            Map(x => x.MoneyType);
+            Map(x => x.ImageState);
+            References<ImportLog>(x => x.ImportLog);
         }
     }
 }

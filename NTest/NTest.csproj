@@ -67,9 +67,11 @@
     <Compile Include="NBizTest\CopyImageTest.cs" />
     <Compile Include="NBizTest\MakeThumbnailTest.cs" />
     <Compile Include="NBizTest\SupplierTest.cs" />
+    <Compile Include="NBizTest\CheckFormatTest.cs" />
     <Compile Include="NDALTest\DALBaseTest.cs" />
     <Compile Include="NDALTest\ProductDALTest.cs" />
     <Compile Include="NLibraryTest\FormatSerialNoTest.cs" />
+    <Compile Include="NLibraryTest\NPOITEst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +101,22 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="TestFiles\FormatCheck\河南华夏丝毯厂\供应商自评表.121xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\FormatCheck\河南华夏丝毯厂\华夏丝毯厂报价单.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\FormatCheck\河南华夏丝毯厂\数据交接记录表-华夏丝毯.1xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\Thumbs.db" />
+    <None Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\金源利硅胶.12xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\英文版——金源利硅胶.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\NBizTest\联丰报价单 20130108 --餐厨部.xls">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -131,6 +149,36 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\300L 5x8ft w- %286919%29.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\400L 4x6ft,122x184cm w %287299%29.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\400L 6x9ft w- %288334%29.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\400L 9x12ft w-7562.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\500L 8x10ft%28245x306cm%29_7065.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\潮州市金源利陶瓷制作有限公司\A图\j102 11.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\潮州市金源利陶瓷制作有限公司\A图\J103234钢.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\潮州市金源利陶瓷制作有限公司\B图\J10335.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\潮州市金源利陶瓷制作有限公司\B图\J10532.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\潮州市金源利陶瓷制作有限公司\潮州市金源利陶瓷制作有限公司\A图\J103234.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\NBizTest\MakeThumbnail\original\GIMS-110-BC-2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
