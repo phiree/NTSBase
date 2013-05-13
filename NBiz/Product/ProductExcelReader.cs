@@ -7,10 +7,9 @@ using NModel;
 using System.Data;
 using System.Text.RegularExpressions;
 using NLibrary;
+using System.Text;
 namespace NBiz
 {
-
-
     public class ProductExcelReader : IExcelReader<Product>
     {
         BLLBase<Supplier> bllSupplier = new BLLBase<Supplier>();
@@ -20,6 +19,8 @@ namespace NBiz
             IList allPicture;
             return Read(stream, out allPicture);
         }
+
+
         public IList<Product> Read(System.IO.Stream stream,out IList allPictures)
         {
             DataTable dt = new TransferInDatatable().CreateFromXsl(stream,false,out allPictures);
@@ -77,6 +78,13 @@ namespace NBiz
             return productList;
         }
 
+
+        public IList<Product> Read(DataTable dt, out string ReadResult)
+        {
+            StringBuilder sbResult = new System.Text.StringBuilder();
+
+            throw new NotImplementedException();
+        }
      
         
         /// <summary>

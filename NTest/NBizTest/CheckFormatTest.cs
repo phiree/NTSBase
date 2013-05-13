@@ -73,6 +73,36 @@ namespace NTest.NBizTest
         }
 
 
+        /// <summary>
+        /// 1 供应商的名称包含换行,导致无法创建文件夹.
+        /// 2 支持多种图片格式
+        /// </summary>
+        [Test]
+        public void CheckFormat_IllegalCharactorInPath()
+        {
+            IList<Product> productsHasPicture, productsNotHasPicture;
+
+            IList<FileInfo> imagesHasProduct, imagesHasNotProduct;
+            string folderName = Environment.CurrentDirectory + "\\TestFiles\\FormatCheck\\恒铵\\恒铵A级\\";
+            FormatCheck checker = new FormatCheck();
+            checker.CheckSingleFolder(folderName,
+                out productsHasPicture,
+                out productsNotHasPicture, out imagesHasProduct
+                , out imagesHasNotProduct);
+            // Assert.AreEqual("Success", FormatChecker.Check(folderContainsExcelAndImages));
+            Assert.AreEqual(14, productsHasPicture.Count);
+            Assert.AreEqual(0, productsNotHasPicture.Count);
+            Assert.AreEqual(0, imagesHasNotProduct.Count);
+            Assert.AreEqual(14, imagesHasProduct.Count);
+
+            checker.HandlerCheckResult(
+                productsHasPicture
+                , productsNotHasPicture
+                , imagesHasProduct
+                , imagesHasNotProduct
+                , Environment.CurrentDirectory + "\\TestFiles\\FormatCheck\\检测结果\\");
+        }
+
 
     }
 }

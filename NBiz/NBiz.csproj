@@ -59,6 +59,7 @@
     <Compile Include="Category\BizCategory.cs" />
     <Compile Include="Category\CategoryExcelReader.cs" />
     <Compile Include="FormatCheck.cs" />
+    <Compile Include="IExcelReader.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />
     <Compile Include="ImageOrganizer\IExtractRule.cs" />
@@ -78,8 +79,11 @@
     <Compile Include="Supplier\SupplierExcelReader.cs" />
     <Compile Include="ThumbnailMaker.cs" />
     <Compile Include="TransferInDatatable.cs" />
+    <Compile Include="Variables.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

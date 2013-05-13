@@ -79,8 +79,8 @@ namespace NBiz
 
             IExcelReader<Product> productReader = new ProductExcelReader();
             IList<Product> products = productReader.Read(stream);
-            FileInfo[] images = dir.GetFiles("*.jpg", SearchOption.AllDirectories);// dirImage.GetFiles();
-
+            FileInfo[] images = dir.GetFilesByExtensions(BizVariables.SupportImageExtensionsForImport).ToArray<FileInfo>();// dirImage.GetFiles();
+           
             productsHasPicture = new List<Product>();
             productsNotHasPicture = new List<Product>();
 
@@ -175,6 +175,7 @@ namespace NBiz
             {
                 throw new Exception("错误无法获取供应商信息.");
             }
+            supplierName= StringHelper.ReplaceInvalidChaInFileName(supplierName, string.Empty);
             dirSupplierQuanlified = IOHelper.EnsureDirectory(dirQuanlified.FullName + supplierName + "\\");
 
             dirSupplierQuanlifiedImages = IOHelper.EnsureDirectory(dirSupplierQuanlified.FullName + supplierName + "\\");

@@ -41,63 +41,7 @@ namespace Tools
             }
             
         }
-        private void CheckSingleFolder(string folderPath)
-        {
-            DirectoryInfo dir = new DirectoryInfo(folderPath);
-            FileInfo[] excelFiles = dir.GetFiles("*.xls");
-            if (excelFiles.Length != 1)
-            {
-                throw new Exception("错误,文件夹 "+folderPath+" 内有多个Excel文件,应该有且仅有一个excel文件");
-            }
-            FileInfo excelFile = excelFiles[0];
-            DirectoryInfo[] dirs = dir.GetDirectories();
-            if (dirs.Length !=1)
-            {
-                throw new Exception("错误,文件夹 " + folderPath + " 内有多个图片文件,应该有且仅有一个图片文件夹");
-            }
-            DirectoryInfo dirImage = dirs[0];
-            Stream stream = new FileStream(excelFile.FullName,FileMode.Open);
-            
-            IExcelReader<Product> productReader=new ProductExcelReader();
-            IList<Product> products = productReader.Read(stream);
-            FileInfo[] images= dirImage.GetFiles();
-
-            IList<Product> productsHasPicture = new List<Product>();
-            IList<Product> productsNotHasPicture = new List<Product>();
-
-            List<FileInfo> imagesHasProduct = new  List<FileInfo>();
-            List<FileInfo> imagesHasNotProduct = new List<FileInfo>();
-            
-            //写一个通用类,比较两个序列,返回匹配结果.
-            //Compare<T1,T2>  T1和T2需要实现他们两者比较的接口
-            foreach (Product p in products)
-            {
-                foreach (FileInfo image in images)
-                {
-                    if (Path.GetFileNameWithoutExtension(image.Name)
-                        .Equals(StringHelper.ReplaceSpace(p.ModelNumber), StringComparison.OrdinalIgnoreCase))
-                    {
-                        productsHasPicture.Add(p);
-                        imagesHasProduct.Add(image);
-                        break;
-                    }
-                }
-                productsHasPicture.Add(p);
-            }
-            foreach (FileInfo f in images)
-            {
-                foreach (FileInfo f2 in imagesHasProduct)
-                {
-                    if (f.Name.Equals(f2.Name))
-                    {
-                        break;
-                    }
-                }
-                imagesHasNotProduct.Add(f);
-            }
-
-        }
-
+      
         private void btnSelectOriginal_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)

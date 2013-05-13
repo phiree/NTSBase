@@ -101,6 +101,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="TestFiles\FormatCheck\恒铵\恒铵A级\Thumbs.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\FormatCheck\恒铵\恒铵A级\恒铵 产品报价单A图 2013.5.3.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\FormatCheck\恒铵\恒铵B级\恒铵 产品报价单B图 2013.5.6.xls" />
     <None Include="TestFiles\FormatCheck\河南华夏丝毯厂\供应商自评表.121xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -149,6 +156,54 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\B-005.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\B-007.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\B-008.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\B-009.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\B-010.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\DSCF5243.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\DSCF5244.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\HA001.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\HA002.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\HA003.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\HA004.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\HA005.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\IMG-0282.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\IMG-0297.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵B级\200743091527.jpg" />
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵B级\200743091555.jpg" />
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵B级\200743091610.jpg" />
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵B级\DSCF5227.jpg" />
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵B级\DSCF5228.jpg" />
+    <Content Include="TestFiles\FormatCheck\恒铵\恒铵B级\DSCN0019.jpg" />
     <Content Include="TestFiles\FormatCheck\河南华夏丝毯厂\河南华夏丝毯厂\300L 5x8ft w- %286919%29.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

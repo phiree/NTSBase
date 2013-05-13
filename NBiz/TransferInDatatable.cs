@@ -189,7 +189,7 @@ namespace NBiz
         /// <param name="startRowIndex">起始行,从0开始.上面的row忽略.</param>
         /// <param name="xslFileStream">Excel文件流</param>
         /// <param name="onlyCreateSchedule">只创建结构,不填充数据.</param>
-        /// <param name="allPictures">excel文件内的所有文件夹</param>
+        /// <param name="allPictures">excel文件内的所图片</param>
         /// <returns></returns>
         public DataTable CreateFromXsl(Stream xslFileStream, int startRowIndex, bool onlyCreateSchedule, out IList allPictures)
         {

@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExcelHandler</name>
+    </assembly>
+    <members>
+        <member name="T:ExcelHandler.IExcelHandlerFactory">
+            <summary>
+            Interface that defines the factory. Provides a method Create(string) returning IExcelHandler
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.IExcelHandlerFactory.Create(System.String)">
+            <summary>
+            Creates the concrete IExcelHandler implementation according to the file extension
+            </summary>
+            <param name="filename">Excel file physical location (.xls or .xlsx) according to implementation.</param>
+            <returns>An instance of the IExcelHandler according to the file extension specified.</returns>
+        </member>
+        <member name="T:ExcelHandler.EPPlus.EPPlusExcelHandler">
+            <summary>
+            EPPlus implementation of IExcelHandler
+            </summary>
+        </member>
+        <member name="T:ExcelHandler.Interfaces.IExcelHandler">
+            <summary>
+            Interface that defines an Excel handler. Provides methods for load, get sheet and save.
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.Interfaces.IExcelHandler.LoadExelFile(System.String)">
+            <summary>
+            Loads the Excel file to memory using the physical location. This method is invoked by the Factory
+            in the CreateExcelHandler method right after the constructor is called.
+            </summary>
+            <param name="fileName">
+            Excel file physical location (.xls or .xlsx) according to implementation.
+            </param>
+        </member>
+        <member name="M:ExcelHandler.Interfaces.IExcelHandler.GetSheet(System.Int32)">
+            <summary>
+            Gets the specified Excel Sheet as an IExcelSheet object depending on the implementation.
+            </summary>
+            <param name="index">Excel Sheet index starting at 1.</param>
+        </member>
+        <member name="M:ExcelHandler.Interfaces.IExcelHandler.Save">
+            <summary>
+            Saves The changes to the original Excel file.
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.Interfaces.IExcelHandler.Save(System.String)">
+            <summary>
+            Saves the changes to another file specified at filename parameter.
+            </summary>
+            <param name="filename">The physical location to save the file.</param>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelHandler.LoadExelFile(System.String)">
+            <summary>
+            Loads the Excel file to memory using the physical location. This method is invoked by the Factory
+            in the CreateExcelHandler method right after the constructor is called.
+            </summary>
+            <param name="fileName">
+            Excel file physical location (.xls or .xlsx) according to implementation.
+            </param>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelHandler.GetSheet(System.Int32)">
+            <summary>
+            Gets the specified Excel Sheet as an IExcelSheet object depending on the implementation.
+            </summary>
+            <param name="index">Excel Sheet index starting at 1.</param>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelHandler.Save">
+            <summary>
+            Saves The changes to the original Excel file.
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelHandler.Save(System.String)">
+            <summary>
+            Saves the changes to another file specified at filename parameter.
+            </summary>
+            <param name="filename">The physical location to save the file.</param>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelHandler.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:ExcelHandler.ExcelHandlerFactory">
+            <summary>
+            Quick implementation of IExcelHandlerFactory interface. Provides the method Create 
+            that handles the creation process according to the file extension (.xls or .xlsx)
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.ExcelHandlerFactory.Create(System.String)">
+            <summary>
+            Creates the concrete IExcelHandler implementation according to the file extension
+            </summary>
+            <param name="filename">Excel file physical location (.xls or .xlsx) according to implementation.</param>
+            <returns>An instance of the IExcelHandler according to the file extension specified.</returns>
+            <exception cref="T:System.ArgumentNullException">The file name can not be null.</exception>
+            <exception cref="T:System.InvalidOperationException">if the file is encrypted, this operation is not supported.</exception>
+            <exception cref="T:System.ArgumentException">The only file extensions supported are .xls and .xlsx</exception>
+        </member>
+        <member name="P:ExcelHandler.ExcelHandlerFactory.Instance">
+            <summary>
+            Gets the single instance of ExcelHandlerFactory
+            </summary>
+        </member>
+        <member name="T:ExcelHandler.Interfaces.IExcelSheet">
+            <summary>
+            Inteface that defines a worksheet. 
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.Interfaces.IExcelSheet.GetCellValue(System.Int32,System.String)">
+            <summary>
+            Gets the specified cell value as string.
+            </summary>
+            <param name="row">Cell row index starting at 1.</param>
+            <param name="column">Cell column using the format A,B,C...</param>
+            <returns>The specified cell value retrieved as string.</returns>
+        </member>
+        <member name="M:ExcelHandler.Interfaces.IExcelSheet.SetCellValue(System.Int32,System.String,System.Object)">
+            <summary>
+            Sets the specified cell value.
+            </summary>
+            <param name="row">Cell row index starting at 1.</param>
+            <param name="column">Cell column using the format A,B,C...</param>
+            <param name="value">The specified cell value to store.</param>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelSheet.GetCellValue(System.Int32,System.String)">
+            <summary>
+            Gets the specified cell value as string.
+            </summary>
+            <param name="row">Cell row index starting at 1.</param>
+            <param name="column">Cell column using the format A,B,C...</param>
+            <returns>The specified cell value retrieved as string.</returns>
+        </member>
+        <member name="M:ExcelHandler.EPPlus.EPPlusExcelSheet.SetCellValue(System.Int32,System.String,System.Object)">
+            <summary>
+            Sets the specified cell value.
+            </summary>
+            <param name="row">Cell row index starting at 1.</param>
+            <param name="column">Cell column using the format A,B,C...</param>
+            <param name="value">The specified cell value to store.</param>
+        </member>
+        <member name="T:ExcelHandler.NPOI.NpoiExcelSheet">
+            <summary>
+            NOPI implementation of IExcelSheet
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelSheet.#ctor(NPOI.SS.UserModel.Sheet)">
+            <summary>
+            Creates a new instance of NpoiExcelSheet using a Sheet from NOPI library.
+            </summary>
+            <param name="sheet"></param>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelSheet.GetCellValue(System.Int32,System.String)">
+            <summary>
+            Gets the specified cell value as string.
+            </summary>
+            <param name="row">Cell row index starting at 1.</param>
+            <param name="column">Cell column using the format A,B,C...</param>
+            <returns>The specified cell value retrieved as string.</returns>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelSheet.SetCellValue(System.Int32,System.String,System.Object)">
+            <summary>
+            Sets the specified cell value.
+            </summary>
+            <param name="row">Cell row index starting at 1.</param>
+            <param name="column">Cell column using the format A,B,C...</param>
+            <param name="value">The specified cell value to store.</param>
+        </member>
+        <member name="T:ExcelHandler.NPOI.NpoiExcelHandler">
+            <summary>
+            NPOI implementation of IExcelHandler
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelHandler.LoadExelFile(System.String)">
+            <summary>
+            Loads the Excel file to memory using the physical location. This method is invoked by the Factory
+            in the CreateExcelHandler method right after the constructor is called.
+            </summary>
+            <param name="fileName">
+            Excel file physical location (.xls or .xlsx) according to implementation.
+            </param>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelHandler.GetSheet(System.Int32)">
+            <summary>
+            Gets the specified Excel Sheet as an IExcelSheet object depending on the implementation.
+            </summary>
+            <param name="index">Excel Sheet index starting at 1.</param>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelHandler.Save">
+            <summary>
+            Saves The changes to the original Excel file.
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelHandler.Save(System.String)">
+            <summary>
+            Saves the changes to another file specified at filename parameter.
+            </summary>
+            <param name="filename">The physical location to save the file.</param>
+        </member>
+        <member name="M:ExcelHandler.NPOI.NpoiExcelHandler.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:ExcelHandler.ExcelUtils.GetColumnIndex(System.String)">
+            <summary>
+            Obtiene al número de índice de una columna Excel en el formato A,B,C, ... ZZZ, ...
+            en base a índice 1
+            </summary>
+            <param name="column">Columna Excel de la forma A, B, C, ...</param>
+            <returns>El índice en base 1</returns>
+        </member>
+    </members>
+</doc>

@@ -71,6 +71,7 @@ namespace NBiz
             ImportMsg= sbMsg.ToString();
 
         }
+        //导入Excel
         public void ImportProductFromExcel(System.IO.Stream stream)
         {
             IExcelReader<Product> productReader = new ProductExcelReader();
@@ -86,7 +87,12 @@ namespace NBiz
                 pageSize, pageIndex, out totalRecord);
         }
 
-      
+        /// <summary>
+        /// excel和图片同时导入(使用客户端 或者, 先将资料上传至服务器)
+        /// </summary>
+        /// <param name="supplierFolderPath"></param>
+        public void ImportWithExcelAndPictures(string supplierFolderPath)
+        { }
 
 
     }

@@ -20,7 +20,7 @@ namespace NModel
        /// <summary>
        /// 导入详情
        /// </summary>
-       public virtual string Log { get; set; }
+       public virtual string ImportResult { get; set; }
        /// <summary>
        /// 该文件来自哪里(部门 或者 员工,木卫六 或者 奥特星云)
        /// </summary>
@@ -29,7 +29,7 @@ namespace NModel
        /// <summary>
        /// 操作员名称
        /// </summary>
-       public string Operator { get; set; }
+       public string ImportMember { get; set; }
 
        public ImportLog()
        {

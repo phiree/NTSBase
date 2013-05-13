@@ -14,7 +14,7 @@ namespace NLibrary
        }
        public static string ReplaceInvalidChaInFileName(string input,string replacement)
        {
-           string partern = @"\\\/\:\'\?\*\<\>\|";
+           string partern = @"[\\\/\:\'\?\*\<\>\|\n]";
            return Regex.Replace(input, partern, replacement);
        }
        

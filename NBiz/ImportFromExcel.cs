@@ -38,8 +38,5 @@ namespace NBiz
     /// 从
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IExcelReader<T>
-    {
-        IList<T> Read(Stream stream);
-    }
+   
 }

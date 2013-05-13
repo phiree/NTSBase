@@ -15,8 +15,8 @@ namespace NModel.Mapping
             Map(x => x.ImportedFileName);
             HasMany(x => x.ImportedItems);
             Map(x => x.ImportTime);
-            Map(x => x.Log);
-            Map(x => x.Operator);
+            Map(x => x.ImportResult);
+            Map(x => x.ImportMember);
             
          
         }

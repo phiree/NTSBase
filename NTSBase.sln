@@ -38,6 +38,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductImageOrganizer", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{890BCD8A-B2DB-4DCD-8ED6-E2426B1F95E9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2CF8815D-7D5B-484C-B814-2C5289533EAA}"
+	ProjectSection(SolutionItems) = preProject
+		somescripts.sql = somescripts.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ExcelHandler</id>
+    <version>1.0.0</version>
+    <title>ExcelHandler</title>
+    <authors>Abel Pérez Martínez</authors>
+    <owners>Abel Pérez Martínez</owners>
+    <projectUrl>https://bitbucket.org/abelperezok/excelhandler</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This project exposes solid interfaces that contains basic operations for handling Excel files. It provides a factory that acts as a Façade to the concrete implementations with the great libraries NPOI and EPPlus.</description>
+    <summary>This project allows Excel file handling, it hides the concrete implementation from the client.</summary>
+    <releaseNotes>This is the first release. Includes:
+* ExcelHandlerFactory as Singleton.
+* Method GetSheet returning IExcelSheet object.
+* Methods GetCellValue and SetCellValue for sheets.
+* Methods Load and Save.</releaseNotes>
+    <copyright />
+    <language />
+    <tags>excel npoi epplus file spreadsheet</tags>
+    <dependencies>
+      <dependency id="NPOI" version="1.2.3" />
+      <dependency id="EPPlus" version="2.9.0.1" />
+    </dependencies>
+    <references>
+      <reference file="ExcelHandler.dll" />
+    </references>
+  </metadata>
+</package>
