@@ -12,7 +12,7 @@ namespace NBiz
     public class BizImportLog:BLLBase<ImportLog>
     {
         BizProduct bizProduct = new BizProduct();
-        IExcelReader<Product> productReader = new ProductExcelReader();
+       
         /// <summary>
         /// 
         /// </summary>
@@ -20,8 +20,12 @@ namespace NBiz
         /// <param name="finishTime"></param>
         public void Import(Stream stream, string fileName, DateTime finishTime, string from, string memberName,string importResult)
         {
-            ImportLog log = new ImportLog();
-            IList<Product> importedProducts = productReader.Read(stream);
+           ImportLog log = new ImportLog();
+            IDataTableConverter<Product> productReader = new ProductDataTableConverter();
+            NBiz.ImportToDatabaseFromExcel<Product> importor = new ImportToDatabaseFromExcel<Product>(productReader, bizProduct);
+            string errMsg;
+
+            IList<Product> importedProducts = importor.ReadList(stream,out errMsg);
 
             log.FinishTime = finishTime;
             log.From = from;

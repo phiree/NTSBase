@@ -11,32 +11,57 @@ using System.Collections;
 using System.Data;
 using System.Text.RegularExpressions;
 using NDAL;
+using NLibrary;
 namespace NBiz
-{
-    /// <summary>
+{    /// <summary>
     /// 读取excel,保存到数据库,泛型类
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ImportToDatabaseFromExcel<T>
     {
-        IExcelReader<T> excelReader;
+        IDataTableConverter<T> datatableConverter;
         BLLBase<T> bll;
-        public ImportToDatabaseFromExcel(IExcelReader<T> Reader, BLLBase<T> bll)
-        { 
-          this.excelReader=Reader;
+        public ImportToDatabaseFromExcel(IDataTableConverter<T> datatableConverter, BLLBase<T> bll)
+        {
+          this.datatableConverter = datatableConverter;
           this.bll = bll;
         }
-        public void Import(Stream stream)
+        public IList<T> ReadList(Stream stream, out string msg)
         {
-            IList<T> list = excelReader.Read(stream);
+          
+            ReadExcelToDataTable excelToDatatableReader = new ReadExcelToDataTable(stream);
+            DataTable dt = excelToDatatableReader.Read(out msg);
+            IList<T> list = datatableConverter.Convert(dt);
+            return list;
+
+        }
+        public IList<T> ReadListWithAllPictures(Stream stream, out string msg,out IList allPictures)
+        {
+
+            ReadExcelToDataTable excelToDatatableReader = new ReadExcelToDataTable(stream,true,false,1);
+            DataTable dt = excelToDatatableReader.Read(out msg);
+            allPictures = excelToDatatableReader.AllPictures;
            
-            bll.SaveList(list);
+            IList<T> list = datatableConverter.Convert(dt);
+            return list;
+
+        }
+        public void Import(Stream stream,out string importMsg)
+        {
+            string excelReadMsg,dataSaveMsg;
+            IList<T> list = ReadList(stream, out excelReadMsg);
+            bll.SaveList(list,out dataSaveMsg);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("--------Excel文件读取----------");
+            sb.AppendLine(excelReadMsg);
+            sb.AppendLine("--------数据保存----------");
+            sb.AppendLine(dataSaveMsg);
+            sb.AppendLine("-----Finished----------");
+            importMsg = sb.ToString();
         }
     }
 
-    /// <summary>
-    /// 从
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+   
+
    
 }

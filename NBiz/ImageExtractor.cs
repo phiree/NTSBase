@@ -21,11 +21,17 @@ namespace NBiz
        /// <param name="ntsCode"></param>
        public void Excute(string filePath,string savePath)
        {
-          
-           ProductExcelReader importer = new ProductExcelReader();
-           System.Collections.IList allPictures;
-           IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open), out allPictures);
 
+           BizProduct bizProduct = new BizProduct();
+           System.Collections.IList allPictures;
+           string errMsg;
+         IList<Product> products =  bizProduct.ReadListFromExcelWithAllPictures(
+             new System.IO.FileStream(filePath, System.IO.FileMode.Open)
+             , out errMsg
+             ,out allPictures
+             );
+         //  IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open), out allPictures);
+          
            if (products.Count != allPictures.Count)
            {
                throw new Exception(string.Format( "提取失败:产品和图片的数量不相等.产品:{0},图片:{1}",products.Count,allPictures.Count));

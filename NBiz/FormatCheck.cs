@@ -77,8 +77,10 @@ namespace NBiz
            // DirectoryInfo dirImage = dirs[0];
             Stream stream = new FileStream(excelFile.FullName, FileMode.Open);
 
-            IExcelReader<Product> productReader = new ProductExcelReader();
-            IList<Product> products = productReader.Read(stream);
+            IDataTableConverter<Product> productReader = new ProductDataTableConverter();
+            string errMsg;
+            DataTable dt = new NLibrary.ReadExcelToDataTable(stream).Read(out errMsg);
+            IList<Product> products = productReader.Convert(dt);
             FileInfo[] images = dir.GetFilesByExtensions(BizVariables.SupportImageExtensionsForImport).ToArray<FileInfo>();// dirImage.GetFiles();
            
             productsHasPicture = new List<Product>();

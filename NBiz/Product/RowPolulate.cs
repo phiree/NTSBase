@@ -21,6 +21,7 @@ namespace NBiz
     {
         public Product PopulateFromRow(DataRow row)
         {
+            StringBuilder sb = new StringBuilder();
             Product p = new Product();
             p.PlaceOfOrigin = row["产地"].ToString();
             p.PlaceOfDelivery = row["交货地"].ToString();

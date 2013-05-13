@@ -22,13 +22,17 @@ namespace NDAL
             session.Save(o);
             session.Flush();
         }
+        
         public virtual void SaveList(IList<T> list)
         {
+            
             foreach (T t in list)
             {
+
                 Save(t);
+                
             }
-            session.Flush();
+           
         }
         public void Update(T o)
         {
@@ -56,7 +60,7 @@ namespace NDAL
         }
         private T GetOneByQuery(IList<T> listT)
         {
-           
+
             if (listT.Count == 1)
             {
                 return listT[0];
@@ -68,13 +72,13 @@ namespace NDAL
             else
             {
                 string errmsg = "错误:GetOnByQuery应该只能返回一个值.现在有" + listT.Count + "个值返回.";
-             
+
                 NLibrary.NLogger.Logger.Error(errmsg);
                 //return listT[0];
                 throw new Exception(errmsg);
             }
         }
-       
+
         public IList<T> GetAll<T>() where T : class
         {
             session.Clear();

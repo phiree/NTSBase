@@ -6,13 +6,13 @@ using System.Data;
 using NModel;
 namespace NBiz
 {
-    public class CategoryExcelReader : IExcelReader<NModel.Category>
+    public class CategoryDataTableConverter : IDataTableConverter<NModel.Category>
     {
-        public IList<NModel.Category> Read(System.IO.Stream stream)
+        public IList<NModel.Category> Convert(DataTable dt)
         {
+           
             IList<Category> categories = new List<Category>();
-            DataTable dt = new TransferInDatatable().CreateFromXsl(stream);
-
+            
             foreach (DataRow row in dt.Rows)
             {
                 Category cate = new Category();

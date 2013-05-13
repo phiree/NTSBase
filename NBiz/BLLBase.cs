@@ -46,7 +46,12 @@ namespace NBiz
         public virtual void SaveList(IList<T> list) {
             DalBase.SaveList(list);
         }
-
+        public virtual void SaveList(IList<T> list, out string errMsg)
+    {
+        throw new Exception("Must override in child class");
+        }
+           
+    
         public IList<T> GetAll<T>() where T : class
         {
             return DalBase.GetAll<T>();

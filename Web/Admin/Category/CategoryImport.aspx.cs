@@ -16,9 +16,10 @@ public partial class Admin_Category_CategoryImport : System.Web.UI.Page
     {
         try
         {
-            bizCategory.ImportCategoryFromExcel(fuCategory.PostedFile.InputStream);
+            string errMsg;
+            bizCategory.ImportCategoryFromExcel(fuCategory.PostedFile.InputStream,out errMsg);
             lblMsg.Attributes["class"] = "success";
-            lblMsg.InnerHtml = "导入成功";
+            lblMsg.InnerHtml = errMsg;
         }
         catch (Exception ex)
         {

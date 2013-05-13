@@ -11,11 +11,18 @@ namespace NBiz
         /// stream 相对于 filepath的好处: filepath只能是服务器上的物理文件路径; stream可以是客户端文件信息(比如 fileupload 的 PostFileStream属性)
         /// </summary>
         /// <param name="stream"></param>
-        public void ImportCategoryFromExcel(System.IO.Stream stream)
+        public void ImportCategoryFromExcel(System.IO.Stream stream,out string errMsg)
         {
-            IExcelReader<Category> CategoryReader = new CategoryExcelReader();
+            IDataTableConverter<Category> CategoryReader = new CategoryDataTableConverter();
             ImportToDatabaseFromExcel<Category> importor = new ImportToDatabaseFromExcel<Category>(CategoryReader, this);
-            importor.Import(stream);
+        
+           importor.Import(stream, out errMsg);
+        }
+        public IList<Category> ReadListFromExcel(System.IO.Stream stream, out string errMsg)
+        {
+            IDataTableConverter<Category> CategoryReader = new CategoryDataTableConverter();
+            ImportToDatabaseFromExcel<Category> importor = new ImportToDatabaseFromExcel<Category>(CategoryReader, this);
+            return importor.ReadList(stream, out  errMsg);
         }
     }
 }

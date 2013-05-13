@@ -6,12 +6,11 @@ using System.Data;
 using NModel;
 namespace NBiz
 {
-    public class SupplierExcelReader:IExcelReader<NModel.Supplier>
+    public class SupplierDataConverter:IDataTableConverter<NModel.Supplier>
     {
-        public IList<NModel.Supplier> Read(System.IO.Stream stream)
+        public IList<NModel.Supplier> Convert(DataTable dt)
         {
-            DataTable dt = new TransferInDatatable().CreateFromXsl(stream);
-
+           
             List<Supplier> SupplierList = new List<Supplier>();
             foreach (DataRow row in dt.Rows)
             {

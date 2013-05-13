@@ -34,8 +34,8 @@ namespace NTest.NBizTest
             // Assert.AreEqual("Success", FormatChecker.Check(folderContainsExcelAndImages));
             Assert.AreEqual(2,productsHasPicture.Count);
                 Assert.AreEqual(1,productsNotHasPicture.Count);
-                    Assert.AreEqual(2,imagesHasNotProduct.Count);
-                    Assert.AreEqual(2, productsHasPicture.Count);
+                    Assert.AreEqual(3,imagesHasNotProduct.Count);
+                    Assert.AreEqual(2, imagesHasProduct.Count);
 
                     checker.HandlerCheckResult(
                         productsHasPicture

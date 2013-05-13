@@ -10,6 +10,10 @@ namespace NTest.NBizTest
     [TestFixture]
     public class ImportFromExcelTest
     {
+        BizProduct bizProduct = new BizProduct();
+        BizSupplier bizSupplier = new BizSupplier();
+        BizCategory bizCategory = new BizCategory();
+        string errMsg;
         [Test]
         public void ReadProductFromExcelTest()
         {
@@ -17,8 +21,9 @@ namespace NTest.NBizTest
              文件末尾有空白行
              */
             string filePath = Environment.CurrentDirectory + @"\TestFiles\NTS 产品报价单   哈慈 20130306.xls";
-            ProductExcelReader importer = new ProductExcelReader();
-            IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+        
+            IList<Product> products = bizProduct.ReadListFromExcel(new System.IO.FileStream(filePath, System.IO.FileMode.Open)
+                ,out errMsg);
 
             Assert.AreEqual(19,products.Count);
 
@@ -28,8 +33,10 @@ namespace NTest.NBizTest
         {
 
             string filePathSupplier = Environment.CurrentDirectory + @"\TestFiles\供应商104.xls";
-            SupplierExcelReader importerSupplier = new SupplierExcelReader();
-            IList<Supplier> Supplier = importerSupplier.Read(new System.IO.FileStream(filePathSupplier, System.IO.FileMode.Open));
+       
+            IList<Supplier> Supplier = bizSupplier.ReadSupplierListFromExcel(new System.IO.FileStream(filePathSupplier, System.IO.FileMode.Open)
+                ,out errMsg
+                );
 
             Assert.AreEqual(104, Supplier.Count);
         }
@@ -41,7 +48,7 @@ namespace NTest.NBizTest
         public void ReadProductWithImageFromExcelTest()
         {
 
-            string filePath = Environment.CurrentDirectory + @"\TestFiles\联丰报价单 20130108 --餐厨部2.xls";
+            string filePath = Environment.CurrentDirectory + @"\TestFiles\图片提取20130306.xls";
             string savePath = @"d:\saveimages\";
             ImageExtractor ie = new ImageExtractor();
             ie.Excute(filePath, savePath);
@@ -53,8 +60,9 @@ namespace NTest.NBizTest
         public void ReadProductFromErpExcelTest()
         {
             string filePath = Environment.CurrentDirectory + @" \TestFiles\吧台设备及用具.XLS";
-            ProductExcelReader importer = new ProductExcelReader();
-            IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+
+            IList<Product> products = bizProduct.ReadListFromExcel(new System.IO.FileStream(filePath, System.IO.FileMode.Open)
+                   , out errMsg);
 
             Assert.AreEqual(40, products.Count);
             Assert.AreEqual("01.001", products[0].CategoryCode);
@@ -65,8 +73,8 @@ namespace NTest.NBizTest
         public void ReadCategoryFromExcel()
         {
             string filePath = Environment.CurrentDirectory + @"\TestFiles\分类表.xls";
-            CategoryExcelReader importer = new CategoryExcelReader();
-            IList<Category> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+           
+            IList<Category> products = bizCategory.ReadListFromExcel(new System.IO.FileStream(filePath, System.IO.FileMode.Open),out errMsg);
 
             Assert.AreEqual(465, products.Count);
            
@@ -76,8 +84,8 @@ namespace NTest.NBizTest
         public void ReadProductErpEnglishFromExcel()
         {
             string filePath = Environment.CurrentDirectory + @"\TestFiles\英文——2013-3-26家具（brighthome）数据表.XLS";
-            ProductExcelReader importer = new ProductExcelReader();
-            IList<Product> products = importer.Read(new System.IO.FileStream(filePath, System.IO.FileMode.Open));
+            IList<Product> products = bizProduct.ReadListFromExcel(new System.IO.FileStream(filePath, System.IO.FileMode.Open)
+                , out errMsg);
 
             Assert.AreEqual(153, products.Count);
             //Assert.AreEqual("01.001", products[0].CategoryCode);
@@ -89,8 +97,9 @@ namespace NTest.NBizTest
         {
 
             string filePathSupplier = Environment.CurrentDirectory + @"\TestFiles\供应商119(WithEnglishNames)  2013-5-7.xls";
-            SupplierExcelReader importerSupplier = new SupplierExcelReader();
-            IList<Supplier> Supplier = importerSupplier.Read(new System.IO.FileStream(filePathSupplier, System.IO.FileMode.Open));
+            IList<Supplier> Supplier = bizSupplier.ReadSupplierListFromExcel(new System.IO.FileStream(filePathSupplier, System.IO.FileMode.Open)
+               , out errMsg
+               );
 
             Assert.AreEqual(119, Supplier.Count);
         }

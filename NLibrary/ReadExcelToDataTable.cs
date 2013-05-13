@@ -19,7 +19,6 @@ namespace NLibrary
     /// </summary>
     public class ReadExcelToDataTable
     {
-
         /// <summary>
         /// 是否需要获取excel文件内的所有图片
         /// </summary>
@@ -49,7 +48,7 @@ namespace NLibrary
             InputStream = inputStream;
             NeedGetAllPictures = false;
             OnlyCreateSchemar = false;
-            RowNumberBegin = 0;
+            RowNumberBegin = 1;
             SheetIndex = 0;
         }
         public ReadExcelToDataTable(Stream inputStream,bool needAllPictures
@@ -65,7 +64,7 @@ namespace NLibrary
             HSSFWorkbook book = new HSSFWorkbook(InputStream);
             if (NeedGetAllPictures)
             {
-                var allPictures = book.GetAllPictures();
+                 AllPictures = book.GetAllPictures();
             }
             var sheet = book.GetSheetAt(SheetIndex);
             DataTable dt = new DataTable();
@@ -104,7 +103,7 @@ namespace NLibrary
                     bool isEnd = true;
                     foreach (var cell in currentRow.Cells)
                     {
-                        if (!string.IsNullOrEmpty(NLibrary.StringHelper.ReplaceSpace(cell.StringCellValue)))
+                        if (!string.IsNullOrEmpty(NLibrary.StringHelper.ReplaceSpace(cell.ToString())))
                         {
                             isEnd = false;
                             break;
@@ -133,6 +132,8 @@ namespace NLibrary
             errMsg = sbErrMsg.ToString();
             return dt;
         }
+
+       
 
 
     }

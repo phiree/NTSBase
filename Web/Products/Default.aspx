@@ -12,7 +12,7 @@
 
     $(function () {
 
-        $("#<%=(TOBeContinue)tbxSupplierName.ClientID %>").autocomplete({
+        $("#aa<%=tbxSupplierName.ClientID %>").autocomplete({
             source: function (request, response) {
                 $.ajax({
                     url: "/services/supplierlist.ashx",

@@ -7,52 +7,19 @@ using NModel;
 using System.Data;
 using System.Text.RegularExpressions;
 using NLibrary;
-using System.Text;
+
 namespace NBiz
 {
-    public class ProductExcelReader : IExcelReader<Product>
+    /// <summary>
+    /// 应该是 DataTable转成 IList<T>
+    /// </summary>
+   
+    public class ProductDataTableConverter : IDataTableConverter<Product>
     {
-        BLLBase<Supplier> bllSupplier = new BLLBase<Supplier>();
-       // SerialNumberManager snm = new SerialNumberManager();
-        StringBuilder sbReadMsg = new StringBuilder();
-        public IList<Product> Read(System.IO.Stream stream) {
-            IList allPicture;
-            return Read(stream, out allPicture);
-        }
-
-
-        public IList<Product> Read(System.IO.Stream stream,out IList allPictures)
+        //如果出错,则抛出异常.
+        public IList<Product> Convert(DataTable dt)
         {
-            DataTable dt = new TransferInDatatable().CreateFromXsl(stream,false,out allPictures);
-            string supplierName = string.Empty;
-
-            
-            IRowPopulate irp = RowPopulateFactory.CreatePopulator(dt);
-            foreach (DataColumn col in dt.Columns)
-            {
-                ColumnNameMatch(dt, col.ColumnName);
-            }
-            List<Product> productList = new List<Product>();
-            foreach (DataRow row in dt.Rows)
-            {
-                try
-                {
-                    Product p = irp.PopulateFromRow(row);
-                    supplierName = p.SupplierName;
-                    productList.Add(p);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message + "供应商名称:" + supplierName);   //报价单有空白行 
-
-                }
-            }
-            return productList;
-        }
-
-        public IList<Product> Read(DataTable dt)
-        {
-           
+            StringBuilder sb = new System.Text.StringBuilder();
             IRowPopulate irp = RowPopulateFactory.CreatePopulator(dt);
             foreach (DataColumn col in dt.Columns)
             {
@@ -62,31 +29,15 @@ namespace NBiz
             string supplierName = string.Empty;
             foreach (DataRow row in dt.Rows)
             {
-                try
-                {
+               
                     Product p = irp.PopulateFromRow(row);
                     supplierName = p.SupplierName;
                     productList.Add(p);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message + "供应商名称:" + supplierName);   //报价单有空白行 
-
-                }
+               
             }
-
+          
             return productList;
         }
-
-
-        public IList<Product> Read(DataTable dt, out string ReadResult)
-        {
-            StringBuilder sbResult = new System.Text.StringBuilder();
-
-            throw new NotImplementedException();
-        }
-     
-        
         /// <summary>
         /// 列名容错
         /// </summary>
@@ -98,7 +49,7 @@ namespace NBiz
             columnsEasyToSpellWrong.Add("规格参数", ".*规格.*参数.*");
             columnsEasyToSpellWrong.Add("产地", "产地|开票地");
             //英文列名匹配
-          //  columnsEasyToSpellWrong.Add("生产周期", ".*生产周期.*");
+            //  columnsEasyToSpellWrong.Add("生产周期", ".*生产周期.*");
             // {"*生产周期*","*最小起定量*" };
             foreach (KeyValuePair<string, string> columnNamePatern in columnsEasyToSpellWrong)
             {
@@ -108,5 +59,6 @@ namespace NBiz
                 }
             }
         }
+
     }
 }

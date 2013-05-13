@@ -9,11 +9,17 @@ namespace NBiz
    public class BizSupplier:BLLBase<NModel.Supplier>
    {
        DALSupplier dalSupplier = new DALSupplier();
-      public void ImportSupplierFromExcel(System.IO.Stream stream)
+       public void ImportSupplierFromExcel(System.IO.Stream stream,out string errmsg)
        {
-           IExcelReader<Supplier> supplierReader = new SupplierExcelReader();
+           IDataTableConverter<Supplier> supplierReader = new SupplierDataConverter();
            ImportToDatabaseFromExcel<Supplier> importor = new ImportToDatabaseFromExcel<Supplier>(supplierReader, this);
-           importor.Import(stream);
+           importor.Import(stream,out errmsg);
+       }
+       public IList<Supplier> ReadSupplierListFromExcel(System.IO.Stream stream, out string errmsg)
+       {
+           IDataTableConverter<Supplier> supplierReader = new SupplierDataConverter();
+           ImportToDatabaseFromExcel<Supplier> importor = new ImportToDatabaseFromExcel<Supplier>(supplierReader, this);
+          return importor.ReadList(stream, out errmsg);
        }
       public override void SaveList(IList<Supplier> list)
       {

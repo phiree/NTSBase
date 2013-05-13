@@ -17,7 +17,7 @@
 <asp:BoundField   HeaderText="产地" DataField="PlaceOfOrigin"/>
 <asp:BoundField   HeaderText="发货地" DataField="PlaceOfDelivery"/>
 <asp:BoundField   HeaderText="税率" DataField="TaxRate"/>
-<asp:BoundField   HeaderText="起定量" DataField="PlaceOfOrigin"/>
+<asp:BoundField   HeaderText="起定量" DataField="OrderAmountMin"/>
 <asp:BoundField   HeaderText="生产周期" DataField="ProductionCycle"/>
 
 <asp:BoundField   HeaderText="最后修改日期" DataField="LastUpdateTime"/>
