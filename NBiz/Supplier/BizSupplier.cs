@@ -27,10 +27,6 @@ namespace NBiz
        {
            return dalSupplier.Search(name, pageIndex, pageSize, out recordCount);
        }
-       public Supplier GetListBySupplierName(string supplierName, string englishName)
-       {
-           return dalSupplier.GetOneByName(supplierName, englishName);
-       }
-      
+       
     }
 }

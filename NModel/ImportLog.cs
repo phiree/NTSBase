@@ -25,11 +25,11 @@ namespace NModel
        /// 该文件来自哪里(部门 或者 员工,木卫六 或者 奥特星云)
        /// </summary>
        public virtual string From { get; set; }
-       public IList<Product> ImportedItems { get; set; }
+       public virtual IList<Product> ImportedItems { get; set; }
        /// <summary>
        /// 操作员名称
        /// </summary>
-       public string ImportMember { get; set; }
+       public virtual string ImportMember { get; set; }
 
        public ImportLog()
        {

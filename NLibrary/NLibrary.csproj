@@ -48,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,6 +62,7 @@
     <Compile Include="FormatSerialNo.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="IOHelper.cs" />
+    <Compile Include="JSONHelper.cs" />
     <Compile Include="NLogger.cs" />
     <Compile Include="ParameterCheck.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

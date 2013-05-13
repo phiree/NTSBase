@@ -79,7 +79,7 @@ namespace NLibrary
         {
             if (extensions == null)
                 throw new ArgumentNullException("extensions");
-            IEnumerable<FileInfo> files = dir.EnumerateFiles();
+            IEnumerable<FileInfo> files = dir.GetFiles("*", SearchOption.AllDirectories);
             return files.Where(f => extensions.Contains(f.Extension.ToLower()));
         }
     }

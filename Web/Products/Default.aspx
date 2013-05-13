@@ -2,6 +2,51 @@
     CodeFile="Default.aspx.cs" Inherits="Products_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script src="/Scripts/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-1.10.2.min.js" type="text/javascript"></script>
+    <link href="/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/themes/base/minified/jquery.ui.autocomplete.min.css" rel="stylesheet"
+        type="text/css" />
+<script language="javascript" type="text/javascript">
+
+
+    $(function () {
+
+        $("#<%=(TOBeContinue)tbxSupplierName.ClientID %>").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/services/supplierlist.ashx",
+                    dataType: "json",
+                    data: {
+                        
+                        style: "full",
+                        maxRows: 12,
+                        name_startsWith: request.term
+                    },
+                    success: function (data) {
+                       
+                        response($.map(data, function (item) {
+                        
+                            var o = {
+                                label: item.Name,
+                                value: item.Name+"-英文名称:"+item.EnglishName
+                            }
+                        return o;
+                        }));
+                    }
+                });
+            },
+            minLength: 2,
+           
+            open: function () {
+                $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+            },
+            close: function () {
+                $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+            }
+        });
+    });
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <fieldset>

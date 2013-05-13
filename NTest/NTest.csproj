@@ -101,6 +101,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="TestFiles\FormatCheck\巴非\巴菲 报价单.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\FormatCheck\恒铵\恒铵A级\Thumbs.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -156,6 +159,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="TestFiles\FormatCheck\巴非\图片\BM503A.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\FormatCheck\巴非\图片\DSCF5244.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="TestFiles\FormatCheck\恒铵\恒铵A级\B-005.tif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -243,6 +252,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TestFiles\NBizTest\MakeThumbnail\thumbnail\" />
+    <Folder Include="TestFiles\NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
