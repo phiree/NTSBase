@@ -16,13 +16,20 @@ namespace NBiz
             IDataTableConverter<Category> CategoryReader = new CategoryDataTableConverter();
             ImportToDatabaseFromExcel<Category> importor = new ImportToDatabaseFromExcel<Category>(CategoryReader, this);
         
-           importor.Import(stream, out errMsg);
+           importor.ImportXslData(stream, out errMsg);
         }
         public IList<Category> ReadListFromExcel(System.IO.Stream stream, out string errMsg)
         {
             IDataTableConverter<Category> CategoryReader = new CategoryDataTableConverter();
             ImportToDatabaseFromExcel<Category> importor = new ImportToDatabaseFromExcel<Category>(CategoryReader, this);
             return importor.ReadList(stream, out  errMsg);
+        }
+        public override IList<Category> SaveList(IList<Category> list, out string errMsg)
+        {
+            errMsg = string.Empty;
+            base.SaveList(list);
+            return list;
+            
         }
     }
 }

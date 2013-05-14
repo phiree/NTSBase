@@ -20,13 +20,11 @@ namespace NBiz
         /// <param name="finishTime"></param>
         public void Import(Stream stream, string fileName, DateTime finishTime, string from, string memberName,string importResult)
         {
-           ImportLog log = new ImportLog();
+            ImportLog log = new ImportLog();
             IDataTableConverter<Product> productReader = new ProductDataTableConverter();
             NBiz.ImportToDatabaseFromExcel<Product> importor = new ImportToDatabaseFromExcel<Product>(productReader, bizProduct);
             string errMsg;
-
             IList<Product> importedProducts = importor.ReadList(stream,out errMsg);
-
             log.FinishTime = finishTime;
             log.From = from;
             log.ImportedFileName = fileName;
@@ -36,7 +34,8 @@ namespace NBiz
 
             Save(log);
            //data
-
         }
+   
+        
     }
 }

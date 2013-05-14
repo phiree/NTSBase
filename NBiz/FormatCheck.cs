@@ -98,7 +98,7 @@ namespace NBiz
                 foreach (FileInfo image in images)
                 {
                     string imageName = StringHelper.ReplaceSpace(Path.GetFileNameWithoutExtension(image.Name));
-                    Console.WriteLine("imageName:" + imageName);
+                    Console.Write("imageName:" + imageName);
                     if (imageName
                         .Equals(StringHelper.ReplaceSpace(p.ModelNumber), StringComparison.OrdinalIgnoreCase))
                     {

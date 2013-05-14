@@ -23,34 +23,34 @@ namespace NBiz
         BLLBase<T> bll;
         public ImportToDatabaseFromExcel(IDataTableConverter<T> datatableConverter, BLLBase<T> bll)
         {
-          this.datatableConverter = datatableConverter;
-          this.bll = bll;
+            this.datatableConverter = datatableConverter;
+            this.bll = bll;
         }
         public IList<T> ReadList(Stream stream, out string msg)
         {
-          
+
             ReadExcelToDataTable excelToDatatableReader = new ReadExcelToDataTable(stream);
             DataTable dt = excelToDatatableReader.Read(out msg);
             IList<T> list = datatableConverter.Convert(dt);
             return list;
 
         }
-        public IList<T> ReadListWithAllPictures(Stream stream, out string msg,out IList allPictures)
+        public IList<T> ReadListWithAllPictures(Stream stream, out string msg, out IList allPictures)
         {
 
-            ReadExcelToDataTable excelToDatatableReader = new ReadExcelToDataTable(stream,true,false,1);
+            ReadExcelToDataTable excelToDatatableReader = new ReadExcelToDataTable(stream, true, false, 1);
             DataTable dt = excelToDatatableReader.Read(out msg);
             allPictures = excelToDatatableReader.AllPictures;
-           
+
             IList<T> list = datatableConverter.Convert(dt);
             return list;
 
         }
-        public void Import(Stream stream,out string importMsg)
+        public IList<T> ImportXslData(Stream stream, out string importMsg)
         {
-            string excelReadMsg,dataSaveMsg;
+            string excelReadMsg, dataSaveMsg;
             IList<T> list = ReadList(stream, out excelReadMsg);
-            bll.SaveList(list,out dataSaveMsg);
+            IList<T> savedList = bll.SaveList(list, out dataSaveMsg);
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("--------Excel文件读取----------");
             sb.AppendLine(excelReadMsg);
@@ -58,10 +58,11 @@ namespace NBiz
             sb.AppendLine(dataSaveMsg);
             sb.AppendLine("-----Finished----------");
             importMsg = sb.ToString();
+            return savedList;
         }
     }
 
-   
 
-   
+
+
 }

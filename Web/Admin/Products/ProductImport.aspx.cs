@@ -16,10 +16,11 @@ public partial class Admin_Products_ProductImport : System.Web.UI.Page
     {
         try
         {
-            bizProduct.ImportProductFromExcel(fuProduct.PostedFile.InputStream);
+            string errMsg;
+            bizProduct.ImportProductFromExcel(fuProduct.PostedFile.InputStream,out errMsg);
            
             lblMsg.Attributes["class"] = "success";
-            lblMsg.InnerHtml = bizProduct.ImportMsg;
+            lblMsg.InnerHtml = errMsg;
         }
         catch (Exception ex){
             lblMsg.Attributes["class"] = "error";
