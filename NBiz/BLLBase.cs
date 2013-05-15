@@ -50,7 +50,18 @@ namespace NBiz
     {
         throw new Exception("Must override in child class");
         }
-           
+         /// <summary>
+         /// 保存数据库之前的筛选.
+         ///  product:筛选有图片的产品 
+         /// </summary>
+         /// <param name="originalList"></param>
+         /// <param name="filterResult"></param>
+         /// <returns></returns>
+        public IList<T> FilterBeforeSave(IList<T> originalList, out string filterResult)
+        {
+            filterResult=string.Empty;
+            return originalList;
+        }
     
         public IList<T> GetAll<T>() where T : class
         {

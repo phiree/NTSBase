@@ -8,8 +8,27 @@ using System.Data;
 using NLibrary;
 namespace NBiz
 {
-    public class FormatCheck
+    //导入数据
+    /// <summary>
+    /// 检查数据有效性
+    /// 1) excel 文件有孝心(格式,值的格式)
+    /// 2) 图片有效性(是否与excel里的产品型号对应)
+    /// 3) 结合数据库检查 数据有效性.
+    ///将数据导入
+    /// </summary>
+    public class ProductImportor
     {
+
+        public bool CheckWithDatabase { get; set; }
+        /// <summary>
+        /// 由excel文件创建的流
+        /// </summary>
+        public Stream ExcelStream { get; set; }
+
+        public void ImportImagesOnly(string folderPath)
+        { 
+            
+        }
 
         public void Check(string originalFolder,string outFolder)
         {
@@ -34,31 +53,47 @@ namespace NBiz
             
         }
 
-
+        /// <summary>
+        /// 读取Excel文件
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="outSavePath"></param>
         public void CheckAndSaveSingleFold(string folderPath,string outSavePath)
         {
             IList<Product> productsHasPicture, productsNotHasPicture;
 
             IList<FileInfo> imagesHasProduct, imagesHasNotProduct;
             string folderName = folderPath;
-            FormatCheck checker = new FormatCheck();
-            checker.CheckSingleFolder(folderName,
+          
+            CheckSingleFolder(folderName,
                 out productsHasPicture,
                 out productsNotHasPicture, out imagesHasProduct
                 , out imagesHasNotProduct);
             // Assert.AreEqual("Success", FormatChecker.Check(folderContainsExcelAndImages));
 
-            checker.HandlerCheckResult(
+            HandlerCheckResult(
                 productsHasPicture
                 , productsNotHasPicture
                 , imagesHasProduct
                 , imagesHasNotProduct
                 , outSavePath);
         }
-
-        public void CheckSingleFolder(string folderPath,
-            out IList<Product> productsHasPicture
+        /// <summary>
+        /// 文件结构检查
+        ///  正确结构: Folder-|
+        ///                   -xls文件.xls
+        ///                   -图片文件夹
+        ///  excel读取为              
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="productsHasPicture"></param>
+        /// <param name="productsNotHasPicture"></param>
+        /// <param name="imagesHasProduct"></param>
+        /// <param name="imagesHasNotProduct"></param>
+        public void CheckSingleFolder(string folderPath
+           , out IList<Product> productsHasPicture
             , out IList<Product> productsNotHasPicture
+        
             , out IList<FileInfo> imagesHasProduct
             , out IList<FileInfo> imagesHasNotProduct)
         {
@@ -81,8 +116,23 @@ namespace NBiz
             string errMsg;
             DataTable dt = new NLibrary.ReadExcelToDataTable(stream).Read(out errMsg);
             IList<Product> products = productReader.Convert(dt);
+            CheckProductImages(products, folderPath, out productsHasPicture
+           , out productsNotHasPicture
+           , out  imagesHasProduct
+           , out  imagesHasNotProduct);
+
+
+        }
+
+        public void CheckProductImages(IList<Product> products, string ImageFolder,
+           out IList<Product> productsHasPicture
+           , out IList<Product> productsNotHasPicture
+           , out IList<FileInfo> imagesHasProduct
+           , out IList<FileInfo> imagesHasNotProduct)
+        {
+            DirectoryInfo dir = new DirectoryInfo(ImageFolder);
             FileInfo[] images = dir.GetFilesByExtensions(BizVariables.SupportImageExtensionsForImport).ToArray<FileInfo>();// dirImage.GetFiles();
-           
+
             productsHasPicture = new List<Product>();
             productsNotHasPicture = new List<Product>();
 
@@ -129,9 +179,8 @@ namespace NBiz
                     imagesHasNotProduct.Add(f);
                 }
             }
-
         }
-
+      
         /*
          导入结构:
          * 总目录-|

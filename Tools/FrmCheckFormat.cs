@@ -21,7 +21,7 @@ namespace Tools
            
             InitializeComponent();
         }
-        FormatCheck bizFormatCheck = new NBiz.FormatCheck();
+        ProductImportor bizFormatCheck = new NBiz.ProductImportor();
         private void btnCheck_Click(object sender, EventArgs e)
         {
             /*

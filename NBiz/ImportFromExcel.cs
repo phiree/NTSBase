@@ -14,7 +14,7 @@ using NDAL;
 using NLibrary;
 namespace NBiz
 {    /// <summary>
-    /// 读取excel,保存到数据库,泛型类
+    /// 读取excel,保存到数据库,泛型类,不太适合产品导入,因为需要图片
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ImportToDatabaseFromExcel<T>
@@ -50,6 +50,8 @@ namespace NBiz
         {
             string excelReadMsg, dataSaveMsg;
             IList<T> list = ReadList(stream, out excelReadMsg);
+            //导入数据库钱 需要做其他非数据库筛选
+
             IList<T> savedList = bll.SaveList(list, out dataSaveMsg);
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("--------Excel文件读取----------");
@@ -60,6 +62,8 @@ namespace NBiz
             importMsg = sb.ToString();
             return savedList;
         }
+
+
     }
 
 

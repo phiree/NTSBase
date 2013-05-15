@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="Category\BizCategory.cs" />
     <Compile Include="Category\CategoryExcelReader.cs" />
-    <Compile Include="FormatCheck.cs" />
+    <Compile Include="Product\FormatCheck.cs" />
     <Compile Include="IDataTableConverter.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />
@@ -71,7 +71,7 @@
     <Compile Include="ImageCopy.cs" />
     <Compile Include="ImageExtractor.cs" />
     <Compile Include="ImportFromExcel.cs" />
-    <Compile Include="Product\ProductExcelReader.cs" />
+    <Compile Include="Product\ProductDataTableConverter.cs" />
     <Compile Include="Product\RowPolulate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialNumberManager.cs" />
