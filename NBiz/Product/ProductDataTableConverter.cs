@@ -32,6 +32,10 @@ namespace NBiz
                
                     Product p = irp.PopulateFromRow(row);
                     supplierName = p.SupplierName;
+                    if (productList.Where(x => x.SupplierName == p.SupplierName&&p.ModelNumber==x.ModelNumber).ToArray().Length > 0)
+                    {
+                        throw new Exception("错误: 供应商名称 和 型号均相同:"+p.SupplierName+","+p.ModelNumber);
+                    }
                     productList.Add(p);
                
             }

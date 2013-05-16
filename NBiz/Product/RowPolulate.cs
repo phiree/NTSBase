@@ -51,7 +51,7 @@ namespace NBiz
             p.ModelNumber = modelNumber;
             p.ProductParameters = row["规格参数"].ToString();
             p.Unit = row["单位"].ToString();
-            p.SupplierName = row["供应商名称"].ToString();
+            p.SupplierName = StringHelper.ReplaceInvalidChaInFileName(row["供应商名称"].ToString());
             p.ProductDescription = row["产品描述"].ToString();
             p.MoneyType = row["币别"].ToString();
             //nts编码

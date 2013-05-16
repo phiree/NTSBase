@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="Category\BizCategory.cs" />
     <Compile Include="Category\CategoryExcelReader.cs" />
-    <Compile Include="Product\FormatCheck.cs" />
+    <Compile Include="Product\ProductImportor.cs" />
     <Compile Include="IDataTableConverter.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
     <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />

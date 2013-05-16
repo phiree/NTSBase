@@ -82,5 +82,17 @@ namespace NLibrary
             IEnumerable<FileInfo> files = dir.GetFiles("*", SearchOption.AllDirectories);
             return files.Where(f => extensions.Contains(f.Extension.ToLower()));
         }
+        public static IEnumerable<FileInfo> GetImageFiles(this DirectoryInfo dir)
+        {
+            return GetFilesByExtensions(dir, new string[]{".bmp"
+                                                        ,".gif"
+                                                        ,".jpg"
+                                                        ,".png"
+                                                        ,".psd"
+                                                        ,".pspimage"
+                                                        ,".thm"
+                                                        ,".tif"
+                                                        ,".yuv"});
+        }
     }
 }

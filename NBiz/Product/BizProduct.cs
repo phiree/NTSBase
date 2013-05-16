@@ -12,7 +12,7 @@ namespace NBiz
     {
         FormatSerialNoUnit serialNoUnit = new FormatSerialNoUnit(new DALFormatSerialNo());
         DALSupplier _dalSupplier;
-        DALSupplier DalSupplier
+       public  DALSupplier DalSupplier
         {
             get
             {
@@ -23,7 +23,12 @@ namespace NBiz
                 return _dalSupplier;
 
             }
+            set {
+                _dalSupplier = value;
+            }
         }
+        DalBase<Product> dalProduct = new DALProduct();
+        
         
         public string ImportMsg { get; set; }
         /// <summary>
@@ -83,7 +88,7 @@ namespace NBiz
 
 
             sbMsg.AppendLine("---------可导入/待导入数量:" + listToBeSaved.Count + "/" + list.Count + "<br/>");
-            ((DALProduct)DalBase).SaveList(listToBeSaved);
+            ((DALProduct)dalProduct).SaveList(listToBeSaved);
             sbMsg.AppendLine("---------导入完成----:" + listToBeSaved.Count + "<br/>");
             serialNoUnit.Save();
             sbMsg.AppendLine("---------NTS编码已生成----:" + listToBeSaved.Count + "<br/>");
@@ -171,7 +176,7 @@ namespace NBiz
             string name, string categorycode,
             int pageSize, int pageIndex, out int totalRecord)
         {
-            return ((DALProduct)DalBase).Search(supplierName, model, hasPhoto,
+             return ((DALProduct)dalProduct).Search(supplierName, model, hasPhoto,
                 name, categorycode,
                 pageSize, pageIndex, out totalRecord);
         }

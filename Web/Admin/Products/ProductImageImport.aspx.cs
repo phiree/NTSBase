@@ -14,7 +14,7 @@ public partial class Admin_Products_ProductImageImport : System.Web.UI.Page
     }
     private void Import()
     {
-        Organizer org = new Organizer();
+        ProductImageImporter org = new ProductImageImporter();
         //org.Execute(Server.MapPath("/ProductImages/"),
     }
 }

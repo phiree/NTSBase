@@ -25,7 +25,7 @@ namespace NDAL
                 base.Save(o);
             }
         }
-        public Product GetOneByModelNumberAndSupplier(string modelNumber, string supplierCode)
+        public  virtual Product GetOneByModelNumberAndSupplier(string modelNumber, string supplierCode)
         {
             NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.SupplierCode == supplierCode)
                 .And(x => x.ModelNumber == modelNumber);

@@ -34,7 +34,7 @@ namespace Tools
              */
             //1
 
-            bizFormatCheck.Check(tbxOriginal.Text, tbxOut.Text);
+            bizFormatCheck.Import(tbxOriginal.Text, tbxOut.Text);
             if (MessageBox.Show("检测完成.即将打开结果文件夹.") == System.Windows.Forms.DialogResult.OK)
             {
                 System.Diagnostics.Process.Start(tbxOut.Text);

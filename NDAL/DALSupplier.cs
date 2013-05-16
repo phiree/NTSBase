@@ -41,7 +41,7 @@ namespace NDAL
                 base.Save(o);
             }
         }
-        public NModel.Supplier GetOneByName(string supplierName)
+        public virtual NModel.Supplier GetOneByName(string supplierName)
         {
             NHibernate.IQueryOver<NModel.Supplier> iqueryOver = session.QueryOver<NModel.Supplier>()
                 .Where(x => (supplierName!=string.Empty)&&(x.EnglishName==supplierName|| x.Name == supplierName));

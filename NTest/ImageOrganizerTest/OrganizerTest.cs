@@ -10,9 +10,9 @@ namespace NTest
         
         public void ExecuteTest()
         {
-            NBiz.Organizer oer = new NBiz.Organizer();
+            NBiz.ProductImageImporter oer = new NBiz.ProductImageImporter();
             string msg;
-            var list = oer.Execute(@"E:\workspace\code\resources\导入资料\datafiles\待导入\"
+            var list = oer.ImportImage(@"E:\workspace\code\resources\导入资料\datafiles\待导入\"
                 , @"Y:\original\", out msg);
 
             Console.Write(msg);

@@ -8,9 +8,11 @@ using NDAL;
 namespace NBiz
 {
     /// <summary>
-    /// 图片整理
+    /// 复制产品对应的图片
+    /// 如果是为已经导入的产品复制图片则:  图片和产品的关联关系: 图片名称==产品型号,图片所在文件夹名称=供应商名称.
+    /// 如果是同时导入excel文件里的产品 和 相关图片, 则 只需要对比 型号
     /// </summary>
-   public class Organizer
+   public class ProductImageImporter
     {
        DALSupplier dalSupplier = new DALSupplier();
        DALProduct dalProduct = new DALProduct();
@@ -18,7 +20,7 @@ namespace NBiz
        /// 扫描指定文件夹,根绝文件夹和图片名称提取图片信息
        /// <param name="targetPath">拷贝的目标地址,应该为网站的虚拟目录的物理路径</param>
        /// </summary>
-       public IList<ImageInfo> Execute(string folderPath ,string targetPath,out string message)
+       public IList<ImageInfo> ImportImage(string folderPath ,string targetPath,out string message)
        {
            StringBuilder sb = new StringBuilder();
            IList<ImageInfo> images = new List<ImageInfo>();
@@ -101,6 +103,18 @@ namespace NBiz
            message = sb.ToString();
            return images;
        }
+
+       /// <summary>
+       /// 根据产品信息 导入 图片
+       /// </summary>
+       /// <param name="productList"></param>
+       /// <param name="images"></param>
+       /// <param name="targetPath"></param>
+       /// <param name="message"></param>
+       /// <param name="needCompareSupplierName">是否需要结合供应商名称筛选图片</param>
+       /// <returns></returns>
+    
+
     }
 
     

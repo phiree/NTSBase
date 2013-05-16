@@ -17,6 +17,11 @@ namespace NLibrary
            string partern = @"[\\\/\:\'\?\*\<\>\|\n]";
            return Regex.Replace(input, partern, replacement);
        }
+       public static string ReplaceInvalidChaInFileName(string input)
+       {
+         
+           return ReplaceInvalidChaInFileName(input, string.Empty);
+       }
        
     }
 }
