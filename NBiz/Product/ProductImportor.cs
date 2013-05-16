@@ -117,6 +117,8 @@ namespace NBiz
                 out imagesHasProduct
                 , out imagesHasNotProduct);
      
+            //将结果保存到数据库
+            BizProduct.SaveList(productsHasPicture);
             //结果保存到文件夹
             DateTime beginSaveResultToDisk = DateTime.Now;
             HandlerCheckResult(
