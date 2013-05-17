@@ -6,13 +6,16 @@
 <fieldset>
 <legend>已上传的数据</legend>
 <div style="float:left">
-<asp:TreeView runat="server" ID="tr" ShowLines="true"  ShowCheckBoxes="All"></asp:TreeView>
+<asp:TreeView runat="server" ID="tr"  ShowExpandCollapse="false"  ShowCheckBoxes="All"></asp:TreeView>
 </div>
 </fieldset>
+来源:<asp:TextBox runat="server" ID="tbxFrom"></asp:TextBox>
+数据完成时间:
+<asp:TextBox runat="server" ID="tbxFinishTime"></asp:TextBox>
 
 <uc:ButtonExt runat="server" id="btnImport"  OnClick="btnImport_Click" Text="开始导入" />
 <div>
-<asp:TextBox runat="server" ID="tbxMsg"  TextMode="MultiLine" Rows="40"></asp:TextBox>
+<asp:TextBox Width="100%"  Enabled="false" runat="server" ID="tbxMsg"  TextMode="MultiLine" Rows="40"></asp:TextBox>
 </div>
 </asp:Content>
 

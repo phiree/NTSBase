@@ -32,8 +32,11 @@ namespace NTest.NBizTest
                 .IgnoreArguments()
                 ;
             DateTime beginInvockTest = DateTime.Now;
+            dalProduct.Expect(x => x.SaveList(new List<Product>())).IgnoreArguments();
+                
+
             dalProduct.Expect(x => x.GetOneByModelNumberAndSupplier("J10335", "001"))
-                .Return(Builder<Product>.CreateNew().Build());
+             .Return(Builder<Product>.CreateNew().Build());
             //mock对象严重影响性能, Time Cost EndMock:17.6875;ook 19.02 seconds 
             Console.WriteLine("Time Cost EndMock:" + (DateTime.Now - beginMock).TotalSeconds);
          
@@ -45,12 +48,7 @@ namespace NTest.NBizTest
             
         }
 
-        [Test]
-        public void CheckFormat2()
-        {
-            CheckSingleFolderTest("河南华夏丝毯厂", 0, 5, 0, 5,false,null,null);
-           
-        }
+        
 
 
         /// <summary>
@@ -128,8 +126,17 @@ namespace NTest.NBizTest
            {
                dirOfSavedSupplier.Delete(true);
            }
-         
+           string supplierName = string.Empty;
+           if (productsExistedInDB.Count > 0) supplierName = productsExistedInDB[0].SupplierName;
+           else if (productsHasPicture.Count > 0) supplierName = productsHasPicture[0].SupplierName;
+           else if (productsNotHasPicture.Count > 0) supplierName = productsNotHasPicture[0].SupplierName;
+           else
+           {
+               return;
+           }
+           supplierName = StringHelper.ReplaceInvalidChaInFileName(supplierName, string.Empty);
            checker.HandlerCheckResult(
+               supplierName,
                  productsHasPicture
                 , productsNotHasPicture
                 , productsExistedInDB

@@ -29,6 +29,7 @@
                     <li><a href="/admin/Supplier/SupplierImport.aspx">导入供应商Excel</a></li>
                     <li><a href="/admin/Category/Categoryimport.aspx">导入分类Excel</a></li>
                     <li><a href="/admin/Category/">分类列表</a></li>
+                    <li><a href="/admin/OperationLog/">导入记录</a></li>
                 </ul>
             </div>
             <div class="span-19 last" id="mainContent">

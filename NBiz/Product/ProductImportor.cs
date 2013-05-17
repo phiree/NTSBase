@@ -41,24 +41,33 @@ namespace NBiz
 
 
 
-        public IList<Product> Result_productsHasPicture { private set; get; }
-        public IList<Product> Result_productsNotHasPicture { private set; get; }
-        public IList<Product> Result_productsExistedInDB { private set; get; }
-        public IList<FileInfo> Result_imagesHasProduct { private set; get; }
-        public IList<FileInfo> Result_imagesHasNotProduct { private set; get; }
-        public ProductImportor() { }
-        public ProductImportor(bool checkWithDb):this()
+        public IList<Product> Result_ProductsSuccessImported { private set; get; }
+       
+        public ProductImportor() {
+            Result_ProductsSuccessImported = new List<Product>();
+        }
+        public string WebProductImagesPath { get; set; }
+        public ProductImportor(bool checkWithDb)
+            : this()
         {
             CheckWithDatabase = checkWithDb;
         }
 
         StringBuilder sbMsg = new StringBuilder();
+        StringBuilder sbMsgForLog = new StringBuilder();
         public string ImportMsg
         {
             get
             {
                 return sbMsg.ToString();
             }
+        }
+        /// <summary>
+        /// 保存到操作记录里的记录., 不记录具体产品信息,只记录数量 控制字符串长度
+        /// </summary>
+        public string ImportMsgForLog
+        {
+            get { return sbMsgForLog.ToString(); }
         }
         public void Import(DirectoryInfo[] originalFolders, string outFolder
 
@@ -68,11 +77,13 @@ namespace NBiz
             sbMsg.AppendLine("---------开始导入--------");
             foreach (DirectoryInfo dir in originalFolders)
             {
-                sbMsg.AppendLine("供应商开始:" + dir.Name);
+                sbMsg.AppendLine("供应商-导入开始:" + dir.Name);
                 CheckAndSaveSingleFold(dir.FullName, outFolder);
-                sbMsg.AppendLine("供应商结束:" + dir.Name);
+                sbMsg.AppendLine("");
+
             }
             sbMsg.AppendLine("----------导入完成--------");
+            NLogger.Logger.Debug(sbMsg.ToString());
 
         }
         public void Import(string originalFolder, string outFolder)
@@ -99,36 +110,54 @@ namespace NBiz
         }
 
         /// <summary>
-        /// 读取Excel文件
+        /// 处理单个文件夹 检查 和 保存 
         /// </summary>
-        /// <param name="folderPath"></param>
-        /// <param name="outSavePath"></param>
+        /// <param name="folderPath">包含 excel和图片  文件夹路径</param>
+        /// <param name="outSavePath"> 最终结果 保存路径. 合格数据, 多余图片,多余excel数据,数据库内已存在数据 </param>
         public void CheckAndSaveSingleFold(string folderPath, string outSavePath)
         {
             IList<Product> productsHasPicture, productsNotHasPicture, productsExistedInDB;
 
             IList<FileInfo> imagesHasProduct, imagesHasNotProduct;
             string folderName = folderPath;
-
             CheckSingleFolder(folderName,
                 out productsHasPicture,
                 out productsNotHasPicture,
                 out productsExistedInDB,
                 out imagesHasProduct
                 , out imagesHasNotProduct);
-     
+
             //将结果保存到数据库
             BizProduct.SaveList(productsHasPicture);
+            sbMsg.AppendLine(productsHasPicture.Count + ":已导入");
             //结果保存到文件夹
             DateTime beginSaveResultToDisk = DateTime.Now;
-            HandlerCheckResult(
+            string supplierName = string.Empty;
+            if (productsExistedInDB.Count > 0) supplierName = productsExistedInDB[0].SupplierName;
+            else if (productsHasPicture.Count > 0) supplierName = productsHasPicture[0].SupplierName;
+            else if (productsNotHasPicture.Count > 0) supplierName = productsNotHasPicture[0].SupplierName;
+            else
+            {
+                return;
+            }
+            supplierName = StringHelper.ReplaceInvalidChaInFileName(supplierName, string.Empty);
+            HandlerCheckResult(supplierName,
                 productsHasPicture
                 , productsNotHasPicture
                 , productsExistedInDB
                 , imagesHasProduct
                 , imagesHasNotProduct
-
-                , outSavePath);
+                , outSavePath
+                );
+            //  sbMsg.AppendLine(productsHasPicture.Count+":有效图片数量" );
+            //
+            if (productsHasPicture.Count > 0)
+            {
+                Result_ProductsSuccessImported = Result_ProductsSuccessImported.Concat(productsHasPicture).ToList();
+            }
+            sbMsgForLog.AppendLine("成功导入数量:"+productsHasPicture.Count);
+            sbMsgForLog.AppendLine("没有图片的产品数量:"+productsNotHasPicture.Count);
+            sbMsgForLog.AppendLine("数据库里已存在的产品数量:"+productsExistedInDB.Count);
             Console.WriteLine("Time Cost beginSaveResultToDisk:" + (DateTime.Now - beginSaveResultToDisk).TotalSeconds);
         }
         /// <summary>
@@ -162,6 +191,8 @@ namespace NBiz
             string errMsg;
             DataTable dt = new NLibrary.ReadExcelToDataTable(stream).Read(out errMsg);
             IList<Product> products = productReader.Convert(dt);
+            sbMsg.AppendLine(products.Count + ":待导入");
+            sbMsgForLog.AppendLine("待导入产品数量:" + products.Count);
             //排除数据库内重复的数据
             IList<Product> validItems = products;
             productsExistedInDB = new List<Product>();
@@ -172,6 +203,11 @@ namespace NBiz
                 validItems = BizProduct.CheckItemsBeforeSave(
                     products, out productsExistedInDB, out repeatedErrMsg);
                 Console.WriteLine("Time Cost CheckDB:" + (DateTime.Now - beginCheckDbExists).TotalSeconds);
+                sbMsg.AppendLine(productsExistedInDB.Count + ":已存在");
+                foreach (Product pi in productsExistedInDB)
+                {
+                    sbMsg.AppendLine("     名称:" + pi.Name + "型号:" + pi.ModelNumber + "供应商名称:" + pi.SupplierName);
+                }
             }
             //
             DateTime beginCheckImage = DateTime.Now;
@@ -180,8 +216,12 @@ namespace NBiz
            , out  imagesHasProduct
            , out  imagesHasNotProduct);
             Console.WriteLine("Time Cost CheckImage:" + (DateTime.Now - beginCheckImage).TotalSeconds);
+            sbMsg.AppendLine(productsNotHasPicture.Count + ":无图片");
+            foreach (Product pnopic in productsNotHasPicture)
+            {
+                sbMsg.AppendLine("     名称:" + pnopic.Name + "型号:" + pnopic.ModelNumber + "供应商名称:" + pnopic.SupplierName);
 
-
+            }
 
         }
 
@@ -213,6 +253,8 @@ namespace NBiz
                     if (imageName
                         .Equals(StringHelper.ReplaceSpace(p.ModelNumber), StringComparison.OrdinalIgnoreCase))
                     {
+                        string newImageName = (p.Name + p.SupplierName + p.ModelNumber).GetHashCode().ToString() + image.Extension;
+                        p.ProductImageUrls.Add(newImageName);
                         productsHasPicture.Add(p);
                         imagesHasProduct.Add(image);
                         productHasImage = true;
@@ -261,71 +303,78 @@ namespace NBiz
         /// 将结果保存到磁盘:
         /// </summary>
         /// <param name="productHasImages"></param>
-        public void HandlerCheckResult(IList<Product> productHasImages, IList<Product> productNotHasImages,
+        public void HandlerCheckResult(string supplierName, IList<Product> productHasImages, IList<Product> productNotHasImages,
             IList<Product> productsExistedInDb,
             IList<FileInfo> imagesHasProduct, IList<FileInfo> imagesNotHasProduct,
             string outputFolder)
         {
             DirectoryInfo dirRoot = new DirectoryInfo(outputFolder);
-            DirectoryInfo dirQuanlified = IOHelper.EnsureDirectory(outputFolder + "合格数据\\");
-            DirectoryInfo dirNotQuanlified = IOHelper.EnsureDirectory(outputFolder + "不合格数据\\");
-            string supplierName = string.Empty;
             TransferInDatatable transfer = new TransferInDatatable();
-            //合格数据和图片
-            //合格数据根目录
-            DirectoryInfo dirSupplierQuanlified = null;
-            DirectoryInfo dirSupplierQuanlifiedImages = null;
-
+            //如果没有合格数据 则不需要创建
             if (productHasImages.Count > 0)
             {
-                supplierName = productHasImages[0].SupplierName;
-            }
-            else if (productNotHasImages.Count > 0)
-            {
-                supplierName = productNotHasImages[0].SupplierName;
-            }
-            else
-            {
-                throw new Exception("错误无法获取供应商信息.");
-            }
-            supplierName = StringHelper.ReplaceInvalidChaInFileName(supplierName, string.Empty);
-            dirSupplierQuanlified = IOHelper.EnsureDirectory(dirQuanlified.FullName + supplierName + "\\");
-
-            dirSupplierQuanlifiedImages = IOHelper.EnsureDirectory(dirSupplierQuanlified.FullName + supplierName + "\\");
-            foreach (Product product in productHasImages)
-            {
-
-                try
+                DirectoryInfo dirQuanlified = IOHelper.EnsureDirectory(outputFolder + "合格数据\\");
+                DirectoryInfo dirSupplierQuanlified = IOHelper.EnsureDirectory(dirQuanlified.FullName + supplierName + "\\");
+                DirectoryInfo dirSupplierQuanlifiedImages = IOHelper.EnsureDirectory(dirSupplierQuanlified.FullName + supplierName + "\\");
+                foreach (Product product in productHasImages)
                 {
-                    FileInfo imageFile = imagesHasProduct.Single(x => StringHelper.ReplaceSpace(Path.GetFileNameWithoutExtension(x.Name))
-                      .Equals(StringHelper.ReplaceSpace(product.ModelNumber), StringComparison.OrdinalIgnoreCase));
-                    File.Copy(imageFile.FullName, dirSupplierQuanlified.FullName + supplierName + "\\" + imageFile.Name, true);
+                    try
+                    {
+                        FileInfo imageFile = imagesHasProduct.Single(x => StringHelper.ReplaceSpace(Path.GetFileNameWithoutExtension(x.Name))
+                          .Equals(StringHelper.ReplaceSpace(product.ModelNumber), StringComparison.OrdinalIgnoreCase));
+                        File.Copy(imageFile.FullName, dirSupplierQuanlified.FullName + supplierName + "\\" + imageFile.Name, true);
+                        //同时拷贝到网站图片路径
+                        if (!string.IsNullOrEmpty(WebProductImagesPath) && outputFolder != WebProductImagesPath)
+                        {
+                            string newImageName = (product.Name + product.SupplierName + product.ModelNumber).GetHashCode().ToString() + imageFile.Extension;
+
+                            File.Copy(imageFile.FullName, WebProductImagesPath + newImageName, true);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("图片复制出错:" + dirSupplierQuanlified.FullName + "---" + product.ModelNumber + "---" + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw new Exception("图片复制出错:" + dirSupplierQuanlified.FullName + "---" + product.ModelNumber + "---" + ex.Message);
-                }
+
+
+                DataTable dtProductsHasImage = ObjectConvertor.ToDataTable<Product>(productHasImages);
+                transfer.CreateXslFromDataTable(dtProductsHasImage, 1, dirSupplierQuanlified.FullName + "\\" + supplierName + ".xls");
             }
 
-
-            DataTable dtProductsHasImage = ObjectConvertor.ToDataTable<Product>(productHasImages);
-            transfer.CreateXslFromDataTable(dtProductsHasImage, 1, dirSupplierQuanlified.FullName + "\\" + supplierName + ".xls");
-            //不合格数据和图片
-            string dirSupplierNotQuanlified = dirNotQuanlified.FullName + supplierName + "\\";
-
-            string dirSupplierNotQuanlifiedImages = dirSupplierNotQuanlified + "多余图片_" + supplierName + "\\";
-            IOHelper.EnsureDirectory(dirSupplierNotQuanlified);
-            IOHelper.EnsureDirectory(dirSupplierNotQuanlifiedImages);
-            foreach (FileInfo file in imagesNotHasProduct)
+            //没有图片的产品
+            string dirPathNotQuanlified = outputFolder + "不合格数据\\";
+            string dirPathSupplierNotQuanlified = dirPathNotQuanlified + supplierName + "\\";
+            if (productNotHasImages.Count > 0)
             {
-                file.CopyTo(dirSupplierNotQuanlifiedImages + file.Name, true);
+                DirectoryInfo dirSupplierNotQuanlified = IOHelper.EnsureDirectory(dirPathSupplierNotQuanlified);
+                DataTable dtProductsNotHasImage = ObjectConvertor.ToDataTable<Product>(productNotHasImages);
+                transfer.CreateXslFromDataTable(dtProductsNotHasImage, 1, dirSupplierNotQuanlified + "没有图片的数据_" + supplierName + ".xls");
+
             }
-            DataTable dtProductsNotHasImage = ObjectConvertor.ToDataTable<Product>(productNotHasImages);
-            transfer.CreateXslFromDataTable(dtProductsNotHasImage, 1, dirSupplierNotQuanlified + "没有图片的数据_" + supplierName + ".xls");
+            //没有产品的图片
+            if (imagesNotHasProduct.Count > 0)
+            {
+
+                string dirPathSupplierNotQuanlifiedImages = dirPathSupplierNotQuanlified + "多余图片_" + supplierName + "\\";
+                DirectoryInfo dirSupplierNotQuanlifiedImages = IOHelper.EnsureDirectory(dirPathSupplierNotQuanlifiedImages);
+               foreach (FileInfo file in imagesNotHasProduct)
+                {
+                    file.CopyTo(dirSupplierNotQuanlifiedImages + file.Name, true);
+                }
+            }
+            //多余的图片
+
             //重复数据
-            DataTable dtProductsRepeated = ObjectConvertor.ToDataTable<Product>(productsExistedInDb);
-            transfer.CreateXslFromDataTable(dtProductsRepeated, 1, dirSupplierNotQuanlified + "数据库内已存在的数据_" + supplierName + ".xls");
-
+            if (productsExistedInDb.Count > 0)
+            {
+                string dirPathSupplierRepeated = dirPathSupplierNotQuanlified + "数据库内已存在的数据_" + supplierName + "\\";
+                DirectoryInfo dirSupplierRepeated = IOHelper.EnsureDirectory(dirPathSupplierRepeated);
+            
+                DataTable dtProductsRepeated = ObjectConvertor.ToDataTable<Product>(productsExistedInDb);
+                transfer.CreateXslFromDataTable(dtProductsRepeated, 1, dirSupplierRepeated.FullName+"\\" + supplierName + ".xls");
+            }
         }
+
     }
 }

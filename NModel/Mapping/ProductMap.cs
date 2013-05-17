@@ -35,7 +35,7 @@ namespace NModel.Mapping
             Map(x => x.PriceValidPeriod);
             Map(x => x.MoneyType);
             Map(x => x.ImageState);
-            References<ImportLog>(x => x.ImportLog);
+            References<ImportOperationLog>(x => x.ImportOperationLog);
         }
     }
 }

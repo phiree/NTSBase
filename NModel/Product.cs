@@ -88,7 +88,7 @@ namespace NModel
         /// <summary>
         /// 导入日志
         /// </summary>
-        public virtual ImportLog ImportLog { get; set; }
+        public virtual ImportOperationLog ImportOperationLog { get; set; }
         public virtual string GetName(LanguageType lt)
         {
             IList<MultiLanguageItem> items = ValuesOfMultiLanguage.Where(x => x.ClassType == ClassType.Product
@@ -101,6 +101,15 @@ namespace NModel
             {
                 return string.Empty;
             }
+        }
+        /// <summary>
+        /// 为图片生成对应名称
+        /// </summary>
+        /// <param name="extensionWithDot">后缀名(带.)</param>
+        /// <returns></returns>
+        public virtual string BuildImageNameNoExtension(string extensionWithDot)
+        {
+            return (Name + SupplierName + ModelNumber).GetHashCode().ToString()+extensionWithDot;
         }
     }
 

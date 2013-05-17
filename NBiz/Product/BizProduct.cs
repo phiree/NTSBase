@@ -129,7 +129,7 @@ namespace NBiz
                     }
                     else if (suppliersInLatest.Count > 1)
                     {
-                        throw new Exception("已经添加多个供应商");
+                        throw new Exception("错误:供应商名称应该相同.");
                     }
 
                     if (supplier == null)
@@ -141,13 +141,16 @@ namespace NBiz
                     }
                     else
                     {
-                        latestSuppliers.Add(supplier);
+                        if (!latestSuppliers.Contains(supplier))
+                        {
+                            latestSuppliers.Add(supplier);
+                        }
                     }
                     o.SupplierCode = supplier.Code;
                 }
                 try
                 {
-                    var p = ((DALProduct)DalBase).GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierCode);
+                    var p = ((DALProduct) dalProduct).GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierCode);
 
                     if (p != null)
                     {
@@ -162,7 +165,7 @@ namespace NBiz
                 {
                     NLibrary.NLogger.Logger.Debug(ex.Message);
                     sbMsg.AppendLine(ex.Message + "<br/>");
-                    continue;
+                    throw new Exception(ex.Message);
                 }
 
                 o.NTSCode = serialNoUnit.GetFormatedSerialNo(o.CategoryCode + "." + o.SupplierCode);

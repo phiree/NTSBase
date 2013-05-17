@@ -20,7 +20,7 @@ namespace NDAL
         public ISession GetSession()
         {
 #if DEBUG
-         //   HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
+           HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 #endif
             ISessionFactory factory = getSessionFactory();
             ISession session = getExistingOrNewSession(factory);
@@ -41,7 +41,7 @@ namespace NDAL
             {
                 MyAutoMappingConfiguration mappingCfg = new MyAutoMappingConfiguration();
                 MySQLConfiguration dataConfig = MySQLConfiguration.Standard
-                   // .ShowSql()
+                    .ShowSql()
                     .ConnectionString(s => s.FromConnectionStringWithKey("conn"));
 
                 _sessionFactory = Fluently.Configure()

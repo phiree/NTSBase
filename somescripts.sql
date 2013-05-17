@@ -19,3 +19,25 @@ supplier s
 on p.suppliername=s.name or p.suppliername=s.englishname
 where p.suppliername is null
 
+/*重复的产品信息*/
+
+create table tempcc
+(
+ cc int,
+ modelnumber varchar(50),
+suppliercode varchar(50)
+)DEFAULT COLLATE utf8_unicode_ci
+;
+insert into tempcc select count(*) cc,modelnumber,suppliercode
+
+from ntsbase_test.product  
+group by modelnumber,suppliercode
+order by cc desc;
+select * from tempcc where cc>1;
+select a.* from ntsbase_test.product a,tempcc b
+ where a.modelnumber = b.modelnumber 
+and a.suppliercode = b.suppliercode
+;
+drop table tempcc
+
+

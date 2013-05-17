@@ -9,7 +9,7 @@ namespace NBiz
     /// <summary>
     /// 导入日志  记录导入行为的信息
     /// </summary>
-    public class BizImportLog:BLLBase<ImportLog>
+    public class BizImportLog:BLLBase<ImportOperationLog>
     {
         BizProduct bizProduct = new BizProduct();
        
@@ -18,20 +18,16 @@ namespace NBiz
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="finishTime"></param>
-        public void Import(Stream stream, string fileName, DateTime finishTime, string from, string memberName,string importResult)
+        public void Import( string fileName,IList<Product> importedProducts , DateTime finishTime, string from, string memberName,string importResult)
         {
-            ImportLog log = new ImportLog();
-            IDataTableConverter<Product> productReader = new ProductDataTableConverter();
-            NBiz.ImportToDatabaseFromExcel<Product> importor = new ImportToDatabaseFromExcel<Product>(productReader, bizProduct);
-            string errMsg;
-            IList<Product> importedProducts = importor.ReadList(stream,out errMsg);
+            ImportOperationLog log = new ImportOperationLog();
             log.FinishTime = finishTime;
-            log.From = from;
+            log.FileFrom = from;
+            log.ImportTime = DateTime.Now;
             log.ImportedFileName = fileName;
             log.ImportedItems = importedProducts;
             log.ImportMember = memberName;
             log.ImportResult = importResult;
-
             Save(log);
            //data
         }
