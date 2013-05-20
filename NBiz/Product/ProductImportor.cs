@@ -199,9 +199,9 @@ namespace NBiz
             if (CheckWithDatabase)
             {
                 DateTime beginCheckDbExists = DateTime.Now;
-                string repeatedErrMsg;
-                validItems = BizProduct.CheckItemsBeforeSave(
-                    products, out productsExistedInDB, out repeatedErrMsg);
+              
+                validItems = BizProduct.CheckDB(
+                    products, out productsExistedInDB);
                 Console.WriteLine("Time Cost CheckDB:" + (DateTime.Now - beginCheckDbExists).TotalSeconds);
                 sbMsg.AppendLine(productsExistedInDB.Count + ":已存在");
                 foreach (Product pi in productsExistedInDB)
@@ -232,7 +232,7 @@ namespace NBiz
            , out IList<FileInfo> imagesHasNotProduct)
         {
             DirectoryInfo dir = new DirectoryInfo(ImageFolder);
-            FileInfo[] images = dir.GetImageFiles().ToArray<FileInfo>();// dirImage.GetFiles();
+            FileInfo[] images = dir.GetImageFiles(SearchOption.AllDirectories).ToArray<FileInfo>();// dirImage.GetFiles();
 
             productsHasPicture = new List<Product>();
             productsNotHasPicture = new List<Product>();

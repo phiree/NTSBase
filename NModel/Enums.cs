@@ -5,7 +5,9 @@ using System.Text;
 
 namespace NModel.Enums
 {
-    
+    /// <summary>
+    /// 产品状态
+    /// </summary>
     public enum ProductState
     {
         /// <summary>
@@ -38,5 +40,16 @@ namespace NModel.Enums
     {
         Chinese,
         English
+    }
+
+    /// <summary>
+    /// 数据库内 已存在数据  操作
+    /// 
+    /// </summary>
+    public enum OperationWhenExists
+    {
+        update,//更新数据
+        skip,//跳过
+        throwException//抛出错误
     }
 }

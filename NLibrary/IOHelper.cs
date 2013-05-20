@@ -75,16 +75,28 @@ namespace NLibrary
 
     public static class ExtentedMethoed
     {
-        public static IEnumerable<FileInfo> GetFilesByExtensions(this DirectoryInfo dir, params string[] extensions)
+        public static IEnumerable<FileInfo> GetFilesByExtensions(this DirectoryInfo dir, SearchOption searchOption, params string[] extensions)
         {
             if (extensions == null)
                 throw new ArgumentNullException("extensions");
-            IEnumerable<FileInfo> files = dir.GetFiles("*", SearchOption.AllDirectories);
+            IEnumerable<FileInfo> files = dir.GetFiles("*", searchOption);
             return files.Where(f => extensions.Contains(f.Extension.ToLower()));
+        }
+        public static IEnumerable<FileInfo> GetImageFiles(this DirectoryInfo dir,SearchOption searchOption)
+        {
+            return GetFilesByExtensions(dir, searchOption, new string[]{".bmp"
+                                                        ,".gif"
+                                                        ,".jpg"
+                                                        ,".png"
+                                                        ,".psd"
+                                                        ,".pspimage"
+                                                        ,".thm"
+                                                        ,".tif"
+                                                        ,".yuv"});
         }
         public static IEnumerable<FileInfo> GetImageFiles(this DirectoryInfo dir)
         {
-            return GetFilesByExtensions(dir, new string[]{".bmp"
+            return GetFilesByExtensions(dir,SearchOption.AllDirectories, new string[]{".bmp"
                                                         ,".gif"
                                                         ,".jpg"
                                                         ,".png"

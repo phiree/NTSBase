@@ -12,7 +12,7 @@ namespace NBiz
     {
         FormatSerialNoUnit serialNoUnit = new FormatSerialNoUnit(new DALFormatSerialNo());
         DALSupplier _dalSupplier;
-       public  DALSupplier DalSupplier
+        public DALSupplier DalSupplier
         {
             get
             {
@@ -23,13 +23,14 @@ namespace NBiz
                 return _dalSupplier;
 
             }
-            set {
+            set
+            {
                 _dalSupplier = value;
             }
         }
         DalBase<Product> dalProduct = new DALProduct();
-        
-        
+
+
         public string ImportMsg { get; set; }
         /// <summary>
         /// 导入excel产品列表
@@ -81,7 +82,7 @@ namespace NBiz
 
             sbMsg.AppendLine("-----开始保存.产品数量:" + list.Count + "<br/>");
             IList<Product> invalidItems = new List<Product>();
-            var listToBeSaved = CheckItemsBeforeSave(list, out invalidItems, out totalErrMsg);
+            var listToBeSaved = CheckDB(list, out invalidItems);
 
             //排除已有产品 之前是在dal层实现,应该转移到bll层, 因为nts编码生成也与此相关.
             //已经提取出来的supplier直接获取 不再从数据源提取
@@ -97,91 +98,41 @@ namespace NBiz
             return listToBeSaved;
 
         }
+
+
         /// <summary>
-        ///  检查产品
-        /// 
-        ///  该产品是否已经存在.
+        ///   该产品是否已经存在.
         /// </summary>
         /// <param name="list">待检查列表</param>
         /// <param name="invalidItems">不合格数据</param>
         /// <param name="outErrMsg">错误信息</param>
         /// <returns>合格数据,可以直接导入</returns>
-        public IList<Product> CheckItemsBeforeSave(IList<Product> list, out IList<Product> invalidItems, out string outErrMsg)
+        public IList<Product> CheckDB(IList<Product> list, out IList<Product> existedItems)
         {
-            invalidItems = new List<Product>();
-            IList<Product> ValidItems = new List<Product>();
-            string errMsg = string.Empty;
-            StringBuilder sbMsg = new StringBuilder();
-            List<Supplier> latestSuppliers = new List<Supplier>();
+            existedItems = new List<Product>();
+            IList<Product> ValidItems = new List<Product>();//没有重复的产品
+
             foreach (Product o in list)
             {
-                if (string.IsNullOrEmpty(o.SupplierCode))
-                {
-                    Supplier supplier = null;
-                    IList<Supplier> suppliersInLatest = latestSuppliers.Where(x => x.Name.ToLower() == o.SupplierName || x.EnglishName.ToLower() == o.SupplierName).ToList();
-                    if (suppliersInLatest.Count == 0)
-                    {
-                        supplier = DalSupplier.GetOneByName(o.SupplierName);
-                    }
-                    else if (suppliersInLatest.Count == 1)
-                    {
-                        supplier = suppliersInLatest[0];
-                    }
-                    else if (suppliersInLatest.Count > 1)
-                    {
-                        throw new Exception("错误:供应商名称应该相同.");
-                    }
+                var p = ((DALProduct)dalProduct).GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierCode);
 
-                    if (supplier == null)
-                    {
-                        errMsg = "未保存.供应商不存在:" + o.SupplierName + o.Name + "-" + "-" + o.ModelNumber;
-                        NLibrary.NLogger.Logger.Debug(errMsg);
-                        throw new Exception(errMsg);
-                       
-                    }
-                    else
-                    {
-                        if (!latestSuppliers.Contains(supplier))
-                        {
-                            latestSuppliers.Add(supplier);
-                        }
-                    }
-                    o.SupplierCode = supplier.Code;
-                }
-                try
+                if (p != null)
                 {
-                    var p = ((DALProduct) dalProduct).GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierCode);
-
-                    if (p != null)
-                    {
-                        errMsg = "未保存.已存在相同供应商和型号的产品:" + o.Name + "-" + o.SupplierName + "-" + o.ModelNumber;
-                        NLibrary.NLogger.Logger.Debug(errMsg);
-                        sbMsg.AppendLine(errMsg + "<br/>");
-                        invalidItems.Add(o);
-                        continue;
-                    }
+                    existedItems.Add(o);
+                    continue;
                 }
-                catch (Exception ex)
-                {
-                    NLibrary.NLogger.Logger.Debug(ex.Message);
-                    sbMsg.AppendLine(ex.Message + "<br/>");
-                    throw new Exception(ex.Message);
-                }
-
-                o.NTSCode = serialNoUnit.GetFormatedSerialNo(o.CategoryCode + "." + o.SupplierCode);
                 ValidItems.Add(o);
             }
-            outErrMsg = sbMsg.ToString();
             return ValidItems;
         }
-       
+
         public IList<Product> Search(string supplierName, string model, bool hasPhoto,
             string name, string categorycode,
             int pageSize, int pageIndex, out int totalRecord)
         {
-             return ((DALProduct)dalProduct).Search(supplierName, model, hasPhoto,
-                name, categorycode,
-                pageSize, pageIndex, out totalRecord);
+            return ((DALProduct)dalProduct).Search(supplierName, model, hasPhoto,
+               name, categorycode,
+               pageSize, pageIndex, out totalRecord);
         }
 
         /// <summary>

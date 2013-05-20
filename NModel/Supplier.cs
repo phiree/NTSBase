@@ -29,5 +29,7 @@ namespace NModel
        /// 电话号码
        /// </summary>
        public virtual string Phone{ get; set; }
+
+      
     }
 }
