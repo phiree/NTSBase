@@ -114,7 +114,7 @@ namespace NBiz
 
             foreach (Product o in list)
             {
-                var p = ((DALProduct)dalProduct).GetOneByModelNumberAndSupplier(o.ModelNumber, o.SupplierCode);
+                var p = ((DALProduct)dalProduct).GetOneByModelNumberAndSupplierCode(o.ModelNumber, o.SupplierCode);
 
                 if (p != null)
                 {
@@ -135,13 +135,10 @@ namespace NBiz
                pageSize, pageIndex, out totalRecord);
         }
 
-        /// <summary>
-        /// excel和图片同时导入(使用客户端 或者, 先将资料上传至服务器)
-        /// </summary>
-        /// <param name="supplierFolderPath"></param>
-        public void ImportPictures(IList<Product> savedList, string supplierFolderPath)
-        {
 
+        public IList<Product> GetListByProvidedModelNumberSupplierNameList(string providedList)
+        {
+            throw new NotImplementedException();
         }
 
 

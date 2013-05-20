@@ -35,7 +35,7 @@ namespace NTest.NBizTest
             dalProduct.Expect(x => x.SaveList(new List<Product>())).IgnoreArguments();
                 
 
-            dalProduct.Expect(x => x.GetOneByModelNumberAndSupplier("J10335", "001"))
+            dalProduct.Expect(x => x.GetOneByModelNumberAndSupplierCode("J10335", "001"))
              .Return(Builder<Product>.CreateNew().Build());
             //mock对象严重影响性能, Time Cost EndMock:17.6875;ook 19.02 seconds 
             Console.WriteLine("Time Cost EndMock:" + (DateTime.Now - beginMock).TotalSeconds);

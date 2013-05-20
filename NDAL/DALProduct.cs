@@ -25,7 +25,7 @@ namespace NDAL
                 base.Save(o);
             }
         }
-        public  virtual Product GetOneByModelNumberAndSupplier(string modelNumber, string supplierCode)
+        public  virtual Product GetOneByModelNumberAndSupplierCode(string modelNumber, string supplierCode)
         {
             NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.SupplierCode == supplierCode)
                 .And(x => x.ModelNumber == modelNumber);
@@ -43,7 +43,23 @@ namespace NDAL
             }
            // return GetOneByQuery(iqueryover);
         }
-        
+        public virtual Product GetOneByModelNumberAndSupplierName(string modelNumber, string suppliername)
+        {
+            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.ModelNumber ==modelNumber)
+                    .And(x => x.SupplierName== suppliername);
+            //string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
+            //    supplierName,modelNumber);
+            try
+            {
+                Product p = GetOneByQuery(iqueryover);
+
+                return p;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message + "Data:modelnumber:" + modelNumber + "--supplierName:" + suppliername);
+            }
+        }
 
         /// <summary>
         /// 通用搜索.
