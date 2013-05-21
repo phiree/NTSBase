@@ -28,7 +28,7 @@ namespace NBiz
                 _dalSupplier = value;
             }
         }
-        DalBase<Product> dalProduct = new DALProduct();
+        DALProduct dalProduct = new DALProduct();
 
 
         public string ImportMsg { get; set; }
@@ -114,7 +114,7 @@ namespace NBiz
 
             foreach (Product o in list)
             {
-                var p = ((DALProduct)dalProduct).GetOneByModelNumberAndSupplierCode(o.ModelNumber, o.SupplierCode);
+                var p = dalProduct.GetOneByModelNumberAndSupplierCode(o.ModelNumber, o.SupplierCode);
 
                 if (p != null)
                 {
@@ -140,9 +140,10 @@ namespace NBiz
         public Product GetOneBySupplierNameModelNumber(string supplierName, string modelNumber)
         {
             Supplier s= DalSupplier.GetOneByName(supplierName);
-
+            if (s == null)
+                return null;
             
-            return ((DALProduct)dalProduct).GetOneByModelNumberAndSupplierName(modelNumber, s.Name,s.EnglishName);
+            return dalProduct.GetOneByModelNumberAndSupplierName(modelNumber, s.Name,s.EnglishName);
         }
         /// <summary>
         /// 
