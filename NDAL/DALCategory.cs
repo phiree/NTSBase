@@ -5,13 +5,13 @@ using System.Text;
 using NModel;
 namespace NDAL
 {
-    public class DALCategory:DalBase<NModel.Category>
+    public class DALCategory : DalBase<NModel.Category>
     {
         public override void Save(NModel.Category o)
         {
             var q = session.QueryOver<Category>().Where(x => x.Name == o.Name)
                    .And(x => x.ParentCode == o.ParentCode)
-                   .And(x=>x.Code==o.Code)
+                   .And(x => x.Code == o.Code)
                    .List();
             if (q.Count > 0)
             {
@@ -23,7 +23,19 @@ namespace NDAL
             {
                 base.Save(o);
             }
-           
+
+        }
+
+        public Category GetOneByCode(string code)
+        {
+            return GetOneByCodes(code, "0");
+        }
+
+        public Category GetOneByCodes(string code, string parentCode)
+        {
+            string query = "select c from Category c  where c.Code='" 
+                + code + "' and c.ParentCode='"+parentCode+"'";
+            return GetOneByQuery(query);
         }
     }
 }

@@ -12,8 +12,8 @@ namespace NModel.Mapping
             Id(x=>x.Id);
             Map(x => x.CreateTime);
             Map(x => x.Description);
-            Map(x => x.TagName);
-            
+            Map(x => x.TagName).Unique();
+            HasMany(x => x.Product_Tags).KeyColumn("Tag_Id").Cascade.SaveUpdate();
         }
     }
 }

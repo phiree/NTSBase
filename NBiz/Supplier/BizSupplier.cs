@@ -29,7 +29,7 @@ namespace NBiz
         }
         public Supplier GetByName(string supplierName)
         {
-            string query = "from Supplier s where s.Name='" + supplierName + "'";
+            string query = "from Supplier s where s.Name='" + supplierName + "' or s.EnglishName='"+supplierName+"'";
             return GetOneByQuery(query);
         }
         public IList<Supplier> GetListByNameList(IList<string> supplierNameList,out IList<string>  supplierNameListNotExists )

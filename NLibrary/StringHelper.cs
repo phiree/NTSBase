@@ -21,6 +21,12 @@ namespace NLibrary
        {
            return ReplaceInvalidChaInFileName(input, string.Empty);
        }
+       public static bool ReplaceSpaceAndCompare(string s1, string s2)
+       {
+           s1 = ReplaceSpace(s1);
+           s2 = ReplaceSpace(s2);
+           return s1 == s2;
+       }
        /// <summary>
        /// 保证字符串的字符数量
        /// </summary>
@@ -31,6 +37,11 @@ namespace NLibrary
        public static string EnsureStringLength(string input, int exceptLenth, char fillChar)
        {
            throw new NotImplementedException();
+       }
+
+       public static string[] Split(string original, char s)
+       {
+           return original.Split(s);
        }
        
     }

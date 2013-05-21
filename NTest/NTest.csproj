@@ -73,11 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageOrganizerTest\OrganizerTest.cs" />
+    <Compile Include="NBizTest\BizProductTagTest.cs" />
     <Compile Include="NBizTest\ImportFromExcelTest.cs" />
     <Compile Include="NBizTest\CopyImageTest.cs" />
     <Compile Include="NBizTest\MakeThumbnailTest.cs" />
     <Compile Include="NBizTest\SupplierTest.cs" />
     <Compile Include="NBizTest\CheckFormatTest.cs" />
+    <Compile Include="NBizTest\BizProductTest.cs" />
     <Compile Include="NDALTest\DALBaseTest.cs" />
     <Compile Include="NDALTest\ProductDALTest.cs" />
     <Compile Include="NLibraryTest\FormatSerialNoTest.cs" />

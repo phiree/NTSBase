@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NModel;
+using NLibrary;
 namespace NDAL
 {
     public class DALProduct : DalBase<NModel.Product>
@@ -43,11 +44,11 @@ namespace NDAL
             }
            // return GetOneByQuery(iqueryover);
         }
-        public virtual Product GetOneByModelNumberAndSupplierName(string modelNumber, string suppliername)
+        public virtual Product GetOneByModelNumberAndSupplierName(string modelNumber, string suppliername,string supplierEnglishName)
         {
-            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.ModelNumber ==modelNumber)
-                    .And(x => x.SupplierName== suppliername);
-            //string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
+            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x =>  x.ModelNumber ==modelNumber)
+                 .And(x => x.SupplierName== suppliername||x.SupplierName==supplierEnglishName);
+          //  string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
             //    supplierName,modelNumber);
             try
             {
@@ -71,10 +72,15 @@ namespace NDAL
         /// <returns></returns>
         public IList<Product> Search(string supplierName, string model, bool hasphoto, 
             string name,string categorycode,
+            string ntsCode,
             int pageSize, int pageIndex, out int totalRecord)
         {
 
             string query = "select p from Product p  where 1=1 ";
+            if (!string.IsNullOrEmpty(ntsCode))
+            {
+                query += " and p.NTSCode like '%" + ntsCode + "%'";
+            }
             if (!string.IsNullOrEmpty(supplierName))
             {
                 query += " and p.SupplierName like '%" + supplierName + "%'";

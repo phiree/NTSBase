@@ -128,18 +128,53 @@ namespace NBiz
 
         public IList<Product> Search(string supplierName, string model, bool hasPhoto,
             string name, string categorycode,
+            string ntsCode,
             int pageSize, int pageIndex, out int totalRecord)
         {
             return ((DALProduct)dalProduct).Search(supplierName, model, hasPhoto,
                name, categorycode,
+               ntsCode,
                pageSize, pageIndex, out totalRecord);
         }
 
-
-        public IList<Product> GetListByProvidedModelNumberSupplierNameList(string providedList)
+        public Product GetOneBySupplierNameModelNumber(string supplierName, string modelNumber)
         {
-            throw new NotImplementedException();
+            Supplier s= DalSupplier.GetOneByName(supplierName);
+
+            
+            return ((DALProduct)dalProduct).GetOneByModelNumberAndSupplierName(modelNumber, s.Name,s.EnglishName);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="providedList"></param>
+        /// <param name="inValidRows">无法从这些信息中获取产品信息</param>
+        /// <returns></returns>
+        public IList<Product> GetListByProvidedModelNumberSupplierNameList(string providedList,out string msg)
+        {
+            string[] rows = providedList.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            IStringPopulate strPopulate = StringPopulateFactory.CreateInstance("sm");
+
+            IList<Product> products = new List<Product>();
+            msg = string.Empty;
+            foreach (string row in rows)
+            {
+                Product p = strPopulate.Populate(row, this);
+                if (p != null)
+                {
+                    products.Add(p);
+                }
+                else
+                {
+                    msg += row + Environment.NewLine;
+                }
+            }
+            return products;
+
+        }
+
+        
+
 
 
 

@@ -31,6 +31,7 @@ public partial class Products_Default : System.Web.UI.Page
         cbxHasPhoto.Checked = hasPhoto;
         tbxCode.Text =Server.UrlDecode( Request["categoryCode"]);
         tbxName.Text = Request["name"];
+        tbxNTSCode.Text = Request["ntscode"];
     }
     private int GetPageIndex()
     {
@@ -44,12 +45,13 @@ public partial class Products_Default : System.Web.UI.Page
     }
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string targetUrl =string.Format( "Default.aspx?sname={0}&model={1}&hasphoto={2}&name={3}&categorycode={4}"
+        string targetUrl =string.Format( "Default.aspx?sname={0}&model={1}&hasphoto={2}&name={3}&categorycode={4}&ntscode={5}"
             , Server.UrlEncode(tbxSupplierName.Text)
             ,Server.UrlDecode(tbxModel.Text)
             ,cbxHasPhoto.Checked
             ,tbxName.Text.Trim()
             ,tbxCode.Text.Trim()
+            ,tbxNTSCode.Text.Trim()
             );
         Response.Redirect(targetUrl, true);
        // BindProduct();
@@ -63,6 +65,7 @@ public partial class Products_Default : System.Web.UI.Page
             ,cbxHasPhoto.Checked
             ,tbxName.Text.Trim()
             ,tbxCode.Text.Trim()
+            ,tbxNTSCode.Text.Trim()
             , pager.PageSize
             , pageIndex, out totalRecords)
             .OrderBy(x=>x.CategoryCode);  // bizProduct.GetAll<NModel.Product>();

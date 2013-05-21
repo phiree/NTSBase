@@ -23,6 +23,7 @@
             <div class="span-4" id="leftMenu">
                 <ul>
                     <li><a href="/products/">产品列表</a></li>
+                    <li><a href="/products/ProductTag.aspx">产品集</a></li>
                     <li><a href="/suppliers/">供应商列表</a></li>
                 </ul>
             </div>

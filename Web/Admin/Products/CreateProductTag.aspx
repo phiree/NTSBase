@@ -10,6 +10,17 @@
 <tr><td>产品列表:</td><td>
     <asp:TextBox runat="server" ID="tbxProductList" TextMode="MultiLine"></asp:TextBox>
 </td></tr>
+<tr>
+<td></td>
+<td><uc:ButtonExt runat="server" ID="btnSaveTag" OnClick="btnSaveTag_Click" Text="保存" />
+<asp:Label runat="server" ID="lblMsg"></asp:Label>
+ </td>
+</tr>
+<tr>
+<td colspan="2">
+<asp:TextBox  runat="server" ID="tbxMsg" TextMode="MultiLine"></asp:TextBox>
+</td>
+</tr>
 </table>
 </asp:Content>
 

@@ -55,6 +55,8 @@
         <span>类别</span><div></div>
             <span>产品名称:</span>
             <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxName"></asp:TextBox>
+             <span>NTS编码:</span>
+            <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxNTSCode"></asp:TextBox>
             <span>分类编码:</span>
             <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxCode"></asp:TextBox>
             <br />
