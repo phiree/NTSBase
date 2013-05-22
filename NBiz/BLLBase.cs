@@ -76,5 +76,4 @@ namespace NBiz
             return DalBase.GetList(where, pageIndex, pageSize, out totalRecord);
         }
     }
-  
 }
