@@ -56,7 +56,7 @@ namespace NBiz
         /// <summary>
         /// 导入总方法
         /// </summary>
-        public void Import(BizProduct bizProduct, BizSupplier bizSupplier)
+        public void Import(BizProduct bizProduct, BizSupplier bizSupplier,IFormatSerialNoPersistent formatSerialnoPersisitent)
         {
             //1 读取Excel列表
             IList<Product> ProductsInExcel = ReadProductsFromExcel(CheckExcelFile());
@@ -87,8 +87,15 @@ namespace NBiz
                     sbImportMsg.AppendLine("已存在该产品.供应商/型号:"+productExist.SupplierName+"/"+productExist.ModelNumber);
                 }
             }
-            //数据保存到数据库
-           // bizProduct.SaveList(
+            //数据保存到数据库-- 分配NTS编码
+            FormatSerialNoUnit serialNoMgr=new FormatSerialNoUnit(formatSerialnoPersisitent);
+
+            foreach(Product p in ProductsPassedDBCheck)
+            {
+             p.NTSCode=serialNoMgr.GetFormatedSerialNo(p.CategoryCode+"."+p.SupplierCode );
+            }
+
+           bizProduct.SaveList(
 
         }
         public void ImportWithDBCheck(BizProduct bizProduct, BizSupplier bizSupplier)

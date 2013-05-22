@@ -69,6 +69,7 @@
     <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="DALCategory.cs" />
+    <Compile Include="DALMembership.cs" />
     <Compile Include="DALProduct.cs" />
     <Compile Include="DALSerialNo.cs" />
     <Compile Include="DALSupplier.cs" />

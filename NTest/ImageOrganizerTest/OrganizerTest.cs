@@ -12,7 +12,7 @@ namespace NTest
         {
             NBiz.ProductImageImporter oer = new NBiz.ProductImageImporter();
             string msg;
-            var list = oer.ImportImage(@"E:\workspace\code\resources\导入资料\datafiles\待导入\"
+            var list = oer.ImportImage(@"E:\workspace\document\2013.3.25（第二期数据）\newName"
                 , @"Y:\original\", out msg);
 
             Console.Write(msg);

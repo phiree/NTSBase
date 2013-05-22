@@ -98,9 +98,9 @@ namespace NDAL
         public IList<T> GetList(string query, int pageIndex, int pageSize, out int totalRecords)
         {
             IQuery qry = session.CreateQuery(query);
-            var itemList = qry.Future<T>().ToList();
-            totalRecords = itemList.Count;
-            var returnList = itemList.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+            totalRecords = 15000;
+            var returnList = qry.SetFirstResult(pageIndex * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
             return returnList;
         }
 

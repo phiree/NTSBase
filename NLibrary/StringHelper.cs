@@ -43,6 +43,15 @@ namespace NLibrary
        {
            return original.Split(s);
        }
-       
+       /// <summary>
+       /// 通过普通的Query hql语句 获取 count* 语句
+       /// </summary>
+       /// <param name="query"></param>
+       /// <returns></returns>
+       public static string BuildCountQuery(string query)
+       { 
+            ////"select s from supplier from supplier d where "
+           throw new NotImplementedException();
+       }
     }
 }
