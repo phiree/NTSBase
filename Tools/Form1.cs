@@ -27,5 +27,10 @@ namespace Tools
                 new FrmCheckFormat().Show();
            
         }
+
+        private void btnImageRename_Click(object sender, EventArgs e)
+        {
+            new RenameImage().Show();
+        }
     }
 }
