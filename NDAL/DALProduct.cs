@@ -8,12 +8,12 @@ namespace NDAL
 {
     public class DALProduct : DalBase<NModel.Product>
     {
-      
+
         public override void Save(NModel.Product o)
         {
             var q = session.QueryOver<Product>().Where(x => x.SupplierName == o.SupplierCode)
                 .And(x => x.ModelNumber == o.ModelNumber)
-             
+
                 .List();
             if (q.Count > 0)
             {
