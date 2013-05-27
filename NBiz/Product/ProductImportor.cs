@@ -42,7 +42,7 @@ namespace NBiz
 
 
         public IList<Product> Result_ProductsSuccessImported { private set; get; }
-       
+   
         public ProductImportor() {
             Result_ProductsSuccessImported = new List<Product>();
         }
@@ -155,9 +155,9 @@ namespace NBiz
             {
                 Result_ProductsSuccessImported = Result_ProductsSuccessImported.Concat(productsHasPicture).ToList();
             }
-            sbMsgForLog.AppendLine("成功导入数量:"+productsHasPicture.Count);
-            sbMsgForLog.AppendLine("没有图片的产品数量:"+productsNotHasPicture.Count);
-            sbMsgForLog.AppendLine("数据库里已存在的产品数量:"+productsExistedInDB.Count);
+            sbMsgForLog.AppendLine(productsHasPicture.Count+"-成功导入数量:");
+            sbMsgForLog.AppendLine(productsNotHasPicture.Count+"-没有图片的产品数量");
+            sbMsgForLog.AppendLine(productsExistedInDB.Count+"-数据库里已存在的产品数量");
             Console.WriteLine("Time Cost beginSaveResultToDisk:" + (DateTime.Now - beginSaveResultToDisk).TotalSeconds);
         }
         /// <summary>
@@ -192,7 +192,8 @@ namespace NBiz
             DataTable dt = new NLibrary.ReadExcelToDataTable(stream).Read(out errMsg);
             IList<Product> products = productReader.Convert(dt);
             sbMsg.AppendLine(products.Count + ":待导入");
-            sbMsgForLog.AppendLine("待导入产品数量:" + products.Count);
+        
+            sbMsgForLog.AppendLine(products.Count+"-待导入产品数量-----"+dir.Name);
             //排除数据库内重复的数据
             IList<Product> validItems = products;
             productsExistedInDB = new List<Product>();
