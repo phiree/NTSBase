@@ -14,7 +14,7 @@ namespace NBiz
     /// </summary>
     public class SingleFolderImport
     {
-        //
+        
         public IList<Product> ProductsPassedDBCheck{ get; private set; }
         public IList<Product> ProductsHasImage { get; private set; }
         public IList<Product> ProductsNotHasImage { get; private set; }
@@ -69,7 +69,7 @@ namespace NBiz
                 IList<string> supplierNameList = GetSupplierNameList(ProductsInExcel);
                 IList<string> supplierNameList_NotExists;
                 IList<Supplier> supplierList = bizSupplier.GetListByNameList(supplierNameList, out supplierNameList_NotExists);
-              
+
                 if (supplierNameList_NotExists.Count > 0)
                 {
                     foreach (string supplierName in supplierNameList_NotExists)
@@ -78,7 +78,11 @@ namespace NBiz
                     }
                     return;
                 }
-                //2 检查数据是否已经导入
+                else
+                { 
+                    
+                }
+                //2 检查数据是否已经导入  && 更新产品的供应商信息
                 IList<Product> productsExisted;
                 ProductsPassedDBCheck = bizProduct.CheckDB(ProductsHasImage, out productsExisted);
                 ProductsExistedInDB = productsExisted;
@@ -92,18 +96,15 @@ namespace NBiz
 
             foreach(Product p in ProductsPassedDBCheck)
             {
-             p.NTSCode=serialNoMgr.GetFormatedSerialNo(p.CategoryCode+"."+p.SupplierCode );
+                 p.NTSCode=serialNoMgr.GetFormatedSerialNo(p.CategoryCode+"."+p.SupplierCode );
             }
+            
+            bizProduct.SaveList(ProductsPassedDBCheck);
+            serialNoMgr.Save();
 
-           bizProduct.SaveList(
-
+            //结果保存到磁盘
         }
-        public void ImportWithDBCheck(BizProduct bizProduct, BizSupplier bizSupplier)
-        {
-
-        }
-
-
+      
         private Stream CheckExcelFile()
         {
             DirectoryInfo dir = new DirectoryInfo(FolderPath);
@@ -185,6 +186,81 @@ namespace NBiz
                 {
                     ImagesNotHasProduct.Add(f);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 将结果保存到磁盘:
+        /// </summary>
+        /// <param name="productHasImages"></param>
+        public void HandlerCheckResult(string supplierName, 
+            string outputFolder, string WebProductImagesPath)
+        {
+            DirectoryInfo dirRoot = new DirectoryInfo(outputFolder);
+            TransferInDatatable transfer = new TransferInDatatable();
+            //如果没有合格数据 则不需要创建
+            if (ProductsPassedDBCheck.Count > 0)
+            {
+                DirectoryInfo dirQuanlified = IOHelper.EnsureDirectory(outputFolder + "合格数据\\");
+                DirectoryInfo dirSupplierQuanlified = IOHelper.EnsureDirectory(dirQuanlified.FullName + supplierName + "\\");
+                DirectoryInfo dirSupplierQuanlifiedImages = IOHelper.EnsureDirectory(dirSupplierQuanlified.FullName + supplierName + "\\");
+                foreach (Product product in ProductsPassedDBCheck)
+                {
+                    try
+                    {
+                        FileInfo imageFile = ImagesHasProduct.Single(x => StringHelper.ReplaceSpace(Path.GetFileNameWithoutExtension(x.Name))
+                          .Equals(StringHelper.ReplaceSpace(product.ModelNumber), StringComparison.OrdinalIgnoreCase));
+                        File.Copy(imageFile.FullName, dirSupplierQuanlified.FullName + supplierName + "\\" + imageFile.Name, true);
+                        //同时拷贝到网站图片路径
+                        if (!string.IsNullOrEmpty(WebProductImagesPath) && outputFolder != WebProductImagesPath)
+                        {
+                            string newImageName = (product.Name + product.SupplierName + product.ModelNumber).GetHashCode().ToString() + imageFile.Extension;
+
+                            File.Copy(imageFile.FullName, WebProductImagesPath + newImageName, true);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("图片复制出错:" + dirSupplierQuanlified.FullName + "---" + product.ModelNumber + "---" + ex.Message);
+                    }
+                }
+
+
+                DataTable dtProductsHasImage = ObjectConvertor.ToDataTable<Product>(ProductsPassedDBCheck);
+                transfer.CreateXslFromDataTable(dtProductsHasImage, 1, dirSupplierQuanlified.FullName + "\\" + supplierName + ".xls");
+            }
+
+            //没有图片的产品
+            string dirPathNotQuanlified = outputFolder + "不合格数据\\";
+            string dirPathSupplierNotQuanlified = dirPathNotQuanlified + supplierName + "\\";
+            if (ProductsNotHasImage.Count > 0)
+            {
+                DirectoryInfo dirSupplierNotQuanlified = IOHelper.EnsureDirectory(dirPathSupplierNotQuanlified);
+                DataTable dtProductsNotHasImage = ObjectConvertor.ToDataTable<Product>(ProductsNotHasImage);
+                transfer.CreateXslFromDataTable(dtProductsNotHasImage, 1, dirSupplierNotQuanlified + "没有图片的数据_" + supplierName + ".xls");
+
+            }
+            //没有产品的图片
+            if (ImagesNotHasProduct.Count > 0)
+            {
+
+                string dirPathSupplierNotQuanlifiedImages = dirPathSupplierNotQuanlified + "多余图片_" + supplierName + "\\";
+                DirectoryInfo dirSupplierNotQuanlifiedImages = IOHelper.EnsureDirectory(dirPathSupplierNotQuanlifiedImages);
+                foreach (FileInfo file in ImagesNotHasProduct)
+                {
+                    file.CopyTo(dirSupplierNotQuanlifiedImages + file.Name, true);
+                }
+            }
+            //多余的图片
+
+            //重复数据
+            if (ProductsExistedInDB.Count > 0)
+            {
+                string dirPathSupplierRepeated = dirPathSupplierNotQuanlified + "数据库内已存在的数据_" + supplierName + "\\";
+                DirectoryInfo dirSupplierRepeated = IOHelper.EnsureDirectory(dirPathSupplierRepeated);
+
+                DataTable dtProductsRepeated = ObjectConvertor.ToDataTable<Product>(ProductsExistedInDB);
+                transfer.CreateXslFromDataTable(dtProductsRepeated, 1, dirSupplierRepeated.FullName + "\\" + supplierName + ".xls");
             }
         }
     }
