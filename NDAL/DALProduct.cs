@@ -15,18 +15,28 @@ namespace NDAL
                 .And(x => x.ModelNumber == o.ModelNumber)
 
                 .List();
+
             if (q.Count > 0)
-            {
-                string errMsg = "未保存.已存在相同供应商和型号的产品:" + o.Name + "-" + o.SupplierName + "-" + o.ModelNumber;
-                NLibrary.NLogger.Logger.Debug(errMsg);
-                throw new Exception(errMsg);
+            {      //如果只有一个 则 更新
+                if (q.Count == 1)
+                {
+                    o.CopyFrom(q[0]);
+                    base.Update(o);
+                }
+                else
+                {
+
+                    string errMsg = "未保存.已存在相同供应商和型号的产品:" + o.Name + "-" + o.SupplierName + "-" + o.ModelNumber;
+                    NLibrary.NLogger.Logger.Debug(errMsg);
+                    throw new Exception(errMsg);
+                }
             }
             else
             {
                 base.Save(o);
             }
         }
-        public  virtual Product GetOneByModelNumberAndSupplierCode(string modelNumber, string supplierCode)
+        public virtual Product GetOneByModelNumberAndSupplierCode(string modelNumber, string supplierCode)
         {
             NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.SupplierCode == supplierCode)
                 .And(x => x.ModelNumber == modelNumber);
@@ -38,17 +48,17 @@ namespace NDAL
 
                 return p;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message+"Data:modelnumber:"+modelNumber+"--suppliercode:"+supplierCode);
+                throw new Exception(ex.Message + "Data:modelnumber:" + modelNumber + "--suppliercode:" + supplierCode);
             }
-           // return GetOneByQuery(iqueryover);
+            // return GetOneByQuery(iqueryover);
         }
-        public virtual Product GetOneByModelNumberAndSupplierName(string modelNumber, string suppliername,string supplierEnglishName)
+        public virtual Product GetOneByModelNumberAndSupplierName(string modelNumber, string suppliername, string supplierEnglishName)
         {
-            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x =>  x.ModelNumber ==modelNumber)
-                 .And(x => x.SupplierName== suppliername||x.SupplierName==supplierEnglishName);
-          //  string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
+            NHibernate.IQueryOver<Product> iqueryover = session.QueryOver<Product>().Where(x => x.ModelNumber == modelNumber)
+                 .And(x => x.SupplierName == suppliername || x.SupplierName == supplierEnglishName);
+            //  string query = string.Format("from Product p where p.SupplierName='{0}' and p.ModelNumber='{1}'",
             //    supplierName,modelNumber);
             try
             {
@@ -70,8 +80,8 @@ namespace NDAL
         /// <param name="pageIndex"></param>
         /// <param name="totalRecord"></param>
         /// <returns></returns>
-        public IList<Product> Search(string supplierName, string model, bool hasphoto, 
-            string name,string categorycode,
+        public IList<Product> Search(string supplierName, string model, bool hasphoto,
+            string name, string categorycode,
             string ntsCode,
             int pageSize, int pageIndex, out int totalRecord)
         {
@@ -95,12 +105,12 @@ namespace NDAL
             }
             if (!string.IsNullOrEmpty(name))
             {
-                query +=string.Format( " and (p.Name like '%{0}%'  or p.EnglishName like '%{0}%')",name);
+                query += string.Format(" and (p.Name like '%{0}%'  or p.EnglishName like '%{0}%')", name);
             }
             if (!string.IsNullOrEmpty(categorycode))
             {
                 //02 或者 02.001
-                query += string.Format(" and (p.CategoryCode='{0}' or substring(p.CategoryCode,1,2)='{0}')",categorycode);
+                query += string.Format(" and (p.CategoryCode='{0}' or substring(p.CategoryCode,1,2)='{0}')", categorycode);
             }
             //if (supplierCodes.Length > 0)
             //{
@@ -124,11 +134,11 @@ namespace NDAL
         /// </summary>
         /// <param name="supplierName"></param>
         /// <returns></returns>
-        public IList<Product> GetListBySupplier(string supplierName,string englishName)
+        public IList<Product> GetListBySupplier(string supplierName, string englishName)
         {
             NHibernate.IQueryOver<Product, Product> queryover = session.QueryOver<Product>()
-                .Where(x => x.SupplierName == supplierName|| x.SupplierName==englishName)
-                
+                .Where(x => x.SupplierName == supplierName || x.SupplierName == englishName)
+
                 ;
             return GetList(queryover);
         }
