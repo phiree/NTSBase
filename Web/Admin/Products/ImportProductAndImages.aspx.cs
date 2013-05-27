@@ -53,9 +53,9 @@ public partial class Admin_Products_ImportProductAndImages : System.Web.UI.Page
         string fileNames=string.Empty;
         foreach(DirectoryInfo dir in GetImportedDir())
         {
-         fileNames+=dir.FullName+"__";
+         fileNames+=dir.Name+"|";
         }
-        
+        fileNames = fileNames.TrimEnd('|');
 
         try
         {
@@ -76,6 +76,10 @@ public partial class Admin_Products_ImportProductAndImages : System.Web.UI.Page
         {
             tbxMsg.CssClass = "error";
             tbxMsg.Text = ex.Message;
+            if (ex.InnerException != null)
+            {
+                tbxMsg.Text += Environment.NewLine + ex.InnerException.Message;
+            }
         }
     }
 }
