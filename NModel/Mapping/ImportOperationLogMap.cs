@@ -15,7 +15,7 @@ namespace NModel.Mapping
             Map(x => x.ImportedFileName);
             HasMany(x => x.ImportedItems).Cascade.SaveUpdate();
             Map(x => x.ImportTime);
-            Map(x => x.ImportResult);
+            Map(x => x.ImportResult).Length(4000);
             Map(x => x.ImportMember);
             
          
