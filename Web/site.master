@@ -26,6 +26,7 @@
                 </asp:LoginView>
                 <asp:LoginName runat="server" />
                 <asp:LoginStatus runat="server" />
+                <a style="margin-left:10px" href="/products/">产品中心</a>
             </div>
         </div>
         <div class="clear span-24 last" id="adminBody">
