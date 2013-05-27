@@ -108,12 +108,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\connectionStrings.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="config\log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="config\authentication.config" />
+    <None Include="config\connectionStrings.config" />
+    <None Include="config\log4net.config" />
+    <None Include="config\membership.config" />
+    <None Include="config\pages.config" />
     <None Include="NMock3\NMock3 Cheat Sheet.pdf" />
     <None Include="packages.config" />
     <None Include="TestFiles\FormatCheck\巴非\巴菲 报价单.xls">

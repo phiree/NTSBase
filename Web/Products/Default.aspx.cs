@@ -26,9 +26,8 @@ public partial class Products_Default : System.Web.UI.Page
         string supplierName =Server.UrlDecode( Request["sname"]);
         tbxSupplierName.Text =  supplierName;
         tbxModel.Text = Server.UrlDecode(Request["model"]);
-        bool hasPhoto = false;
-        bool.TryParse(Request["hasPhoto"],out hasPhoto);
-        cbxHasPhoto.Checked = hasPhoto;
+        string hasPhoto = Request["hasPhoto"];
+        ddlHasPhoto.SelectedValue = hasPhoto;
         tbxCode.Text =Server.UrlDecode( Request["categoryCode"]);
         tbxName.Text = Request["name"];
         tbxNTSCode.Text = Request["ntscode"];
@@ -48,7 +47,7 @@ public partial class Products_Default : System.Web.UI.Page
         string targetUrl =string.Format( "Default.aspx?sname={0}&model={1}&hasphoto={2}&name={3}&categorycode={4}&ntscode={5}"
             , Server.UrlEncode(tbxSupplierName.Text)
             ,Server.UrlDecode(tbxModel.Text)
-            ,cbxHasPhoto.Checked
+            ,ddlHasPhoto.SelectedValue
             ,tbxName.Text.Trim()
             ,tbxCode.Text.Trim()
             ,tbxNTSCode.Text.Trim()
@@ -58,11 +57,17 @@ public partial class Products_Default : System.Web.UI.Page
     }
     private void BindProduct()
     {
+        bool? hasPhoto=null;
+        string strHasPhotoValue = ddlHasPhoto.SelectedValue;
+        if (strHasPhotoValue == "yes") hasPhoto = true;
+        else if(strHasPhotoValue=="no") hasPhoto = false;
+        
+        
         int pageIndex = GetPageIndex();
         int totalRecords;
         var product = bizProduct.Search(tbxSupplierName.Text.Trim()
             ,tbxModel.Text.Trim()
-            ,cbxHasPhoto.Checked
+            , hasPhoto
             ,tbxName.Text.Trim()
             ,tbxCode.Text.Trim()
             ,tbxNTSCode.Text.Trim()

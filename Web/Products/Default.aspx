@@ -63,7 +63,11 @@
             <span>供应商名:</span>
             <asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxSupplierName"></asp:TextBox>
             <span>产品型号:</span><asp:TextBox CssClass="text" Width="150" runat="server" ID="tbxModel"></asp:TextBox>
-            <asp:CheckBox runat="server" ID="cbxHasPhoto" Text="有图片" />
+            <asp:DropDownList runat="server" ID="ddlHasPhoto">
+            <asp:ListItem Selected="True" Value="all">-产品图片-</asp:ListItem>
+             <asp:ListItem  Value="yes">有图</asp:ListItem>
+              <asp:ListItem  Value="no">无图</asp:ListItem>
+            </asp:DropDownList>
             <uc:ButtonExt runat="server" ID="btnSearch" OnClick="btnSearch_Click" Text="搜索" />
         </div>
     </fieldset>

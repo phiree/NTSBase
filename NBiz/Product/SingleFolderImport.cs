@@ -102,7 +102,8 @@ namespace NBiz
             bizProduct.SaveList(ProductsPassedDBCheck);
             serialNoMgr.Save();
 
-            //结果保存到磁盘
+            //图片复制至web的虚拟路径,  不合格数据拷贝
+
         }
       
         private Stream CheckExcelFile()

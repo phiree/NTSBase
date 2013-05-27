@@ -136,7 +136,7 @@ namespace NBiz
             return ValidItems;
         }
 
-        public IList<Product> Search(string supplierName, string model, bool hasPhoto,
+        public IList<Product> Search(string supplierName, string model, bool? hasPhoto,
             string name, string categorycode,
             string ntsCode,
             int pageSize, int pageIndex, out int totalRecord)

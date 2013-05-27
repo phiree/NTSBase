@@ -80,7 +80,7 @@ namespace NDAL
         /// <param name="pageIndex"></param>
         /// <param name="totalRecord"></param>
         /// <returns></returns>
-        public IList<Product> Search(string supplierName, string model, bool hasphoto,
+        public IList<Product> Search(string supplierName, string model, bool? hasphoto,
             string name, string categorycode,
             string ntsCode,
             int pageSize, int pageIndex, out int totalRecord)
@@ -99,9 +99,16 @@ namespace NDAL
             {
                 query += "and p.ModelNumber like '%" + model + "%'";
             }
-            if (hasphoto)
+            if ( hasphoto.HasValue)
             {
-                query += "and p.ProductImageUrls.size>0";
+                if (hasphoto.Value == true)
+                {
+                    query += "and p.ProductImageUrls.size>0";
+                }
+                else
+                {
+                    query += "and p.ProductImageUrls.size=0";
+                }
             }
             if (!string.IsNullOrEmpty(name))
             {

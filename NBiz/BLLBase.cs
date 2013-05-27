@@ -76,7 +76,10 @@ namespace NBiz
         }
         protected IList<T> GetList(string where, int pageIndex, int pageSize, out int totalRecord)
         {
-            return DalBase.GetList(where, pageIndex, pageSize, out totalRecord);
+            //设置总条数
+            IList<T> listT= DalBase.GetList(where, pageIndex, pageSize, out totalRecord);
+            totalRecord = 13000;
+            return listT;
         }
     }
   
