@@ -9,6 +9,9 @@ namespace NBiz
     {
         //todo: bll factory using cache.
         DalBase<T> dalBase;
+
+        
+
         public DalBase<T> DalBase
         {
             get

@@ -29,7 +29,15 @@ namespace NBiz
             }
         }
         DALProduct dalProduct = new DALProduct();
-
+        public DALProduct DalProduct {
+            get {
+                if (dalProduct == null) dalProduct = new DALProduct();
+                return dalProduct;
+            }
+            set {
+                dalProduct = value;
+            }
+        }
 
         public string ImportMsg { get; set; }
         /// <summary>
@@ -89,7 +97,7 @@ namespace NBiz
 
 
             sbMsg.AppendLine("---------可导入/待导入数量:" + listToBeSaved.Count + "/" + list.Count + "<br/>");
-            ((DALProduct)dalProduct).SaveList(listToBeSaved);
+            DalProduct.SaveList(listToBeSaved);
             sbMsg.AppendLine("---------导入完成----:" + listToBeSaved.Count + "<br/>");
             serialNoUnit.Save();
             sbMsg.AppendLine("---------NTS编码已生成----:" + listToBeSaved.Count + "<br/>");
@@ -101,7 +109,7 @@ namespace NBiz
 
 
         /// <summary>
-        ///   该产品是否已经存在.
+        ///   该产品是否已经存在,更新供应商Code
         /// </summary>
         /// <param name="list">待检查列表</param>
         /// <param name="invalidItems">不合格数据</param>
@@ -114,13 +122,15 @@ namespace NBiz
 
             foreach (Product o in list)
             {
-                var p = dalProduct.GetOneByModelNumberAndSupplierCode(o.ModelNumber, o.SupplierCode);
+                Supplier s = DalSupplier.GetOneByName(o.SupplierName);
+                var p = DalProduct.GetOneByModelNumberAndSupplierCode(o.ModelNumber, s.Code);
 
                 if (p != null)
                 {
                     existedItems.Add(o);
                     continue;
                 }
+                o.SupplierCode = s.Code;
                 ValidItems.Add(o);
             }
             return ValidItems;
@@ -131,7 +141,7 @@ namespace NBiz
             string ntsCode,
             int pageSize, int pageIndex, out int totalRecord)
         {
-            return ((DALProduct)dalProduct).Search(supplierName, model, hasPhoto,
+            return DalProduct.Search(supplierName, model, hasPhoto,
                name, categorycode,
                ntsCode,
                pageSize, pageIndex, out totalRecord);
@@ -142,8 +152,8 @@ namespace NBiz
             Supplier s= DalSupplier.GetOneByName(supplierName);
             if (s == null)
                 return null;
-            
-            return dalProduct.GetOneByModelNumberAndSupplierName(modelNumber, s.Name,s.EnglishName);
+
+            return DalProduct.GetOneByModelNumberAndSupplierName(modelNumber, s.Name, s.EnglishName);
         }
         /// <summary>
         /// 

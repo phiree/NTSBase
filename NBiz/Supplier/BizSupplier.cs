@@ -8,7 +8,15 @@ namespace NBiz
 {
     public class BizSupplier : BLLBase<NModel.Supplier>
     {
-        DALSupplier dalSupplier = new DALSupplier();
+        private DALSupplier dalSupplier;
+       public DALSupplier DalSupplier {
+           get {
+               if (dalSupplier == null) dalSupplier = new DALSupplier();
+               return dalSupplier;
+           }
+           set { dalSupplier = value;
+           }
+       }
         public void ImportSupplierFromExcel(System.IO.Stream stream, out string errmsg)
         {
             IDataTableConverter<Supplier> supplierReader = new SupplierDataConverter();
@@ -29,8 +37,7 @@ namespace NBiz
         }
         public Supplier GetByName(string supplierName)
         {
-            string query = "from Supplier s where s.Name='" + supplierName + "' or s.EnglishName='"+supplierName+"'";
-            return GetOneByQuery(query);
+            return DalSupplier.GetOneByName(supplierName);
         }
         public IList<Supplier> GetListByNameList(IList<string> supplierNameList,out IList<string>  supplierNameListNotExists )
         {
@@ -39,7 +46,7 @@ namespace NBiz
             foreach (string supplierCode in supplierNameList)
             {
                 //如果返回为空
-                Supplier supplier = GetByCode(supplierCode);
+                Supplier supplier = GetByName(supplierCode);
                 if (supplier != null)
                 {
                     existsSupplierList.Add(supplier);
@@ -55,16 +62,16 @@ namespace NBiz
         public override IList<Supplier> SaveList(IList<Supplier> list, out string errMsg)
         {
             errMsg = string.Empty;
-            dalSupplier.SaveList(list);
+            DalSupplier.SaveList(list);
             return list;
         }
         public IList<Supplier> GetListAllPaged(int pageIndex, int pageSize, out int totalRerord)
         {
-            return dalSupplier.GetList("select s from Supplier s", pageIndex, pageSize, out totalRerord);
+            return DalSupplier.GetList("select s from Supplier s", pageIndex, pageSize, out totalRerord);
         }
         public IList<Supplier> Search(string name, int pageIndex, int pageSize, out int recordCount)
         {
-            return dalSupplier.Search(name, pageIndex, pageSize, out recordCount);
+            return DalSupplier.Search(name, pageIndex, pageSize, out recordCount);
         }
 
     }
