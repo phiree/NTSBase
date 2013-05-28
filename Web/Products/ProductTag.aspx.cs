@@ -26,16 +26,24 @@ public partial class Products_ProductTag : System.Web.UI.Page
 
         ProductTag pt = bizTag.GetOne(new Guid(tagId));
         if (pt == null) return;
-        string cateCode = Request["cate"];
+       
+            IList<Product> productListAllCates = pt.Product_Tags.Select(x => x.Product).ToList();
+
+            var gg = from ps in pt.Product_Tags
+                     group ps.Product by ps.Product.CategoryCode into cate
+                     select new { CateP = cate.Key, CatePList = cate };
+            BindCategory(pt);
+
+            IList<Product> productListCated = productListAllCates;
+
+            string cateCode = Request["cate"];
         
-        var productListAllCates=pt.Product_Tags.Select(x=>x.Product).ToList();
-        BindCategory(productListAllCates);
-        IList<Product> productListCated = productListAllCates;
-        if (!string.IsNullOrEmpty(cateCode))
-        {
-            productListCated = productListAllCates.Where(x => x.CategoryCode == cateCode).ToList();
-        }
-        ascxProList.ProductList = productListCated;
+            if (!string.IsNullOrEmpty(cateCode))
+            {
+                productListCated = productListAllCates.Where(x => x.CategoryCode == cateCode).ToList();
+            }
+            ascxProList.ProductList = productListCated;
+       
        
     }
 
@@ -46,16 +54,20 @@ public partial class Products_ProductTag : System.Web.UI.Page
 
     }
     BizCategory bizCate = new BizCategory();
-    private void BindCategory(IList<Product> productList)
+    private void BindCategory(ProductTag pt)
     {
        // IList<Category> allCates = bizCate.GetAll<Category>();
 
-        var g = from p in productList
+        //var g = from p in productList
                 
-                group p by p.CategoryCode into cate
-                select new { Cate = cate.Key, Products = cate };
-
-        rptCate.DataSource = g.OrderBy(x=>x.Cate);
+        //        group p by p.CategoryCode into cate
+        //        select new { Cate = cate.Key, Products = cate };
+       
+        var gg = from ps in pt.Product_Tags
+                 group ps.Product by ps.Product.CategoryCode into cate
+                 select new { CateP = cate.Key, CatePList = cate };
+  
+        rptCate.DataSource = gg.OrderBy(x => x.CateP);
         rptCate.DataBind();
     }
     

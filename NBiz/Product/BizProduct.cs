@@ -123,6 +123,10 @@ namespace NBiz
             foreach (Product o in list)
             {
                 Supplier s = DalSupplier.GetOneByName(o.SupplierName);
+                if (s == null)
+                {
+                    throw new Exception("供应商不存在:"+o.SupplierName+",请检查Excel的供应商列.");
+                }
                 var p = DalProduct.GetOneByModelNumberAndSupplierCode(o.ModelNumber, s.Code);
 
                 if (p != null)

@@ -7,7 +7,7 @@ namespace NTest.NBizTest
 {
     public class BizProductTagTest
     {
-        
+       
     }
     
 }

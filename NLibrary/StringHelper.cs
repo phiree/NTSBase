@@ -51,6 +51,7 @@ namespace NLibrary
        public static string BuildCountQuery(string query)
        { 
             ////"select s from supplier from supplier d where 1=1   "
+           
            string regex = "(?<=select).*(?=from)";
 
           string result= Regex.Replace(query, regex, " count(*) ");

@@ -150,12 +150,15 @@ namespace NDAL
             return GetList(queryover);
         }
 
-        public IList<Product> GetListBySupplierCode(string supplierCode)
+        public virtual IList<Product> GetListBySupplierCode(string supplierCode)
         {
             NHibernate.IQueryOver<Product, Product> queryover = session.QueryOver<Product>()
-                .Where(x => x.SupplierCode == supplierCode)
+                .Where(x => x.SupplierCode == supplierCode);
+           //var list= session.QueryOver<Product>().Where(x => x.SupplierCode == supplierCode);
 
-                ;
+           //string qry = "select p from Product p where p.SupplierCode='" + supplierCode + "'";
+           //return GetList(qry);
+
             return GetList(queryover);
         }
 

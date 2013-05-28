@@ -34,7 +34,7 @@ namespace NDAL
             }
            
         }
-        public void Update(T o)
+        public virtual void Update(T o)
         {
             session.Update(o);
             session.Flush();
@@ -102,7 +102,7 @@ namespace NDAL
             IQuery qryCount = session.CreateQuery(queryCount);
             totalRecords =(int) qryCount.UniqueResult<long>();
            
-            var returnList = qry.SetFirstResult(pageIndex * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
+            var returnList = qry.SetFirstResult((pageIndex-1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
             return returnList;
         }
 

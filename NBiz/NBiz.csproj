@@ -65,11 +65,7 @@
     <Compile Include="Product\ProductComparer.cs" />
     <Compile Include="Product\ProductImportor.cs" />
     <Compile Include="IDataTableConverter.cs" />
-    <Compile Include="ImageOrganizer\ExtractRuleFactory.cs" />
-    <Compile Include="ImageOrganizer\ExtractRuleNormal.cs" />
-    <Compile Include="ImageOrganizer\IExtractRule.cs" />
-    <Compile Include="ImageOrganizer\Organizer.cs" />
-    <Compile Include="ImageOrganizer\ExtractRuleNewNtsCode.cs" />
+    <Compile Include="Product\ProductImageImporter.cs" />
     <Compile Include="ImportLog\BizImportLog.cs" />
     <Compile Include="Product\BizProduct.cs" />
     <Compile Include="BLLBase.cs" />

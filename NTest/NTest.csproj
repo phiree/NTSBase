@@ -72,12 +72,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageOrganizerTest\OrganizerTest.cs" />
+    <Compile Include="NBizTest\ProductImageImportorTest.cs" />
     <Compile Include="NBizTest\BizProductTagTest.cs" />
     <Compile Include="NBizTest\ImportFromExcelTest.cs" />
     <Compile Include="NBizTest\CopyImageTest.cs" />
     <Compile Include="NBizTest\MakeThumbnailTest.cs" />
-    <Compile Include="NBizTest\SingleFolderImportTest.cs" />
     <Compile Include="NBizTest\SupplierTest.cs" />
     <Compile Include="NBizTest\CheckFormatTest.cs" />
     <Compile Include="NBizTest\BizProductTest.cs" />
@@ -108,11 +107,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config\authentication.config" />
-    <None Include="config\connectionStrings.config" />
-    <None Include="config\log4net.config" />
-    <None Include="config\membership.config" />
-    <None Include="config\pages.config" />
+    <None Include="config\authentication.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="config\connectionStrings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="config\log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="config\membership.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="config\pages.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="NMock3\NMock3 Cheat Sheet.pdf" />
     <None Include="packages.config" />
     <None Include="TestFiles\FormatCheck\巴非\巴菲 报价单.xls">
@@ -234,10 +243,28 @@
     <Content Include="TestFiles\Images\开平市祥云卫浴制品有限公司\GIMS-110-BC-2.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestFiles\ProductImages\佛山市南海承标金属制品有限公司\OD-84%24啡色.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ProductImages\佛山市南海承标金属制品有限公司\OD-86.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ProductImages\佛山市可纳家具有限公司\KNB＄5029.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ProductImages\广州市绅美餐饮设备制造有限公司\QBL-918.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ProductImages\广州市绅美餐饮设备制造有限公司\QBL-928.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestFiles\ProductImages\广州市绅美餐饮设备制造有限公司\QBL-938.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ImageOrganizerTest\" />
     <Folder Include="TestFiles\NBizTest\MakeThumbnail\thumbnail\" />
-    <Folder Include="TestFiles\NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

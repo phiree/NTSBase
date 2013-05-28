@@ -45,7 +45,7 @@ namespace NDAL
         {
             NHibernate.IQueryOver<NModel.Supplier> iqueryOver = session.QueryOver<NModel.Supplier>()
                 .Where(x => (supplierName!=string.Empty)&&(x.EnglishName==supplierName|| x.Name == supplierName));
-            string query =string.Format( "from Supplier s where s.EnglishName='{0}' or s.Name='{0}'",supplierName);
+            string query =string.Format( "select s  from Supplier s where s.EnglishName='{0}' or s.Name='{0}'",supplierName);
             //GetOneByQuery(query);
             return GetOneByQuery(query);
         }
@@ -63,7 +63,7 @@ namespace NDAL
             string query = "select s from Supplier s  where 1=1 ";
             if (!string.IsNullOrEmpty(supplierName))
             {
-                query += "  and s.Name like '%" + supplierName + "%'";
+                query += "  and s.Name like '%" + supplierName + "%' or s.EnglishName like '%"+supplierName+"%'";
 
             }
             return GetList(query,pageIndex,pageSize, out recordCount);

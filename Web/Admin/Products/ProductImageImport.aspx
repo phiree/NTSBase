@@ -4,12 +4,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <p>
-        前提条件: 1) 相关产品资料已经导入 2) 产品图片已按照规定结构上传至服务器的指定位置. 规定结构:供应商/产品型号.jpg.指定位置:192.168.1.44/VirtualPath/NtsBase/ProductImages/
-    </p>
-   <br />
-   <asp:RadioButtonList runat="server" ID="rbl">
-   
-   </asp:RadioButtonList>
-    <asp:Button runat="server" ID="btnImportImages" Text="开始导入" />
+    <fieldset>
+<legend>待导入图片</legend>
+<div style="float:left">
+<asp:TreeView runat="server" ID="tr"  ShowExpandCollapse="false"></asp:TreeView>
+</div>
+</fieldset>
+
+
+<uc:ButtonExt runat="server" id="btnImport"  OnClick="btnImport_Click" Text="开始导入" />
+<div>
+<asp:TextBox Width="100%" CssClass="success"  Enabled="false" runat="server" ID="tbxMsg"  TextMode="MultiLine" Rows="40"></asp:TextBox>
+</div>
 </asp:Content>
