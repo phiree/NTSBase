@@ -59,7 +59,6 @@
   <ItemGroup>
     <Compile Include="ButtonExt.cs" />
     <Compile Include="Convertor.cs" />
-    <Compile Include="FormatSerialNo.cs" />
     <Compile Include="GlobalVariables.cs" />
     <Compile Include="IOHelper.cs" />
     <Compile Include="JSONHelper.cs" />
@@ -69,6 +68,7 @@
     <Compile Include="ReadExcelToDataTable.cs" />
     <Compile Include="SerialNumberManager.cs" />
     <Compile Include="StringHelper.cs" />
+    <Compile Include="__FormatSerialNo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
