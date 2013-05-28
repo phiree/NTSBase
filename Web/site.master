@@ -26,10 +26,17 @@
                 </asp:LoginView>
                 <asp:LoginName runat="server" />
                 <asp:LoginStatus runat="server" />
-                <a style="margin-left:10px" href="/products/">产品中心</a>
+              
             </div>
         </div>
         <div class="clear span-24 last" id="adminBody">
+        <div class="span-4" id="leftMenu">
+                <ul>
+                    <li><a href="/products/">产品列表</a></li>
+                    <li><a href="/products/ProductTag.aspx">产品集</a></li>
+                    <li><a href="/suppliers/">供应商列表</a></li>
+                </ul>
+            </div>
             <asp:ContentPlaceHolder runat="server" ID="cph_MainBody">
             </asp:ContentPlaceHolder>
         </div>

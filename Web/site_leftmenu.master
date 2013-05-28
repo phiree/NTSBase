@@ -4,13 +4,7 @@
 <asp:ContentPlaceHolder runat="server" ID="head"></asp:ContentPlaceHolder>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cph_MainBody" Runat="Server">
-<div class="span-4" id="leftMenu">
-                <ul>
-                    <li><a href="/products/">产品列表</a></li>
-                    <li><a href="/products/ProductTag.aspx">产品集</a></li>
-                    <li><a href="/suppliers/">供应商列表</a></li>
-                </ul>
-            </div>
+
             <div class="span-20 last" id="mainContent">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
