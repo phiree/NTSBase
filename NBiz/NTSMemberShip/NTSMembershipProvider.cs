@@ -51,6 +51,13 @@ namespace NBiz
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
 
+            MembershipUser muExisted = GetUser(username, false);
+            if (muExisted != null)
+            {
+                status = MembershipCreateStatus.DuplicateUserName;
+                return null;
+            }
+
             NTSMember ntsMember = new NTSMember();
             ntsMember.Email = email;
             ntsMember.Name = username;

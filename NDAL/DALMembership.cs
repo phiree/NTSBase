@@ -9,7 +9,10 @@ namespace NDAL
     {
         public NModel.NTSMember GetByUserName(string username)
         {
-            throw new NotImplementedException();
+            string query = "select m from NTSMember m where m.Name='" + username + "'";
+                 
+            NModel.NTSMember member = GetOneByQuery(query);
+            return member;
         }
 
         public bool ValidateUser(string username, string encryptedPwd)
