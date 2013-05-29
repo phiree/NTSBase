@@ -101,7 +101,7 @@ namespace NBiz
                 string modelNumber = Path.GetFileNameWithoutExtension(imageFile.Name).Replace("＄","$");
 
                 Product p = null;//=  dalProduct.GetOneByModelNumberAndSupplier(modelNumber, dirSupplier.Name);
-                IList<Product> productSupplierAndModel = ProductsOfSupplier.Where(x =>  x.ModelNumber.Trim() == modelNumber.Trim()).ToList();
+                IList<Product> productSupplierAndModel = ProductsOfSupplier.Where(x =>  x.ModelNumber.Trim().Replace("\n","") == modelNumber.Trim()).ToList();
                 if (productSupplierAndModel.Count == 0)
                 {
 

@@ -43,7 +43,9 @@ public partial class Admin_Products_ProductImageImport : System.Web.UI.Page
             ProductImageImporter importor = new ProductImageImporter();
             //importor.CheckWithDatabase = true;
         IList<ImageInfo> imported=    importor.ImportImage(ProductImages_ToImport, ProductImages_OriginalPath, out msg);
-        msg = "成功导入" + imported.Count + "张" + Environment.NewLine;
+       
+            msg =msg+Environment.NewLine
+                + "导入" + imported.Count + "张" + Environment.NewLine;
             tbxMsg.Text = msg;
         }
         catch (Exception ex)
