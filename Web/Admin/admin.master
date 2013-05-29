@@ -23,9 +23,9 @@
         <div class="clear span-24 " id="adminBody">
             <div class="span-4 colborder" id="leftMenu">
                 <ul>
-                    <li><a href="/admin/products/productimport.aspx">导入报价单Excel</a></li>
-                       <li><a href="/admin/products/ImportProductAndImages.aspx">导入报价单Excel和图片</a></li>
-                    <li><a href="/admin/products/ProductImageImport.aspx">导入产品图片</a></li>
+                  <li><a href="/admin/products/ImportProductAndImages.aspx">导入Excel和图片</a></li>
+                    <li><a href="/admin/products/productimport.aspx">只导入Excel产品列表</a></li>
+                    <li><a href="/admin/products/ProductImageImport.aspx">只导入产品图片</a></li>
                     <li><a href="/admin/Supplier/SupplierImport.aspx">导入供应商Excel</a></li>
                     <li><a href="/admin/Category/Categoryimport.aspx">导入分类Excel</a></li>
                     <li><a href="/admin/Category/">分类列表</a></li>
@@ -34,6 +34,12 @@
                 </ul>
             </div>
             <div class="span-19 last" id="mainContent">
+            <fieldset>
+            <legend></legend>
+            <div class="info">
+            <asp:ContentPlaceHolder runat="server" ID="pageDesc"   ></asp:ContentPlaceHolder>
+            </div>
+            </fieldset>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
