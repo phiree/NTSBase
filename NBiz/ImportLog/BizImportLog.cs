@@ -25,7 +25,7 @@ namespace NBiz
             log.FileFrom = from;
             log.ImportTime = DateTime.Now;
             log.ImportedFileName = fileName;
-            log.ImportedItems = importedProducts;
+          //  log.ImportedItems = importedProducts;
             log.ImportMember = memberName;
             log.ImportResult = importResult;
             Save(log);

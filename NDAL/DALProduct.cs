@@ -12,7 +12,7 @@ namespace NDAL
         public override void Save(NModel.Product o)
         {
             
-            var q = session.QueryOver<Product>().Where(x => x.SupplierName == o.SupplierCode)
+            var q = session.QueryOver<Product>().Where(x => x.SupplierCode == o.SupplierCode)
                 .And(x => x.ModelNumber == o.ModelNumber)
                 .List();
 
@@ -20,9 +20,12 @@ namespace NDAL
             {      //如果只有一个 则 更新
                 if (q.Count == 1)
                 {
+                    Product existedOne = q[0];
                     SaveMsg = string.Format("存在同厂同型产品,已更新.名称:{0};型号:{1};供应商:{2}",q[0].Name,q[0].ModelNumber,q[0].SupplierName);
-                    o.CopyFrom(q[0]);
-                    base.Update(o);
+                    existedOne.CopyFrom(o);
+                    existedOne.NTSCode = o.NTSCode;
+                    base.Update(existedOne);
+                    o = existedOne;
                 }
                 else
                 {
@@ -133,8 +136,10 @@ namespace NDAL
             //    query += " and p.SupplierCode in (" + whereSupplier + ")";
 
             //}
-
-            return GetList(query, pageIndex, pageSize, out totalRecord);
+            string orderColumns = " p.LastUpdateTime ";
+            bool desc = true;
+                
+            return GetList(query,orderColumns,desc,  pageIndex, pageSize, out totalRecord);
         }
 
         /// <summary>

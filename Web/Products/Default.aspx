@@ -102,6 +102,7 @@
             <asp:BoundField HeaderText="型号" DataField="ModelNumber" />
             <asp:BoundField HeaderText="NTS编码" DataField="NTSCode" />
             <asp:BoundField HeaderText="供应商名称" DataField="SupplierName" />
+            <asp:BoundField HeaderText="更新日期" DataField="LastUpdateTime" />
         </Columns>
         <EmptyDataTemplate>
             <div class="notice">

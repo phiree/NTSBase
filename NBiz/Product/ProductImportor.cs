@@ -128,7 +128,8 @@ namespace NBiz
                 , out imagesHasNotProduct);
 
             //将结果保存到数据库
-            BizProduct.SaveList(productsHasPicture);
+            string saveMsg;
+            BizProduct.SaveList(productsHasPicture,out saveMsg );
             sbMsg.AppendLine(productsHasPicture.Count + ":已导入");
             //结果保存到文件夹
             DateTime beginSaveResultToDisk = DateTime.Now;
@@ -212,7 +213,7 @@ namespace NBiz
             }
             //
             DateTime beginCheckImage = DateTime.Now;
-            CheckProductImages(validItems, folderPath, out productsHasPicture
+            CheckProductImages(products, folderPath, out productsHasPicture
            , out productsNotHasPicture
            , out  imagesHasProduct
            , out  imagesHasNotProduct);

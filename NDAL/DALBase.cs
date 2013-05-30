@@ -19,7 +19,7 @@ namespace NDAL
         }
         public virtual void Save(T o)
         {
-            session.Save(o);
+           session.Save(o);
             session.Flush();
         }
         
@@ -97,15 +97,35 @@ namespace NDAL
 
         public IList<T> GetList(string query, int pageIndex, int pageSize, out int totalRecords)
         {
-            IQuery qry = session.CreateQuery(query);
+            return GetList(query, string.Empty, false, pageIndex, pageSize, out totalRecords);
+        }
+        /// <summary>
+        /// 从数据库获取对象列表
+        /// </summary>
+        /// <param name="query"> 查询语句, 只包含 select 和 where 部分 </param>
+        /// <param name="orderColumns"> 排序属性名称, 用逗号分隔. </param>
+        /// <param name="orderDesc">是否降序</param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="totalRecords"></param>
+        /// <returns></returns>
+        public IList<T> GetList(string query,string orderColumns,bool orderDesc, int pageIndex, int pageSize, out int totalRecords)
+        {
+            string strOrder = string.Empty;
+            if (!string.IsNullOrEmpty(orderColumns))
+            {
+                strOrder =  " order by " + orderColumns;
+                if (orderDesc)
+                    strOrder += " desc ";
+            }
+            IQuery qry = session.CreateQuery(query+strOrder);
             string queryCount = NLibrary.StringHelper.BuildCountQuery(query);
             IQuery qryCount = session.CreateQuery(queryCount);
-            totalRecords =(int) qryCount.UniqueResult<long>();
-           
-            var returnList = qry.SetFirstResult((pageIndex-1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
+            totalRecords = (int)qryCount.UniqueResult<long>();
+            
+            var returnList = qry.SetFirstResult((pageIndex - 1) * pageSize).SetMaxResults(pageSize).Future<T>().ToList();
             return returnList;
         }
-
 
     }
 }

@@ -10,7 +10,14 @@ namespace NBiz
 {
     public class BizProduct : BLLBase<NModel.Product>
     {
-        FormatSerialNoUnit serialNoUnit = new FormatSerialNoUnit(new DALFormatSerialNo());
+        FormatSerialNoUnit serialNoUnit;
+        public FormatSerialNoUnit SerialNoUnit {
+            get {
+                if (serialNoUnit == null) serialNoUnit = new FormatSerialNoUnit(new DALFormatSerialNo());
+                return serialNoUnit;
+            }
+        }
+
         DALSupplier _dalSupplier;
         public DALSupplier DalSupplier
         {
@@ -89,17 +96,25 @@ namespace NBiz
 
 
             sbMsg.AppendLine("-----开始保存.产品数量:" + list.Count + "<br/>");
-            IList<Product> invalidItems = new List<Product>();
-            var listToBeSaved = CheckDB(list, out invalidItems);
+            IList<Product> existedItems;
+            var listToBeSaved = CheckDB(list, out existedItems);
 
             //排除已有产品 之前是在dal层实现,应该转移到bll层, 因为nts编码生成也与此相关.
             //已经提取出来的supplier直接获取 不再从数据源提取
 
 
             sbMsg.AppendLine("---------可导入/待导入数量:" + listToBeSaved.Count + "/" + list.Count + "<br/>");
+
+            foreach (Product p in listToBeSaved)
+            {
+                if (string.IsNullOrEmpty(p.NTSCode))
+                {
+                    p.NTSCode = SerialNoUnit.GetFormatedSerialNo(p.CategoryCode + "." + p.SupplierCode);
+                }
+            }
             DalProduct.SaveList(listToBeSaved);
             sbMsg.AppendLine("---------导入完成----:" + listToBeSaved.Count + "<br/>");
-            serialNoUnit.Save();
+            SerialNoUnit.Save();
             sbMsg.AppendLine("---------NTS编码已生成----:" + listToBeSaved.Count + "<br/>");
             sbMsg.AppendLine("--数据导入结束----:" + listToBeSaved.Count + "<br/>");
             ImportMsg = sbMsg.ToString();
@@ -127,14 +142,15 @@ namespace NBiz
                 {
                     throw new Exception("供应商不存在:"+o.SupplierName+",请检查Excel的供应商列.");
                 }
+                o.SupplierCode = s.Code;
                 var p = DalProduct.GetOneByModelNumberAndSupplierCode(o.ModelNumber, s.Code);
-
                 if (p != null)
                 {
                     existedItems.Add(o);
+                    ValidItems.Add(p);
                     continue;
                 }
-                o.SupplierCode = s.Code;
+                
                 ValidItems.Add(o);
             }
             return ValidItems;

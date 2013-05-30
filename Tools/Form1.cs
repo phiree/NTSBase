@@ -32,5 +32,10 @@ namespace Tools
         {
             new RenameImage().Show();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            new ImageRenameFromOldNtsCode().Show();
+        }
     }
 }
