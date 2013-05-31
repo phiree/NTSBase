@@ -37,10 +37,11 @@ public class ExcelExport
             HttpResponse Response = HttpContext.Current.Response;
             workbook.Write(exportData);
             Response.ContentType = "application/vnd.ms-excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
             Response.AddHeader("Content-Disposition", string.Format("attachment;filename={0}", saveFileName));
-            Response.Clear();
+            //Response.Clear();
             Response.BinaryWrite(exportData.GetBuffer());
-            Response.End();
+           // Response.End();
         }
     }
 }

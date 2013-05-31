@@ -38,9 +38,9 @@
             <div class="span-19 last" id="mainContent">
             <fieldset>
             <legend></legend>
-            <div class="info">
+            <p>
             <asp:ContentPlaceHolder runat="server" ID="pageDesc"   ></asp:ContentPlaceHolder>
-            </div>
+            </p>
             </fieldset>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>

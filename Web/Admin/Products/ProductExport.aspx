@@ -14,5 +14,13 @@
             <uc:ButtonExt runat="server" ID="btnExportImage" Text="导出图片" OnClick="btnExportImage_Click" />
         </div>
     </fieldset>
+
+     <fieldset>
+        <legend>没有图片的产品</legend>
+        <div>
+            <uc:ButtonExt runat="server" ID="btnExport_NoImage" Text="导出Excel" OnClick="btnExport_NoImage_Click" />
+          </div>
+    </fieldset>
+
     <asp:Label runat="server" CssClass="info" ID="lblMsg"></asp:Label>
 </asp:Content>

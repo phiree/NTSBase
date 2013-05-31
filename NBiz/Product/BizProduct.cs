@@ -213,7 +213,10 @@ namespace NBiz
             return DalProduct.GetProducts_English();
         }
 
-
+        public IList<Product> GetProductsNoImages()
+        {
+            return DalProduct.GetProductsNoImages();
+        }
 
 
     }

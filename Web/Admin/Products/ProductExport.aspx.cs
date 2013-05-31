@@ -26,6 +26,17 @@ public partial class Admin_Products_ProductExport : System.Web.UI.Page
                 return productToExport;
         }
     }
+    private IList<Product> ProductsNoImages
+    {
+        get
+        {
+            if (productToExport == null)
+            {
+                productToExport = bizProduct.GetProductsNoImages();
+            }
+            return productToExport;
+        }
+    }
 
     protected void btnExportExcel_Click(object sender, EventArgs e)
     {
@@ -54,5 +65,13 @@ public partial class Admin_Products_ProductExport : System.Web.UI.Page
 
         lblMsg.Text = "操作完成. 产品图片已保存于 \\192.168.1.44\\导出图片\\ ";
         NLogger.Logger.Debug("--导出结束--");
+    }
+
+    protected void btnExport_NoImage_Click(object sender, EventArgs e)
+    {
+        ExcelExport export = new ExcelExport("没有图片的产品" + DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+        export.ExportProductExcel(ProductsWithEnglish);
+        lblMsg.Text = "操作完成";
+       
     }
 }

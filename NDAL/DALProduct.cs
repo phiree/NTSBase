@@ -175,5 +175,12 @@ namespace NDAL
             int totalRecord;
             return GetList(query,"NTSCode",false,0,99999,out totalRecord );
         }
+
+        public IList<Product> GetProductsNoImages()
+        {
+            string query = "select p from Product p where  p.ProductImageUrls.size=0";
+            int totalRecord;
+            return GetList(query, "SupplierCode", false, 0, 99999, out totalRecord);
+        }
     }
 }
