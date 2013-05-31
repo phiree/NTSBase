@@ -10,7 +10,8 @@ using NLibrary;
 namespace NBiz
 {
     /// <summary>
-    /// 处理单个文件夹
+    /// 处理单个供应商文件夹
+    /// 包含一个 excel表格 和 图片,图片文件的物理结构不限.
     /// </summary>
     public class SingleFolderImport
     {
@@ -22,7 +23,7 @@ namespace NBiz
         public IList<FileInfo> ImagesHasProduct { get; private set; }
         public IList<FileInfo> ImagesNotHasProduct { get; private set; }
         /// <summary>
-        /// 文件夹路径
+        /// 包含Excel和图片的 文件夹
         /// </summary>
         public string FolderPath { private get; set; }
         /// <summary>
