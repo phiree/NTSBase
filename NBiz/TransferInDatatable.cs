@@ -320,6 +320,39 @@ namespace NBiz
             }
         }
 
+        public HSSFWorkbook CreateXslWorkBookFromDataTable(DataTable dt)
+        {
+          int  dataStartRowNumber = 0;
+
+            if (dataStartRowNumber < 0)
+                throw new Exception("dataStartRowNumber必须大于等于0");
+            HSSFWorkbook book = new HSSFWorkbook();
+            var sheet = book.CreateSheet("产品报价单");
+            DataColumnCollection cols = dt.Columns;
+            //创建表头
+            for (int h = 0; h <= dataStartRowNumber; h++)
+            {
+                IRow headrow = sheet.CreateRow(h);
+                if (h == dataStartRowNumber)
+                {
+                    CreateCellForRow(headrow, cols, null, true);
+                }
+                else
+                {
+                    CreateCellForRow(headrow, cols, null, false);
+                }
+
+            }
+            //填充内容
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var dataRow = dt.Rows[i];
+                var excelRow = sheet.CreateRow(dataStartRowNumber + 1 + i);
+                CreateCellForRow(excelRow, cols, dataRow, false);
+            }
+            //物理保存
+            return book;
+        }
         /// <summary>
         /// 根据datatable
         /// </summary>
@@ -357,6 +390,7 @@ namespace NBiz
               CreateCellForRow(excelRow, cols, dataRow, false);
             }
             //物理保存
+
             IOHelper.EnsureFile(savePath);
             FileStream fsOut=new FileStream(savePath,FileMode.Create);
             book.Write(fsOut);

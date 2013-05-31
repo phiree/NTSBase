@@ -52,4 +52,10 @@ namespace NModel.Enums
         skip,//跳过
         throwException//抛出错误
     }
+    //图片导出的结构
+    public enum ImageOutPutStratage
+    { 
+        SupplierName_ModelNumber,// 供应商/型号.扩展名
+        Category_NTsCode,//分类/ntscode.扩展名
+    }
 }

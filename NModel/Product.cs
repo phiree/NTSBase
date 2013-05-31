@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NModel.Enums;
 using System.ComponentModel;
+using System.IO;
 namespace NModel
 {
     public class Product
@@ -14,11 +17,13 @@ namespace NModel
             Id = Guid.NewGuid();
             CreateTime = LastUpdateTime = DateTime.Now;
             ProductImageUrls = new List<string>();
+            
         }
         private IList<MultiLanguageItem> ValuesOfMultiLanguage { get; set; }
-
-
+        //en,zh,fr,de等 多语言实现: 同一个表,语言类型字段分辨~
+        public virtual string Language { get; set; }
         public virtual Guid Id { get; set; }
+        [Description("NTS编码")]
         public virtual string NTSCode { get; set; }
         public virtual string EnglishName { get; set; }
         /// <summary>
@@ -109,7 +114,7 @@ namespace NModel
         /// <returns></returns>
         public virtual string BuildImageNameNoExtension(string extensionWithDot)
         {
-            return (Name + SupplierName + ModelNumber).GetHashCode().ToString()+extensionWithDot;
+            return (Name + SupplierName + ModelNumber).GetHashCode().ToString() + extensionWithDot;
         }
         public virtual void CopyFrom(Product newProduct)
         {
@@ -136,7 +141,48 @@ namespace NModel
             this.TaxRate = newProduct.TaxRate;
             this.Unit = newProduct.Unit;
             this.ValuesOfMultiLanguage = newProduct.ValuesOfMultiLanguage;
-            
+
+        }
+
+        /// <summary>
+        /// 为导出的图片生成路径(目前只支持一张图片)
+        /// </summary>
+        /// <param name="rootPath"></param>
+        /// <param name="imageOutPutStratage"></param>
+        /// <returns> 
+        ///  key:原图片名称
+        ///  value: 每一级文件夹名称.+ 目标文件名称
+        /// </returns>
+        public virtual Stack<string> BuildImageOutputName(Enums.ImageOutPutStratage imageOutPutStratage)
+        {
+            Stack<string> imagesToExport = new Stack<string>();
+            string imageUrl = string.Empty;
+            int imageCount = ProductImageUrls.Count;
+            if (imageCount == 0) return imagesToExport;
+
+            imageUrl = ProductImageUrls[0];
+
+            string imageExtension = Path.GetExtension(imageUrl);
+
+            string targetFileName = string.Empty;
+            switch (imageOutPutStratage)
+            {
+                case ImageOutPutStratage.Category_NTsCode:
+                    string nameee = NTSCode;
+                    if (string.IsNullOrEmpty(NTSCode))
+                        nameee = Guid.NewGuid().ToString();
+                    imagesToExport.Push(nameee + imageExtension);//文件名称
+                    imagesToExport.Push(CategoryCode);
+
+                    break;
+                case ImageOutPutStratage.SupplierName_ModelNumber:
+                    imagesToExport.Push(ModelNumber + imageExtension);//文件名称
+                    imagesToExport.Push(SupplierName);
+                    break;
+                default: throw new Exception("No Such Stratage");
+            }
+            return imagesToExport;
+
         }
     }
 

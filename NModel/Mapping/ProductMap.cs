@@ -36,6 +36,7 @@ namespace NModel.Mapping
             Map(x => x.MoneyType);
             Map(x => x.ImageState);
             References<ImportOperationLog>(x => x.ImportOperationLog);
+            Map(x => x.Language);
         }
     }
 }

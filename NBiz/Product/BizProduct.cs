@@ -204,7 +204,14 @@ namespace NBiz
 
         }
 
-        
+        /// <summary>
+        /// 翻译过的产品资料
+        /// </summary>
+        /// <returns></returns>
+        public IList<Product> GetProducts_English()
+        {
+            return DalProduct.GetProducts_English();
+        }
 
 
 

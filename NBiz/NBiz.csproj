@@ -63,6 +63,7 @@
     <Compile Include="Category\CategoryExcelReader.cs" />
     <Compile Include="NTSMemberShip\NTSMembershipProvider.cs" />
     <Compile Include="Product\ProductComparer.cs" />
+    <Compile Include="Product\ProductImagesExport.cs" />
     <Compile Include="Product\ProductImportor.cs" />
     <Compile Include="IDataTableConverter.cs" />
     <Compile Include="Product\ProductImageImporter.cs" />

@@ -168,5 +168,12 @@ namespace NDAL
             return GetList(queryover);
         }
 
+
+        public IList<Product> GetProducts_English()
+        {
+            string query = "select p from Product p where p.Language='en'";
+            int totalRecord;
+            return GetList(query,"NTSCode",false,0,99999,out totalRecord );
+        }
     }
 }
