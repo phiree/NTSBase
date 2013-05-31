@@ -21,24 +21,37 @@ namespace NBiz
             List<ImageExportModel> images = new List<ImageExportModel>();
             foreach (Product p in products)
             {
-                if (p.ProductImageUrls.Count == 0) return;
+             
+                if (p.ProductImageUrls.Count == 0)
+                {
+                    NLogger.Logger.Debug(string.Format( "skip,({0})对应图片数量为0",p.NTSCode));
+                    continue; }
+              
                 Stack<string> pathStacks = p.BuildImageOutputName(stratage);
-                if (pathStacks.Count == 0) return;
+                if (pathStacks.Count == 0) {
+                    NLogger.Logger.Debug(string.Format("(skip,{0})生成路径节点为0", p.NTSCode));
+
+                    continue;
+                }
                 string pathFromStack = string.Empty;//根据stack中的节点值 构建路径.
-                switch (stratage)
+              
+               switch (stratage)
                 {
                     case NModel.Enums.ImageOutPutStratage.Category_NTsCode:
                         //获取分类的名称
-
-                        pathFromStack = bizCate.GetCateName(pathStacks.Pop());
+                        string cc = pathStacks.Pop();
+                        pathFromStack = "(" + cc + ")" + bizCate.GetCateName(cc);
 
                         break;
                     case NModel.Enums.ImageOutPutStratage.SupplierName_ModelNumber:
                         pathFromStack = pathStacks.Pop();
                         break;
+                    default: throw new Exception("No Such Stratage");
                 }
                 string imageFileNew = pathStacks.Pop();
                 string fullPath = rootPathExport + pathFromStack + "\\" + imageFileNew;
+               
+             
                 ImageExportModel iem =
                     new ImageExportModel 
                     {
