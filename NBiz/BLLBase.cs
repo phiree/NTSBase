@@ -42,7 +42,7 @@ namespace NBiz
         {
             DalBase.SaveOrUpdate(t);
         }
-        public void Save(T t)
+        public virtual void Save(T t)
         {
             DalBase.Save(t);
         }

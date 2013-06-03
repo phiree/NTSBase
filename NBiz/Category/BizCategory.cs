@@ -41,12 +41,13 @@ namespace NBiz
             ImportToDatabaseFromExcel<Category> importor = new ImportToDatabaseFromExcel<Category>(CategoryReader, this);
             return importor.ReadList(stream, out  errMsg);
         }
+
         public override IList<Category> SaveList(IList<Category> list, out string errMsg)
         {
             errMsg = string.Empty;
-            base.SaveList(list);
+            DalCategory.SaveList(list);
             return list;
-            
+
         }
         public Category GetOneByCode(string code)
         {

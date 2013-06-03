@@ -70,7 +70,7 @@ public partial class Admin_Products_ProductExport : System.Web.UI.Page
     protected void btnExport_NoImage_Click(object sender, EventArgs e)
     {
         ExcelExport export = new ExcelExport("没有图片的产品" + DateTime.Now.ToString("yyyyMMdd-HHmmss"));
-        export.ExportProductExcel(ProductsWithEnglish);
+        export.ExportProductExcel(ProductsNoImages);
         lblMsg.Text = "操作完成";
        
     }
