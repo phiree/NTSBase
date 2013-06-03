@@ -168,10 +168,14 @@ namespace NDAL
             return GetList(queryover);
         }
 
-
-        public IList<Product> GetProducts_English()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="beginDate">哪一天之后导入的.</param>
+        /// <returns></returns>
+        public IList<Product> GetProducts_English(DateTime beginDate)
         {
-            string query = "select p from Product p where p.Language='en'";
+            string query = "select p from Product p where p.Language='en' and lastupdatetime>'" + beginDate+ "'";
             int totalRecord;
             return GetList(query,"NTSCode",false,0,99999,out totalRecord );
         }

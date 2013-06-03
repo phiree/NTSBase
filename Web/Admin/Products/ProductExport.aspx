@@ -9,7 +9,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <fieldset>
         <legend>英文产品资料</legend>
-        <div>
+        <div>  导出<asp:TextBox runat="server" ID="tbxBeginDate"></asp:TextBox>之后的产品
+        
             <uc:ButtonExt runat="server" ID="btnExportExcel" Text="导出Excel" OnClick="btnExportExcel_Click" />
             <uc:ButtonExt runat="server" ID="btnExportImage" Text="导出图片" OnClick="btnExportImage_Click" />
         </div>
@@ -18,7 +19,7 @@
      <fieldset>
         <legend>没有图片的产品</legend>
         <div>
-            <uc:ButtonExt runat="server" ID="btnExport_NoImage" Text="导出Excel" OnClick="btnExport_NoImage_Click" />
+           <uc:ButtonExt runat="server" ID="btnExport_NoImage" Text="导出Excel" OnClick="btnExport_NoImage_Click" />
           </div>
     </fieldset>
 

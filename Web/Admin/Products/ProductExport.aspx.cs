@@ -19,10 +19,9 @@ public partial class Admin_Products_ProductExport : System.Web.UI.Page
     private IList<Product> ProductsWithEnglish
     {
         get {
-            if (productToExport == null)
-            {
-                productToExport = bizProduct.GetProducts_English();
-            }
+           
+                productToExport = bizProduct.GetProducts_English(Convert.ToDateTime(tbxBeginDate.Text ));
+           
                 return productToExport;
         }
     }

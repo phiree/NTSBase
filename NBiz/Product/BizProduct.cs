@@ -208,9 +208,9 @@ namespace NBiz
         /// 翻译过的产品资料
         /// </summary>
         /// <returns></returns>
-        public IList<Product> GetProducts_English()
+        public IList<Product> GetProducts_English(DateTime begindate)
         {
-            return DalProduct.GetProducts_English();
+            return DalProduct.GetProducts_English(begindate);
         }
 
         public IList<Product> GetProductsNoImages()
