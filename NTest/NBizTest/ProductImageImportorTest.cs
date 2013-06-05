@@ -40,7 +40,7 @@ namespace NTest
 
             dalProduct.Expect(x => x.GetListBySupplierCode("001"))
              .Return(Builder<Product>.CreateListOfSize(2)
-             .TheFirst(1).With(x => x.ModelNumber = "KNB$5029")
+             .TheFirst(1).With(x => x.ModelNumber = "KNB$5029")//特殊情况1: 美元符号是全角字符
              .Build());
             dalProduct.Expect(x => x.GetListBySupplierCode("002"))
            .Return(Builder<Product>.CreateListOfSize(2)

@@ -70,7 +70,6 @@
     <Compile Include="ImportLog\BizImportLog.cs" />
     <Compile Include="Product\BizProduct.cs" />
     <Compile Include="BLLBase.cs" />
-    <Compile Include="ImageCopy.cs" />
     <Compile Include="ImageExtractor.cs" />
     <Compile Include="ImportFromExcel.cs" />
     <Compile Include="Product\RowPolulate.cs" />
